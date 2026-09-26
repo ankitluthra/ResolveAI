@@ -2,7 +2,7 @@
 
 Last reviewed: 2026-09-26
 
-This file tracks work that has been implemented and work that still needs live verification. Update it when a milestone is completed, with a link to the relevant commit or evidence. The full original project brief is stored locally in `.local/project-idea.md` and is excluded from Git.
+This is the living record for ResolveAI. Add newly discovered work to the relevant section, check off items only after verification, and update the review date. For completed milestones, add a dated note under **Progress log** with a commit or other evidence. Keep pending work visible rather than deleting it. The full original project brief is stored locally in `.local/project-idea.md` and is excluded from Git.
 
 ## Done
 
@@ -47,3 +47,7 @@ This file tracks work that has been implemented and work that still needs live v
 ## Current dependency
 
 Live provider verification needs Azure and Coveo accounts and credentials in the local, ignored `.env` file. OpenAI credentials are only needed for the optional answer flow. Never put credentials or copied provider responses containing private data in Git.
+
+## Progress log
+
+- **2026-09-26:** Established this tracker and saved the full original brief locally. The brief is ignored by Git; the tracker and ignore rule were published in commit `89600d9`.
