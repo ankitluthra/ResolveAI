@@ -1,0 +1,125 @@
+import json
+from pathlib import Path
+
+import httpx
+import pytest
+from apps.api.app.main import app
+from apps.api.app.models.domain import SearchFilters
+from apps.api.app.providers.azure_search import AzureSearchProvider, azure_filter
+from apps.api.app.providers.coveo import CoveoSearchProvider, coveo_context
+from evals.evaluator import metric_for_query
+from fastapi.testclient import TestClient
+from ingestion.connectors.local import fetch_local
+from ingestion.normalizer import normalize
+from pydantic import ValidationError
+
+ROOT = Path(__file__).resolve().parents[3]
+
+
+def test_normalized_corpus_and_stable_ids():
+    docs = fetch_local(ROOT / "data/synthetic")
+    assert len(docs) == 250
+    assert len({item.id for item in docs}) == 250
+    assert {item.source_type for item in docs} == {
+        "documentation",
+        "faq",
+        "github_issue",
+        "support_ticket",
+        "release_note",
+    }
+    assert all(item.metadata["synthetic"] for item in docs)
+    with pytest.raises(ValidationError):
+        normalize({"id": "bad", "title": "x", "content": "x"}, "unknown")
+
+
+def test_evaluation_set_references_real_documents():
+    docs = {item.id for item in fetch_local(ROOT / "data/synthetic")}
+    cases = json.loads((ROOT / "evals/dataset.json").read_text())
+    assert len(cases) >= 20
+    assert all(set(case["expected_document_ids"]).issubset(docs) for case in cases)
+    assert metric_for_query(["a"], ["b", "a"]) == {"hit_at_1": 0.0, "hit_at_3": 1.0, "mrr": 0.5}
+    assert metric_for_query(["a"], ["b"]) == {"hit_at_1": 0.0, "hit_at_3": 0.0, "mrr": 0.0}
+
+
+def test_filters_escape_input():
+    filters = SearchFilters(product="Bob's API", visibility="public")
+    assert "Bob''s API" in azure_filter(filters)
+    assert '@ra_visibility=="public"' in coveo_context(filters)
+
+
+def test_api_validation_and_missing_configuration():
+    client = TestClient(app)
+    assert client.get("/health").status_code == 200
+    assert client.get("/api/search", params={"q": "a"}).status_code == 422
+    assert (
+        client.get("/api/search", params={"q": "oauth", "provider": "invalid"}).status_code == 422
+    )
+    assert client.get("/api/search", params={"q": "oauth", "provider": "azure"}).status_code == 503
+    assert client.get("/api/documents/doc-001").json()["id"] == "doc-001"
+    assert client.get("/api/documents/missing").status_code == 404
+    assert len(client.get("/api/evaluations").json()["dataset"]) >= 20
+
+
+@pytest.mark.asyncio
+async def test_azure_search_adapter_maps_response():
+    from apps.api.app.core.config import Settings
+
+    def handler(request: httpx.Request):
+        assert request.headers["api-key"] == "test-key"
+        assert request.url.path.endswith("/docs/search.post.search")
+        assert request.read() is not None
+        return httpx.Response(
+            200,
+            json={
+                "@odata.count": 1,
+                "value": [
+                    {
+                        "id": "doc-001",
+                        "title": "OAuth",
+                        "content": "Rotate secret",
+                        "source_type": "documentation",
+                        "@search.score": 2.5,
+                    }
+                ],
+            },
+        )
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        provider = AzureSearchProvider(
+            Settings(
+                azure_search_endpoint="https://test.search.windows.net",
+                azure_search_api_key="test-key",
+            ),
+            client,
+        )
+        response = await provider.search("oauth")
+    assert response.provider == "azure" and response.results[0].id == "doc-001"
+
+
+@pytest.mark.asyncio
+async def test_coveo_search_adapter_maps_response():
+    from apps.api.app.core.config import Settings
+
+    def handler(request: httpx.Request):
+        assert request.headers["Authorization"] == "Bearer test-key"
+        return httpx.Response(
+            200,
+            json={
+                "totalCount": 1,
+                "results": [
+                    {
+                        "title": "OAuth",
+                        "excerpt": "Rotate secret",
+                        "score": 20,
+                        "raw": {"ra_id": "doc-001", "ra_source_type": "documentation"},
+                    }
+                ],
+            },
+        )
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        provider = CoveoSearchProvider(
+            Settings(coveo_org_id="test", coveo_source_id="src", coveo_api_key="test-key"), client
+        )
+        response = await provider.search("oauth")
+    assert response.provider == "coveo" and response.results[0].id == "doc-001"
