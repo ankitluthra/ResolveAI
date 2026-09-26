@@ -1,5 +1,7 @@
 # ResolveAI
 
+[![CI](https://github.com/ankitluthra/ResolveAI/actions/workflows/ci.yml/badge.svg)](https://github.com/ankitluthra/ResolveAI/actions/workflows/ci.yml)
+
 ResolveAI is an enterprise support intelligence prototype that unifies fragmented technical knowledge and evaluates Coveo and Azure AI Search as retrieval platforms for search and grounded AI experiences.
 
 ## Customer problem
