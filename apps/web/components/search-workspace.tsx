@@ -83,6 +83,33 @@ function ResultCard({ item, index }: { item: SearchResult; index: number }) {
     </article>
   );
 }
+function CategoryFilter({
+  value,
+  onApply,
+}: {
+  value: string;
+  onApply: (value: string) => void;
+}) {
+  const [draft, setDraft] = useState(value);
+  return (
+    <form
+      className="category-filter"
+      onSubmit={(event) => {
+        event.preventDefault();
+        if (draft.trim() !== value) onApply(draft.trim());
+      }}
+    >
+      <input
+        className="filter-text"
+        aria-label="Category"
+        placeholder="e.g. OAuth"
+        value={draft}
+        onChange={(event) => setDraft(event.target.value)}
+      />
+      <button type="submit">Apply</button>
+    </form>
+  );
+}
 export default function SearchPage() {
   const router = useRouter();
   const params = useSearchParams();
@@ -315,12 +342,10 @@ export default function SearchPage() {
             </div>
             <div className="filter-group">
               <h3>Category</h3>
-              <input
-                className="filter-text"
-                aria-label="Category"
-                placeholder="e.g. OAuth"
+              <CategoryFilter
+                key={category}
                 value={category}
-                onChange={(e) => update("category", e.target.value)}
+                onApply={(value) => update("category", value)}
               />
             </div>
             <div className="filter-group">

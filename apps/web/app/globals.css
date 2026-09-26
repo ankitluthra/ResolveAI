@@ -1112,3 +1112,13 @@ a {
 .filter-group .filter-date + h3 {
   margin-top: 15px;
 }
+.category-filter button {
+  margin-top: 8px;
+  padding: 6px 10px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  color: #2d4963;
+  font-size: 11px;
+  cursor: pointer;
+}
