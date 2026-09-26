@@ -1,9 +1,11 @@
+import { Suspense } from "react";
+import SearchWorkspace from "@/components/search-workspace";
 export default function Page() {
   return (
-    <div className="workspace">
-      <div className="eyebrow">SUPPORT WORKSPACE</div>
-      <h1>ResolveAI</h1>
-      <p>AcmeCloud support knowledge in one workspace.</p>
-    </div>
+    <Suspense
+      fallback={<div className="workspace">Loading search workspace…</div>}
+    >
+      <SearchWorkspace />
+    </Suspense>
   );
 }
