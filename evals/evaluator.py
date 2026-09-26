@@ -23,7 +23,9 @@ def metric_for_query(expected: list[str], returned: list[str]) -> dict[str, floa
     }
 
 
-async def run_evaluation(provider_name: ProviderName, provider: SearchProvider) -> dict:
+async def run_evaluation(
+    provider_name: ProviderName, provider: SearchProvider, variant: str = "baseline"
+) -> dict:
     dataset_bytes = DATASET.read_bytes()
     dataset = json.loads(dataset_bytes)
     rows = []
@@ -48,6 +50,7 @@ async def run_evaluation(provider_name: ProviderName, provider: SearchProvider) 
     )
     result = {
         "provider": provider_name,
+        "variant": variant,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "query_count": count,
         "dataset_sha256": sha256(dataset_bytes).hexdigest(),
@@ -56,7 +59,8 @@ async def run_evaluation(provider_name: ProviderName, provider: SearchProvider) 
         "queries": rows,
     }
     RESULTS.mkdir(parents=True, exist_ok=True)
-    (RESULTS / f"{provider_name}.json").write_text(json.dumps(result, indent=2) + "\n")
+    filename = f"{provider_name}.json" if variant == "baseline" else f"{provider_name}-{variant}.json"
+    (RESULTS / filename).write_text(json.dumps(result, indent=2) + "\n")
     return result
 
 

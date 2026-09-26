@@ -200,6 +200,9 @@ async def test_evaluation_records_input_fingerprints(tmp_path, monkeypatch):
     assert result["dataset_sha256"] == sha256(evaluator.DATASET.read_bytes()).hexdigest()
     assert result["corpus_sha256"] == sha256(evaluator.CORPUS.read_bytes()).hexdigest()
     assert (tmp_path / "azure.json").exists()
+    variant = await evaluator.run_evaluation("azure", EmptyProvider(), "semantic")
+    assert variant["variant"] == "semantic"
+    assert (tmp_path / "azure-semantic.json").exists()
 
 
 def test_incremental_sync_identifies_update_and_delete():
@@ -244,3 +247,52 @@ async def test_provider_delete_calls_use_stable_ids():
             client,
         )
         assert await provider.delete(["doc-001"]) == (1, 0)
+
+
+@pytest.mark.asyncio
+async def test_azure_semantic_variant_configures_index_and_query():
+    from apps.api.app.core.config import Settings
+
+    seen = []
+
+    def handler(request: httpx.Request):
+        if request.method == "GET":
+            return httpx.Response(200, json={"name": "resolveai-knowledge", "fields": [{"name": "id"}]})
+        body = json.loads(request.read())
+        seen.append(body)
+        if request.method == "PUT":
+            return httpx.Response(200, json=body)
+        return httpx.Response(200, json={"value": []})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        provider = AzureSearchProvider(
+            Settings(
+                azure_search_endpoint="https://test.search.windows.net",
+                azure_search_api_key="test-key",
+            ),
+            client,
+            semantic=True,
+        )
+        await provider.enable_semantic_config()
+        await provider.search("OAuth rotation")
+    assert seen[0]["fields"] == [{"name": "id"}]
+    assert seen[0]["semantic"]["configurations"][0]["name"] == "resolveai-semantic"
+    assert seen[1]["queryType"] == "semantic"
+    assert seen[1]["semanticConfiguration"] == "resolveai-semantic"
+
+
+@pytest.mark.asyncio
+async def test_coveo_pipeline_variant_selects_named_pipeline():
+    from apps.api.app.core.config import Settings
+
+    def handler(request: httpx.Request):
+        assert request.url.params["pipeline"] == "ResolveAI Experiment"
+        return httpx.Response(200, json={"results": []})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        provider = CoveoSearchProvider(
+            Settings(coveo_org_id="test", coveo_source_id="src", coveo_api_key="test-key"),
+            client,
+            pipeline="ResolveAI Experiment",
+        )
+        await provider.search("OAuth rotation")

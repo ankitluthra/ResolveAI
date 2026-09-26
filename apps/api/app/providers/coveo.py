@@ -33,13 +33,16 @@ def document_uri(document_id: str) -> str:
 
 
 class CoveoSearchProvider:
-    def __init__(self, settings: Settings, client: httpx.AsyncClient | None = None):
+    def __init__(
+        self, settings: Settings, client: httpx.AsyncClient | None = None, *, pipeline: str = ""
+    ):
         if not settings.coveo_org_id or not settings.coveo_api_key or not settings.coveo_source_id:
             raise ValueError("Coveo is not configured")
         self.settings = settings
         self.client = client or httpx.AsyncClient(timeout=20)
         self.headers = {"Authorization": f"Bearer {settings.coveo_api_key}"}
         self.failed_ids: list[str] = []
+        self.pipeline = pipeline
         self.search_url = (
             settings.coveo_search_endpoint
             or f"https://{settings.coveo_org_id}.org.coveo.com/rest/search/v2"
@@ -60,6 +63,7 @@ class CoveoSearchProvider:
             context += f" AND {extra}"
         response = await self.client.post(
             self.search_url,
+            params={"pipeline": self.pipeline} if self.pipeline else None,
             headers=self.headers,
             json={
                 "q": query,

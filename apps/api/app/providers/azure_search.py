@@ -47,7 +47,9 @@ INDEX_FIELDS = [
 
 
 class AzureSearchProvider:
-    def __init__(self, settings: Settings, client: httpx.AsyncClient | None = None):
+    def __init__(
+        self, settings: Settings, client: httpx.AsyncClient | None = None, *, semantic: bool = False
+    ):
         if not settings.azure_search_endpoint or not settings.azure_search_api_key:
             raise ValueError("Azure AI Search is not configured")
         self.settings = settings
@@ -58,22 +60,28 @@ class AzureSearchProvider:
         self.params = {"api-version": settings.azure_search_api_version}
         self.headers = {"api-key": settings.azure_search_api_key}
         self.failed_ids: list[str] = []
+        self.semantic = semantic
 
     async def search(
         self, query: str, filters: SearchFilters | None = None, limit: int = 10
     ) -> SearchResponse:
         start = perf_counter()
+        body = {
+            "search": query,
+            "filter": azure_filter(filters),
+            "top": limit,
+            "count": True,
+            "searchFields": "title,content",
+        }
+        if self.semantic:
+            body.update(
+                {"queryType": "semantic", "semanticConfiguration": self.settings.azure_semantic_config}
+            )
         response = await self.client.post(
             f"{self.base}/docs/search.post.search",
             params=self.params,
             headers=self.headers,
-            json={
-                "search": query,
-                "filter": azure_filter(filters),
-                "top": limit,
-                "count": True,
-                "searchFields": "title,content",
-            },
+            json=body,
         )
         response.raise_for_status()
         payload = response.json()
@@ -86,7 +94,7 @@ class AzureSearchProvider:
                 product=item.get("product"),
                 category=item.get("category"),
                 url=item.get("url"),
-                score=item.get("@search.score"),
+                score=item.get("@search.rerankerScore") if self.semantic else item.get("@search.score"),
                 tags=item.get("tags") or [],
                 visibility=item.get("visibility", "public"),
                 updated_at=item.get("updated_at"),
@@ -108,6 +116,28 @@ class AzureSearchProvider:
             params=self.params,
             headers=self.headers,
             json={"name": self.settings.azure_search_index, "fields": INDEX_FIELDS},
+        )
+        response.raise_for_status()
+
+    async def enable_semantic_config(self) -> None:
+        response = await self.client.get(self.base, params=self.params, headers=self.headers)
+        response.raise_for_status()
+        index = response.json()
+        semantic = index.setdefault("semantic", {})
+        configurations = semantic.setdefault("configurations", [])
+        configuration = {
+            "name": self.settings.azure_semantic_config,
+            "prioritizedFields": {
+                "titleField": {"fieldName": "title"},
+                "prioritizedContentFields": [{"fieldName": "content"}],
+            },
+        }
+        configurations = [
+            item for item in configurations if item.get("name") != configuration["name"]
+        ]
+        semantic["configurations"] = [*configurations, configuration]
+        response = await self.client.put(
+            self.base, params=self.params, headers=self.headers, json=index
         )
         response.raise_for_status()
 
