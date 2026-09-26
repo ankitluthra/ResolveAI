@@ -3,8 +3,15 @@ from datetime import UTC, datetime
 import httpx
 import pytest
 from apps.api.app.core.config import Settings
-from apps.api.app.models.domain import AnswerRequest, SearchResponse, SearchResult
+from apps.api.app.models.domain import (
+    AnswerRequest,
+    AnswerResponse,
+    AnswerSource,
+    SearchResponse,
+    SearchResult,
+)
 from apps.api.app.services.answers import FALLBACK, generate_answer
+from evals.answer_evaluator import score_answer
 
 
 def response(results: list[SearchResult]) -> SearchResponse:
@@ -85,3 +92,26 @@ async def test_valid_citation_maps_to_retrieved_source():
             client,
         )
     assert not answer.insufficient_evidence and [item.id for item in answer.sources] == ["doc-001"]
+
+
+def test_answer_scoring_separates_abstention_and_citation_checks():
+    case = {"expected_abstain": False, "expected_document_ids": ["doc-001"]}
+    answer = AnswerResponse(
+        answer="Use the replacement secret [doc-001].",
+        provider="azure",
+        search_latency_ms=10,
+        generation_latency_ms=20,
+        sources=[AnswerSource(id="doc-001", title="OAuth rotation")],
+        insufficient_evidence=False,
+    )
+    assert score_answer(case, answer) == {
+        "abstention_correct": True,
+        "expected_citation_hit": True,
+    }
+    abstain = answer.model_copy(
+        update={"answer": FALLBACK, "sources": [], "insufficient_evidence": True}
+    )
+    assert score_answer({"expected_abstain": True, "expected_document_ids": []}, abstain) == {
+        "abstention_correct": True,
+        "expected_citation_hit": None,
+    }
