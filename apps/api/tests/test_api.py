@@ -123,3 +123,54 @@ async def test_coveo_search_adapter_maps_response():
         )
         response = await provider.search("oauth")
     assert response.provider == "coveo" and response.results[0].id == "doc-001"
+
+
+@pytest.mark.asyncio
+async def test_azure_upload_reports_missing_item_status_as_failure():
+    from apps.api.app.core.config import Settings
+
+    documents = fetch_local(ROOT / "data/synthetic")[:2]
+
+    def handler(request: httpx.Request):
+        assert request.url.path.endswith("/docs/index")
+        return httpx.Response(200, json={"value": [{"key": documents[0].id, "status": True}]})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        provider = AzureSearchProvider(
+            Settings(
+                azure_search_endpoint="https://test.search.windows.net",
+                azure_search_api_key="test-key",
+            ),
+            client,
+        )
+        succeeded, failed = await provider.upload(documents)
+    assert (succeeded, failed) == (1, 1)
+    assert provider.failed_ids == [documents[1].id]
+
+
+@pytest.mark.asyncio
+async def test_coveo_upload_reports_failed_document_and_configured_source():
+    from apps.api.app.core.config import Settings
+
+    documents = fetch_local(ROOT / "data/synthetic")[:1]
+
+    def handler(request: httpx.Request):
+        if request.method == "POST":
+            assert json.loads(request.read())["cq"] == '@source=="My Source"'
+            return httpx.Response(200, json={"results": []})
+        return httpx.Response(429, json={"message": "rate limited"})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(handler)) as client:
+        provider = CoveoSearchProvider(
+            Settings(
+                coveo_org_id="test",
+                coveo_source_id="src",
+                coveo_source_name="My Source",
+                coveo_api_key="test-key",
+            ),
+            client,
+        )
+        await provider.search("oauth")
+        succeeded, failed = await provider.upload(documents)
+    assert (succeeded, failed) == (0, 1)
+    assert provider.failed_ids == [documents[0].id]

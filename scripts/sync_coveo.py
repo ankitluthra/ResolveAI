@@ -22,8 +22,11 @@ async def main():
     finally:
         await provider.client.aclose()
     print(
-        f"ResolveAI Sync — Coveo\nDocuments read: {len(documents)}\nIndexed: {indexed}\nFailed: {failed}\nDuration: {perf_counter() - start:.1f}s"
+        f"ResolveAI Sync — Coveo\nDocuments read: {len(documents)}\nAccepted for processing: {indexed}\nRequest failures: {failed}\nDuration: {perf_counter() - start:.1f}s"
     )
+    if provider.failed_ids:
+        print(f"Failed document IDs: {', '.join(provider.failed_ids)}")
+    print("Check the Coveo source status and searchable item count before evaluation.")
     if failed:
         raise SystemExit(1)
 

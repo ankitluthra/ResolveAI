@@ -23,8 +23,10 @@ async def main():
     finally:
         await provider.client.aclose()
     print(
-        f"ResolveAI Sync — Azure AI Search\nDocuments read: {len(documents)}\nIndexed: {indexed}\nFailed: {failed}\nDuration: {perf_counter() - start:.1f}s"
+        f"ResolveAI Sync — Azure AI Search\nDocuments read: {len(documents)}\nUpload succeeded: {indexed}\nFailed: {failed}\nDuration: {perf_counter() - start:.1f}s"
     )
+    if provider.failed_ids:
+        print(f"Failed document IDs: {', '.join(provider.failed_ids)}")
     if failed:
         raise SystemExit(1)
 

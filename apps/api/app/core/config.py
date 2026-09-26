@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     coveo_org_id: str = ""
     coveo_api_key: str = ""
     coveo_source_id: str = ""
+    coveo_source_name: str = "ResolveAI Knowledge"
     coveo_push_base_url: str = "https://api.cloud.coveo.com"
     coveo_search_endpoint: str = ""
     openai_api_key: str = ""

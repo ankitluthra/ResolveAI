@@ -35,6 +35,7 @@ class CoveoSearchProvider:
         self.settings = settings
         self.client = client or httpx.AsyncClient(timeout=20)
         self.headers = {"Authorization": f"Bearer {settings.coveo_api_key}"}
+        self.failed_ids: list[str] = []
         self.search_url = (
             settings.coveo_search_endpoint
             or f"https://{settings.coveo_org_id}.org.coveo.com/rest/search/v2"
@@ -48,7 +49,8 @@ class CoveoSearchProvider:
         self, query: str, filters: SearchFilters | None = None, limit: int = 10
     ) -> SearchResponse:
         start = perf_counter()
-        context = '@source=="ResolveAI Knowledge"'
+        source_name = re.sub(r'[^\w .:/-]', '', self.settings.coveo_source_name)
+        context = f'@source=="{source_name}"'
         extra = coveo_context(filters)
         if extra:
             context += f" AND {extra}"
@@ -106,6 +108,7 @@ class CoveoSearchProvider:
 
     async def upload(self, documents: list[KnowledgeDocument]) -> tuple[int, int]:
         succeeded = failed = 0
+        self.failed_ids = []
         for doc in documents:
             uri = f"https://docs.acmecloud.example/knowledge/{quote(doc.id)}"
             body = {
@@ -130,4 +133,5 @@ class CoveoSearchProvider:
                 succeeded += 1
             except httpx.HTTPError:
                 failed += 1
+                self.failed_ids.append(doc.id)
         return succeeded, failed

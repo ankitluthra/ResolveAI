@@ -57,6 +57,7 @@ class AzureSearchProvider:
         )
         self.params = {"api-version": settings.azure_search_api_version}
         self.headers = {"api-key": settings.azure_search_api_key}
+        self.failed_ids: list[str] = []
 
     async def search(
         self, query: str, filters: SearchFilters | None = None, limit: int = 10
@@ -114,6 +115,7 @@ class AzureSearchProvider:
         import json
 
         succeeded = failed = 0
+        self.failed_ids = []
         for start in range(0, len(documents), 100):
             batch = []
             for doc in documents[start : start + 100]:
@@ -128,9 +130,13 @@ class AzureSearchProvider:
                 json={"value": batch},
             )
             response.raise_for_status()
-            for result in response.json().get("value", []):
-                if result.get("status"):
+            results = response.json().get("value", [])
+            by_key = {result.get("key"): result for result in results}
+            for item in batch:
+                result = by_key.get(item["id"])
+                if result and result.get("status") is True:
                     succeeded += 1
                 else:
                     failed += 1
+                    self.failed_ids.append(item["id"])
         return succeeded, failed
