@@ -39,10 +39,14 @@ def test_normalized_corpus_and_stable_ids():
 def test_evaluation_set_references_real_documents():
     docs = {item.id for item in fetch_local(ROOT / "data/synthetic")}
     cases = json.loads((ROOT / "evals/dataset.json").read_text())
-    assert len(cases) >= 20
+    assert len(cases) == 25
     assert all(set(case["expected_document_ids"]).issubset(docs) for case in cases)
     assert metric_for_query(["a"], ["b", "a"]) == {"hit_at_1": 0.0, "hit_at_3": 1.0, "mrr": 0.5}
     assert metric_for_query(["a"], ["b"]) == {"hit_at_1": 0.0, "hit_at_3": 0.0, "mrr": 0.0}
+    answer_cases = json.loads((ROOT / "evals/answer_dataset.json").read_text())
+    assert len(answer_cases) == 8
+    assert all(set(case["expected_document_ids"]).issubset(docs) for case in answer_cases)
+    assert sum(case["expected_abstain"] for case in answer_cases) == 4
 
 
 def test_filters_escape_input():
@@ -196,7 +200,7 @@ async def test_evaluation_records_input_fingerprints(tmp_path, monkeypatch):
             )
 
     result = await evaluator.run_evaluation("azure", EmptyProvider())
-    assert result["query_count"] == 20
+    assert result["query_count"] == 25
     assert result["dataset_sha256"] == sha256(evaluator.DATASET.read_bytes()).hexdigest()
     assert result["corpus_sha256"] == sha256(evaluator.CORPUS.read_bytes()).hexdigest()
     assert (tmp_path / "azure.json").exists()

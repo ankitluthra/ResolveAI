@@ -16,7 +16,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "core"
     }
   },
   {
@@ -36,7 +37,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "core"
     }
   },
   {
@@ -56,7 +58,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "core"
     }
   },
   {
@@ -76,7 +79,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "core"
     }
   },
   {
@@ -96,7 +100,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "core"
     }
   },
   {
@@ -116,7 +121,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "core"
     }
   },
   {
@@ -136,7 +142,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "core"
     }
   },
   {
@@ -156,7 +163,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "core"
     }
   },
   {
@@ -176,7 +184,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sdk"
+      "topic_key": "sdk",
+      "scenario": "core"
     }
   },
   {
@@ -196,7 +205,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "billing"
+      "topic_key": "billing",
+      "scenario": "core"
     }
   },
   {
@@ -216,7 +226,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "integrations"
+      "topic_key": "integrations",
+      "scenario": "core"
     }
   },
   {
@@ -236,15 +247,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "core"
     }
   },
   {
     "id": "issue-013",
-    "title": "OAuth client secret rotation: reported behavior #213",
-    "content": "OAuth client secret rotation: reported behavior #213. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
+    "title": "OAuth client secret rotation: reported behavior #213 \u2014 Monitoring and alerts",
+    "content": "OAuth client secret rotation: reported behavior #213 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for oauth client secret rotation. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
     "product": "Authentication",
-    "category": "OAuth client secret rotation",
+    "category": "OAuth client secret rotation \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-013",
     "created_at": "2026-02-13T00:00:00+00:00",
     "updated_at": "2026-02-15T00:00:00+00:00",
@@ -256,15 +268,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-014",
-    "title": "API access token lifetime: reported behavior #214",
-    "content": "API access token lifetime: reported behavior #214. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
+    "title": "API access token lifetime: reported behavior #214 \u2014 Monitoring and alerts",
+    "content": "API access token lifetime: reported behavior #214 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for api access token lifetime. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
     "product": "Authentication",
-    "category": "API access token lifetime",
+    "category": "API access token lifetime \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-014",
     "created_at": "2026-02-23T00:00:00+00:00",
     "updated_at": "2026-02-25T00:00:00+00:00",
@@ -276,15 +289,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-015",
-    "title": "Okta SSO configuration: reported behavior #215",
-    "content": "Okta SSO configuration: reported behavior #215. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
+    "title": "Okta SSO configuration: reported behavior #215 \u2014 Monitoring and alerts",
+    "content": "Okta SSO configuration: reported behavior #215 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for okta sso configuration. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
     "product": "Sso",
-    "category": "Okta SSO configuration",
+    "category": "Okta SSO configuration \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-015",
     "created_at": "2026-03-05T00:00:00+00:00",
     "updated_at": "2026-03-07T00:00:00+00:00",
@@ -296,15 +310,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-016",
-    "title": "SSO role mapping: reported behavior #216",
-    "content": "SSO role mapping: reported behavior #216. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
+    "title": "SSO role mapping: reported behavior #216 \u2014 Monitoring and alerts",
+    "content": "SSO role mapping: reported behavior #216 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for sso role mapping. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
     "product": "Sso",
-    "category": "SSO role mapping",
+    "category": "SSO role mapping \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-016",
     "created_at": "2026-03-15T00:00:00+00:00",
     "updated_at": "2026-03-17T00:00:00+00:00",
@@ -316,15 +331,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-017",
-    "title": "Webhook signature verification: reported behavior #217",
-    "content": "Webhook signature verification: reported behavior #217. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
+    "title": "Webhook signature verification: reported behavior #217 \u2014 Monitoring and alerts",
+    "content": "Webhook signature verification: reported behavior #217 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for webhook signature verification. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
     "product": "Webhooks",
-    "category": "Webhook signature verification",
+    "category": "Webhook signature verification \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-017",
     "created_at": "2026-03-25T00:00:00+00:00",
     "updated_at": "2026-03-27T00:00:00+00:00",
@@ -336,15 +352,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-018",
-    "title": "Multiple webhook endpoints: reported behavior #218",
-    "content": "Multiple webhook endpoints: reported behavior #218. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
+    "title": "Multiple webhook endpoints: reported behavior #218 \u2014 Monitoring and alerts",
+    "content": "Multiple webhook endpoints: reported behavior #218 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for multiple webhook endpoints. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
     "product": "Webhooks",
-    "category": "Multiple webhook endpoints",
+    "category": "Multiple webhook endpoints \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-018",
     "created_at": "2026-04-04T00:00:00+00:00",
     "updated_at": "2026-04-06T00:00:00+00:00",
@@ -356,15 +373,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-019",
-    "title": "API rate limits: reported behavior #219",
-    "content": "API rate limits: reported behavior #219. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
+    "title": "API rate limits: reported behavior #219 \u2014 Monitoring and alerts",
+    "content": "API rate limits: reported behavior #219 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for api rate limits. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
     "product": "Api",
-    "category": "API rate limits",
+    "category": "API rate limits \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-019",
     "created_at": "2026-04-14T00:00:00+00:00",
     "updated_at": "2026-04-16T00:00:00+00:00",
@@ -376,15 +394,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-020",
-    "title": "API v2 to v3 migration: reported behavior #220",
-    "content": "API v2 to v3 migration: reported behavior #220. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: api v2 v3 migration version.",
+    "title": "API v2 to v3 migration: reported behavior #220 \u2014 Monitoring and alerts",
+    "content": "API v2 to v3 migration: reported behavior #220 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for api v2 to v3 migration. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: api v2 v3 migration version.",
     "product": "Api",
-    "category": "API v2 to v3 migration",
+    "category": "API v2 to v3 migration \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-020",
     "created_at": "2026-04-24T00:00:00+00:00",
     "updated_at": "2026-04-26T00:00:00+00:00",
@@ -396,15 +415,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-021",
-    "title": "JavaScript SDK token refresh: reported behavior #221",
-    "content": "JavaScript SDK token refresh: reported behavior #221. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: javascript sdk refresh token 4.2.",
+    "title": "JavaScript SDK token refresh: reported behavior #221 \u2014 Monitoring and alerts",
+    "content": "JavaScript SDK token refresh: reported behavior #221 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for javascript sdk token refresh. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: javascript sdk refresh token 4.2.",
     "product": "Sdk",
-    "category": "JavaScript SDK token refresh",
+    "category": "JavaScript SDK token refresh \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-021",
     "created_at": "2026-05-04T00:00:00+00:00",
     "updated_at": "2026-05-06T00:00:00+00:00",
@@ -416,15 +436,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sdk"
+      "topic_key": "sdk",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-022",
-    "title": "Invoice reconciliation: reported behavior #222",
-    "content": "Invoice reconciliation: reported behavior #222. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: billing invoice usage.",
+    "title": "Invoice reconciliation: reported behavior #222 \u2014 Monitoring and alerts",
+    "content": "Invoice reconciliation: reported behavior #222 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for invoice reconciliation. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: billing invoice usage.",
     "product": "Billing",
-    "category": "Invoice reconciliation",
+    "category": "Invoice reconciliation \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-022",
     "created_at": "2026-05-14T00:00:00+00:00",
     "updated_at": "2026-05-16T00:00:00+00:00",
@@ -436,15 +457,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "billing"
+      "topic_key": "billing",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-023",
-    "title": "Connector synchronization: reported behavior #223",
-    "content": "Connector synchronization: reported behavior #223. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: integration connector sync.",
+    "title": "Connector synchronization: reported behavior #223 \u2014 Monitoring and alerts",
+    "content": "Connector synchronization: reported behavior #223 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for connector synchronization. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: integration connector sync.",
     "product": "Integrations",
-    "category": "Connector synchronization",
+    "category": "Connector synchronization \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-023",
     "created_at": "2026-05-24T00:00:00+00:00",
     "updated_at": "2026-05-26T00:00:00+00:00",
@@ -456,15 +478,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "integrations"
+      "topic_key": "integrations",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-024",
-    "title": "Authentication flow version: reported behavior #224",
-    "content": "Authentication flow version: reported behavior #224. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: authentication flow api version.",
+    "title": "Authentication flow version: reported behavior #224 \u2014 Monitoring and alerts",
+    "content": "Authentication flow version: reported behavior #224 \u2014 Monitoring and alerts. This record describes alert ownership and telemetry for authentication flow version. It helps support identify when the behavior began, but does not prescribe the recovery procedure. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: authentication flow api version.",
     "product": "Authentication",
-    "category": "Authentication flow version",
+    "category": "Authentication flow version \u2014 Monitoring and alerts",
     "url": "https://docs.acmecloud.example/knowledge/issue-024",
     "created_at": "2026-06-03T00:00:00+00:00",
     "updated_at": "2026-06-05T00:00:00+00:00",
@@ -476,15 +499,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Monitoring and alerts"
     }
   },
   {
     "id": "issue-025",
-    "title": "OAuth client secret rotation: reported behavior #225",
-    "content": "OAuth client secret rotation: reported behavior #225. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
+    "title": "OAuth client secret rotation: reported behavior #225 \u2014 Staging validation",
+    "content": "OAuth client secret rotation: reported behavior #225 \u2014 Staging validation. This record covers a staging checklist for oauth client secret rotation. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
     "product": "Authentication",
-    "category": "OAuth client secret rotation",
+    "category": "OAuth client secret rotation \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-025",
     "created_at": "2026-03-21T00:00:00+00:00",
     "updated_at": "2026-03-23T00:00:00+00:00",
@@ -496,15 +520,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-026",
-    "title": "API access token lifetime: reported behavior #226",
-    "content": "API access token lifetime: reported behavior #226. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
+    "title": "API access token lifetime: reported behavior #226 \u2014 Staging validation",
+    "content": "API access token lifetime: reported behavior #226 \u2014 Staging validation. This record covers a staging checklist for api access token lifetime. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
     "product": "Authentication",
-    "category": "API access token lifetime",
+    "category": "API access token lifetime \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-026",
     "created_at": "2026-03-31T00:00:00+00:00",
     "updated_at": "2026-04-02T00:00:00+00:00",
@@ -516,15 +541,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-027",
-    "title": "Okta SSO configuration: reported behavior #227",
-    "content": "Okta SSO configuration: reported behavior #227. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
+    "title": "Okta SSO configuration: reported behavior #227 \u2014 Staging validation",
+    "content": "Okta SSO configuration: reported behavior #227 \u2014 Staging validation. This record covers a staging checklist for okta sso configuration. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
     "product": "Sso",
-    "category": "Okta SSO configuration",
+    "category": "Okta SSO configuration \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-027",
     "created_at": "2026-04-10T00:00:00+00:00",
     "updated_at": "2026-04-12T00:00:00+00:00",
@@ -536,15 +562,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-028",
-    "title": "SSO role mapping: reported behavior #228",
-    "content": "SSO role mapping: reported behavior #228. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
+    "title": "SSO role mapping: reported behavior #228 \u2014 Staging validation",
+    "content": "SSO role mapping: reported behavior #228 \u2014 Staging validation. This record covers a staging checklist for sso role mapping. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
     "product": "Sso",
-    "category": "SSO role mapping",
+    "category": "SSO role mapping \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-028",
     "created_at": "2026-04-20T00:00:00+00:00",
     "updated_at": "2026-04-22T00:00:00+00:00",
@@ -556,15 +583,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-029",
-    "title": "Webhook signature verification: reported behavior #229",
-    "content": "Webhook signature verification: reported behavior #229. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
+    "title": "Webhook signature verification: reported behavior #229 \u2014 Staging validation",
+    "content": "Webhook signature verification: reported behavior #229 \u2014 Staging validation. This record covers a staging checklist for webhook signature verification. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
     "product": "Webhooks",
-    "category": "Webhook signature verification",
+    "category": "Webhook signature verification \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-029",
     "created_at": "2026-04-30T00:00:00+00:00",
     "updated_at": "2026-05-02T00:00:00+00:00",
@@ -576,15 +604,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-030",
-    "title": "Multiple webhook endpoints: reported behavior #230",
-    "content": "Multiple webhook endpoints: reported behavior #230. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
+    "title": "Multiple webhook endpoints: reported behavior #230 \u2014 Staging validation",
+    "content": "Multiple webhook endpoints: reported behavior #230 \u2014 Staging validation. This record covers a staging checklist for multiple webhook endpoints. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
     "product": "Webhooks",
-    "category": "Multiple webhook endpoints",
+    "category": "Multiple webhook endpoints \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-030",
     "created_at": "2026-05-10T00:00:00+00:00",
     "updated_at": "2026-05-12T00:00:00+00:00",
@@ -596,15 +625,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-031",
-    "title": "API rate limits: reported behavior #231",
-    "content": "API rate limits: reported behavior #231. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
+    "title": "API rate limits: reported behavior #231 \u2014 Staging validation",
+    "content": "API rate limits: reported behavior #231 \u2014 Staging validation. This record covers a staging checklist for api rate limits. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
     "product": "Api",
-    "category": "API rate limits",
+    "category": "API rate limits \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-031",
     "created_at": "2026-05-20T00:00:00+00:00",
     "updated_at": "2026-05-22T00:00:00+00:00",
@@ -616,15 +646,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-032",
-    "title": "API v2 to v3 migration: reported behavior #232",
-    "content": "API v2 to v3 migration: reported behavior #232. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: api v2 v3 migration version.",
+    "title": "API v2 to v3 migration: reported behavior #232 \u2014 Staging validation",
+    "content": "API v2 to v3 migration: reported behavior #232 \u2014 Staging validation. This record covers a staging checklist for api v2 to v3 migration. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: api v2 v3 migration version.",
     "product": "Api",
-    "category": "API v2 to v3 migration",
+    "category": "API v2 to v3 migration \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-032",
     "created_at": "2026-05-30T00:00:00+00:00",
     "updated_at": "2026-06-01T00:00:00+00:00",
@@ -636,15 +667,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-033",
-    "title": "JavaScript SDK token refresh: reported behavior #233",
-    "content": "JavaScript SDK token refresh: reported behavior #233. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: javascript sdk refresh token 4.2.",
+    "title": "JavaScript SDK token refresh: reported behavior #233 \u2014 Staging validation",
+    "content": "JavaScript SDK token refresh: reported behavior #233 \u2014 Staging validation. This record covers a staging checklist for javascript sdk token refresh. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: javascript sdk refresh token 4.2.",
     "product": "Sdk",
-    "category": "JavaScript SDK token refresh",
+    "category": "JavaScript SDK token refresh \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-033",
     "created_at": "2026-06-09T00:00:00+00:00",
     "updated_at": "2026-06-11T00:00:00+00:00",
@@ -656,15 +688,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sdk"
+      "topic_key": "sdk",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-034",
-    "title": "Invoice reconciliation: reported behavior #234",
-    "content": "Invoice reconciliation: reported behavior #234. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: billing invoice usage.",
+    "title": "Invoice reconciliation: reported behavior #234 \u2014 Staging validation",
+    "content": "Invoice reconciliation: reported behavior #234 \u2014 Staging validation. This record covers a staging checklist for invoice reconciliation. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: billing invoice usage.",
     "product": "Billing",
-    "category": "Invoice reconciliation",
+    "category": "Invoice reconciliation \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-034",
     "created_at": "2026-06-19T00:00:00+00:00",
     "updated_at": "2026-06-21T00:00:00+00:00",
@@ -676,15 +709,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "billing"
+      "topic_key": "billing",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-035",
-    "title": "Connector synchronization: reported behavior #235",
-    "content": "Connector synchronization: reported behavior #235. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: integration connector sync.",
+    "title": "Connector synchronization: reported behavior #235 \u2014 Staging validation",
+    "content": "Connector synchronization: reported behavior #235 \u2014 Staging validation. This record covers a staging checklist for connector synchronization. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: integration connector sync.",
     "product": "Integrations",
-    "category": "Connector synchronization",
+    "category": "Connector synchronization \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-035",
     "created_at": "2026-06-29T00:00:00+00:00",
     "updated_at": "2026-07-01T00:00:00+00:00",
@@ -696,15 +730,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "integrations"
+      "topic_key": "integrations",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-036",
-    "title": "Authentication flow version: reported behavior #236",
-    "content": "Authentication flow version: reported behavior #236. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: authentication flow api version.",
+    "title": "Authentication flow version: reported behavior #236 \u2014 Staging validation",
+    "content": "Authentication flow version: reported behavior #236 \u2014 Staging validation. This record covers a staging checklist for authentication flow version. The team compared the new configuration with the previous deployment and saved the validation logs before rollout. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: authentication flow api version.",
     "product": "Authentication",
-    "category": "Authentication flow version",
+    "category": "Authentication flow version \u2014 Staging validation",
     "url": "https://docs.acmecloud.example/knowledge/issue-036",
     "created_at": "2026-07-09T00:00:00+00:00",
     "updated_at": "2026-07-11T00:00:00+00:00",
@@ -716,15 +751,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Staging validation"
     }
   },
   {
     "id": "issue-037",
-    "title": "OAuth client secret rotation: reported behavior #237",
-    "content": "OAuth client secret rotation: reported behavior #237. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
+    "title": "OAuth client secret rotation: reported behavior #237 \u2014 Permissions review",
+    "content": "OAuth client secret rotation: reported behavior #237 \u2014 Permissions review. This record tracks which team owns oauth client secret rotation configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
     "product": "Authentication",
-    "category": "OAuth client secret rotation",
+    "category": "OAuth client secret rotation \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-037",
     "created_at": "2026-04-26T00:00:00+00:00",
     "updated_at": "2026-04-28T00:00:00+00:00",
@@ -736,15 +772,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-038",
-    "title": "API access token lifetime: reported behavior #238",
-    "content": "API access token lifetime: reported behavior #238. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
+    "title": "API access token lifetime: reported behavior #238 \u2014 Permissions review",
+    "content": "API access token lifetime: reported behavior #238 \u2014 Permissions review. This record tracks which team owns api access token lifetime configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
     "product": "Authentication",
-    "category": "API access token lifetime",
+    "category": "API access token lifetime \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-038",
     "created_at": "2026-05-06T00:00:00+00:00",
     "updated_at": "2026-05-08T00:00:00+00:00",
@@ -756,15 +793,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-039",
-    "title": "Okta SSO configuration: reported behavior #239",
-    "content": "Okta SSO configuration: reported behavior #239. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
+    "title": "Okta SSO configuration: reported behavior #239 \u2014 Permissions review",
+    "content": "Okta SSO configuration: reported behavior #239 \u2014 Permissions review. This record tracks which team owns okta sso configuration configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
     "product": "Sso",
-    "category": "Okta SSO configuration",
+    "category": "Okta SSO configuration \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-039",
     "created_at": "2026-05-16T00:00:00+00:00",
     "updated_at": "2026-05-18T00:00:00+00:00",
@@ -776,15 +814,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-040",
-    "title": "SSO role mapping: reported behavior #240",
-    "content": "SSO role mapping: reported behavior #240. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
+    "title": "SSO role mapping: reported behavior #240 \u2014 Permissions review",
+    "content": "SSO role mapping: reported behavior #240 \u2014 Permissions review. This record tracks which team owns sso role mapping configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
     "product": "Sso",
-    "category": "SSO role mapping",
+    "category": "SSO role mapping \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-040",
     "created_at": "2026-05-26T00:00:00+00:00",
     "updated_at": "2026-05-28T00:00:00+00:00",
@@ -796,15 +835,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-041",
-    "title": "Webhook signature verification: reported behavior #241",
-    "content": "Webhook signature verification: reported behavior #241. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
+    "title": "Webhook signature verification: reported behavior #241 \u2014 Permissions review",
+    "content": "Webhook signature verification: reported behavior #241 \u2014 Permissions review. This record tracks which team owns webhook signature verification configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
     "product": "Webhooks",
-    "category": "Webhook signature verification",
+    "category": "Webhook signature verification \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-041",
     "created_at": "2026-06-05T00:00:00+00:00",
     "updated_at": "2026-06-07T00:00:00+00:00",
@@ -816,15 +856,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-042",
-    "title": "Multiple webhook endpoints: reported behavior #242",
-    "content": "Multiple webhook endpoints: reported behavior #242. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
+    "title": "Multiple webhook endpoints: reported behavior #242 \u2014 Permissions review",
+    "content": "Multiple webhook endpoints: reported behavior #242 \u2014 Permissions review. This record tracks which team owns multiple webhook endpoints configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
     "product": "Webhooks",
-    "category": "Multiple webhook endpoints",
+    "category": "Multiple webhook endpoints \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-042",
     "created_at": "2026-06-15T00:00:00+00:00",
     "updated_at": "2026-06-17T00:00:00+00:00",
@@ -836,15 +877,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-043",
-    "title": "API rate limits: reported behavior #243",
-    "content": "API rate limits: reported behavior #243. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
+    "title": "API rate limits: reported behavior #243 \u2014 Permissions review",
+    "content": "API rate limits: reported behavior #243 \u2014 Permissions review. This record tracks which team owns api rate limits configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
     "product": "Api",
-    "category": "API rate limits",
+    "category": "API rate limits \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-043",
     "created_at": "2026-06-25T00:00:00+00:00",
     "updated_at": "2026-06-27T00:00:00+00:00",
@@ -856,15 +898,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-044",
-    "title": "API v2 to v3 migration: reported behavior #244",
-    "content": "API v2 to v3 migration: reported behavior #244. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: api v2 v3 migration version.",
+    "title": "API v2 to v3 migration: reported behavior #244 \u2014 Permissions review",
+    "content": "API v2 to v3 migration: reported behavior #244 \u2014 Permissions review. This record tracks which team owns api v2 to v3 migration configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: api v2 v3 migration version.",
     "product": "Api",
-    "category": "API v2 to v3 migration",
+    "category": "API v2 to v3 migration \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-044",
     "created_at": "2026-07-05T00:00:00+00:00",
     "updated_at": "2026-07-07T00:00:00+00:00",
@@ -876,15 +919,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-045",
-    "title": "JavaScript SDK token refresh: reported behavior #245",
-    "content": "JavaScript SDK token refresh: reported behavior #245. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: javascript sdk refresh token 4.2.",
+    "title": "JavaScript SDK token refresh: reported behavior #245 \u2014 Permissions review",
+    "content": "JavaScript SDK token refresh: reported behavior #245 \u2014 Permissions review. This record tracks which team owns javascript sdk token refresh configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: javascript sdk refresh token 4.2.",
     "product": "Sdk",
-    "category": "JavaScript SDK token refresh",
+    "category": "JavaScript SDK token refresh \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-045",
     "created_at": "2026-07-15T00:00:00+00:00",
     "updated_at": "2026-07-17T00:00:00+00:00",
@@ -896,15 +940,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sdk"
+      "topic_key": "sdk",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-046",
-    "title": "Invoice reconciliation: reported behavior #246",
-    "content": "Invoice reconciliation: reported behavior #246. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: billing invoice usage.",
+    "title": "Invoice reconciliation: reported behavior #246 \u2014 Permissions review",
+    "content": "Invoice reconciliation: reported behavior #246 \u2014 Permissions review. This record tracks which team owns invoice reconciliation configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: billing invoice usage.",
     "product": "Billing",
-    "category": "Invoice reconciliation",
+    "category": "Invoice reconciliation \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-046",
     "created_at": "2026-07-25T00:00:00+00:00",
     "updated_at": "2026-07-27T00:00:00+00:00",
@@ -916,15 +961,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "billing"
+      "topic_key": "billing",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-047",
-    "title": "Connector synchronization: reported behavior #247",
-    "content": "Connector synchronization: reported behavior #247. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: integration connector sync.",
+    "title": "Connector synchronization: reported behavior #247 \u2014 Permissions review",
+    "content": "Connector synchronization: reported behavior #247 \u2014 Permissions review. This record tracks which team owns connector synchronization configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: integration connector sync.",
     "product": "Integrations",
-    "category": "Connector synchronization",
+    "category": "Connector synchronization \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-047",
     "created_at": "2026-08-04T00:00:00+00:00",
     "updated_at": "2026-08-06T00:00:00+00:00",
@@ -936,15 +982,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "integrations"
+      "topic_key": "integrations",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-048",
-    "title": "Authentication flow version: reported behavior #248",
-    "content": "Authentication flow version: reported behavior #248. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: authentication flow api version.",
+    "title": "Authentication flow version: reported behavior #248 \u2014 Permissions review",
+    "content": "Authentication flow version: reported behavior #248 \u2014 Permissions review. This record tracks which team owns authentication flow version configuration and who may approve changes. It does not change the product behavior described by the maintained guide. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: authentication flow api version.",
     "product": "Authentication",
-    "category": "Authentication flow version",
+    "category": "Authentication flow version \u2014 Permissions review",
     "url": "https://docs.acmecloud.example/knowledge/issue-048",
     "created_at": "2026-08-14T00:00:00+00:00",
     "updated_at": "2026-08-16T00:00:00+00:00",
@@ -956,15 +1003,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Permissions review"
     }
   },
   {
     "id": "issue-049",
-    "title": "OAuth client secret rotation: reported behavior #249",
-    "content": "OAuth client secret rotation: reported behavior #249. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
+    "title": "OAuth client secret rotation: reported behavior #249 \u2014 Incident timeline",
+    "content": "OAuth client secret rotation: reported behavior #249 \u2014 Incident timeline. This record is a historical timeline for an incident involving oauth client secret rotation. It records detection, escalation, and communication steps; the current procedure is maintained separately. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
     "product": "Authentication",
-    "category": "OAuth client secret rotation",
+    "category": "OAuth client secret rotation \u2014 Incident timeline",
     "url": "https://docs.acmecloud.example/knowledge/issue-049",
     "created_at": "2026-06-01T00:00:00+00:00",
     "updated_at": "2026-06-03T00:00:00+00:00",
@@ -976,15 +1024,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Incident timeline"
     }
   },
   {
     "id": "issue-050",
-    "title": "API access token lifetime: reported behavior #250",
-    "content": "API access token lifetime: reported behavior #250. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
+    "title": "API access token lifetime: reported behavior #250 \u2014 Incident timeline",
+    "content": "API access token lifetime: reported behavior #250 \u2014 Incident timeline. This record is a historical timeline for an incident involving api access token lifetime. It records detection, escalation, and communication steps; the current procedure is maintained separately. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: token expiry refresh 401.",
     "product": "Authentication",
-    "category": "API access token lifetime",
+    "category": "API access token lifetime \u2014 Incident timeline",
     "url": "https://docs.acmecloud.example/knowledge/issue-050",
     "created_at": "2026-06-11T00:00:00+00:00",
     "updated_at": "2026-06-13T00:00:00+00:00",
@@ -996,15 +1045,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "authentication"
+      "topic_key": "authentication",
+      "scenario": "Incident timeline"
     }
   },
   {
     "id": "issue-051",
-    "title": "Okta SSO configuration: reported behavior #251",
-    "content": "Okta SSO configuration: reported behavior #251. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
+    "title": "Okta SSO configuration: reported behavior #251 \u2014 Incident timeline",
+    "content": "Okta SSO configuration: reported behavior #251 \u2014 Incident timeline. This record is a historical timeline for an incident involving okta sso configuration. It records detection, escalation, and communication steps; the current procedure is maintained separately. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: okta saml sso configuration.",
     "product": "Sso",
-    "category": "Okta SSO configuration",
+    "category": "Okta SSO configuration \u2014 Incident timeline",
     "url": "https://docs.acmecloud.example/knowledge/issue-051",
     "created_at": "2026-06-21T00:00:00+00:00",
     "updated_at": "2026-06-23T00:00:00+00:00",
@@ -1016,15 +1066,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Incident timeline"
     }
   },
   {
     "id": "issue-052",
-    "title": "SSO role mapping: reported behavior #252",
-    "content": "SSO role mapping: reported behavior #252. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
+    "title": "SSO role mapping: reported behavior #252 \u2014 Incident timeline",
+    "content": "SSO role mapping: reported behavior #252 \u2014 Incident timeline. This record is a historical timeline for an incident involving sso role mapping. It records detection, escalation, and communication steps; the current procedure is maintained separately. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
     "product": "Sso",
-    "category": "SSO role mapping",
+    "category": "SSO role mapping \u2014 Incident timeline",
     "url": "https://docs.acmecloud.example/knowledge/issue-052",
     "created_at": "2026-07-01T00:00:00+00:00",
     "updated_at": "2026-07-03T00:00:00+00:00",
@@ -1036,15 +1087,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "sso"
+      "topic_key": "sso",
+      "scenario": "Incident timeline"
     }
   },
   {
     "id": "issue-053",
-    "title": "Webhook signature verification: reported behavior #253",
-    "content": "Webhook signature verification: reported behavior #253. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
+    "title": "Webhook signature verification: reported behavior #253 \u2014 Incident timeline",
+    "content": "Webhook signature verification: reported behavior #253 \u2014 Incident timeline. This record is a historical timeline for an incident involving webhook signature verification. It records detection, escalation, and communication steps; the current procedure is maintained separately. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
     "product": "Webhooks",
-    "category": "Webhook signature verification",
+    "category": "Webhook signature verification \u2014 Incident timeline",
     "url": "https://docs.acmecloud.example/knowledge/issue-053",
     "created_at": "2026-07-11T00:00:00+00:00",
     "updated_at": "2026-07-13T00:00:00+00:00",
@@ -1056,15 +1108,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Incident timeline"
     }
   },
   {
     "id": "issue-054",
-    "title": "Multiple webhook endpoints: reported behavior #254",
-    "content": "Multiple webhook endpoints: reported behavior #254. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
+    "title": "Multiple webhook endpoints: reported behavior #254 \u2014 Incident timeline",
+    "content": "Multiple webhook endpoints: reported behavior #254 \u2014 Incident timeline. This record is a historical timeline for an incident involving multiple webhook endpoints. It records detection, escalation, and communication steps; the current procedure is maintained separately. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: multiple webhook endpoints.",
     "product": "Webhooks",
-    "category": "Multiple webhook endpoints",
+    "category": "Multiple webhook endpoints \u2014 Incident timeline",
     "url": "https://docs.acmecloud.example/knowledge/issue-054",
     "created_at": "2026-07-21T00:00:00+00:00",
     "updated_at": "2026-07-23T00:00:00+00:00",
@@ -1076,15 +1129,16 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "webhooks"
+      "topic_key": "webhooks",
+      "scenario": "Incident timeline"
     }
   },
   {
     "id": "issue-055",
-    "title": "API rate limits: reported behavior #255",
-    "content": "API rate limits: reported behavior #255. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
+    "title": "API rate limits: reported behavior #255 \u2014 Incident timeline",
+    "content": "API rate limits: reported behavior #255 \u2014 Incident timeline. This record is a historical timeline for an incident involving api rate limits. It records detection, escalation, and communication steps; the current procedure is maintained separately. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: rate limit 429 retry after.",
     "product": "Api",
-    "category": "API rate limits",
+    "category": "API rate limits \u2014 Incident timeline",
     "url": "https://docs.acmecloud.example/knowledge/issue-055",
     "created_at": "2026-07-31T00:00:00+00:00",
     "updated_at": "2026-08-02T00:00:00+00:00",
@@ -1096,7 +1150,8 @@
     "visibility": "public",
     "metadata": {
       "synthetic": true,
-      "topic_key": "api"
+      "topic_key": "api",
+      "scenario": "Incident timeline"
     }
   }
 ]

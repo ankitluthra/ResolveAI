@@ -1,0 +1,10 @@
+[
+  {"id":"answer-001","query":"Why do workers get 401 after an OAuth client secret rotation?","expected_abstain":false,"expected_document_ids":["doc-001","faq-001","issue-001","ticket-001","release-001"]},
+  {"id":"answer-002","query":"How long do API access tokens last?","expected_abstain":false,"expected_document_ids":["doc-002","faq-002","issue-002","ticket-002","release-002"]},
+  {"id":"answer-003","query":"How should a webhook signature be verified?","expected_abstain":false,"expected_document_ids":["doc-005","faq-005","issue-005","ticket-005","release-005"]},
+  {"id":"answer-004","query":"What should a client do after receiving HTTP 429?","expected_abstain":false,"expected_document_ids":["doc-007","faq-007","issue-007","ticket-007","release-007"]},
+  {"id":"answer-005","query":"Does AcmeCloud support SCIM user provisioning?","expected_abstain":true,"expected_document_ids":[]},
+  {"id":"answer-006","query":"What is the SLA credit policy for outages?","expected_abstain":true,"expected_document_ids":[]},
+  {"id":"answer-007","query":"Can AcmeCloud be installed on premises?","expected_abstain":true,"expected_document_ids":[]},
+  {"id":"answer-008","query":"Can invoices be paid with cryptocurrency?","expected_abstain":true,"expected_document_ids":[]}
+]

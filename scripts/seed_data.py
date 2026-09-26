@@ -94,6 +94,33 @@ SOURCE_SPECS = [
     ("release_note", "release_notes.json", 20),
 ]
 
+RELATED_SCENARIOS = [
+    (
+        "Monitoring and alerts",
+        "This record describes alert ownership and telemetry for {subject}. It helps support identify when the behavior began, but does not prescribe the recovery procedure.",
+    ),
+    (
+        "Staging validation",
+        "This record covers a staging checklist for {subject}. The team compared the new configuration with the previous deployment and saved the validation logs before rollout.",
+    ),
+    (
+        "Permissions review",
+        "This record tracks which team owns {subject} configuration and who may approve changes. It does not change the product behavior described by the maintained guide.",
+    ),
+    (
+        "Incident timeline",
+        "This record is a historical timeline for an incident involving {subject}. It records detection, escalation, and communication steps; the current procedure is maintained separately.",
+    ),
+    (
+        "Release planning",
+        "This record describes how {subject} changes were staged for a release. It covers rollout windows, review owners, and rollback coordination rather than product instructions.",
+    ),
+    (
+        "Support handoff",
+        "This record helps the next support shift take over a case about {subject}. It lists open questions, the responsible team, and the next customer update.",
+    ),
+]
+
 
 def main() -> None:
     RAW.mkdir(parents=True, exist_ok=True)
@@ -118,6 +145,16 @@ def main() -> None:
                 "faq": f"How does {subject.lower()} work?",
                 "release_note": f"Release 4.{number // 10}.{number % 10}: {subject}",
             }[source]
+            scenario_index = (number - 1) // len(TOPICS)
+            if scenario_index:
+                scenario, scenario_text = RELATED_SCENARIOS[
+                    (scenario_index - 1) % len(RELATED_SCENARIOS)
+                ]
+                title = f"{title} — {scenario}"
+                body = scenario_text.format(subject=subject.lower())
+            else:
+                scenario = "core"
+                body = guidance
             detail = {
                 "documentation": "This is the maintained product procedure. Verify configuration in a staging environment before applying it to production.",
                 "github_issue": "Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation.",
@@ -130,15 +167,15 @@ def main() -> None:
                 {
                     "id": f"{id_prefix}-{suffix}",
                     "title": title,
-                    "content": f"{title}. {guidance} {detail} Context: {keywords}.",
+                    "content": f"{title}. {body} {detail} Context: {keywords}.",
                     "product": product.title(),
-                    "category": subject,
+                    "category": subject if scenario == "core" else f"{subject} — {scenario}",
                     "url": f"https://docs.acmecloud.example/knowledge/{id_prefix}-{suffix}",
                     "created_at": date.isoformat(),
                     "updated_at": (date + timedelta(days=2)).isoformat(),
                     "tags": [product, *keywords.split()[:2]],
                     "visibility": "support" if source == "support_ticket" else "public",
-                    "metadata": {"synthetic": True, "topic_key": product},
+                    "metadata": {"synthetic": True, "topic_key": product, "scenario": scenario},
                 }
             )
         (RAW / filename).write_text(json.dumps(records, indent=2) + "\n")
