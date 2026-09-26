@@ -16,6 +16,10 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [x] Implement evaluation metrics and an optional answer service with source citations.
 - [x] Document the customer brief, architecture, decisions, experiments, and production considerations.
 - [x] Create the public GitHub repository with focused commits and passing CI.
+- [x] Add a repeatable local/live readiness command and detailed provider setup runbook.
+- [x] Add a command line evaluation runner that fingerprints the corpus and question set.
+- [x] Implement a dry-run-first incremental update/delete workflow with an ignored local manifest and mocked provider tests.
+- [x] Make the category filter apply on submit, avoiding a search on every keystroke.
 
 ## Next: prove the MVP with live services
 
@@ -25,6 +29,7 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [ ] Configure a Coveo organization and `ResolveAI Knowledge` Push source with the required custom fields.
 - [ ] Upload the identical 250 records to Coveo; verify searchable count, metadata mapping, representative queries, and filters.
 - [ ] Run the same 20-question Coveo baseline and save actual query-level results and metrics.
+- [ ] Verify incremental updates and deletes against both live providers after the baseline.
 - [ ] Fix any issues found by the live runs, then update `docs/experiments.md` and the README with measured results and setup details.
 
 **MVP completion check:** Both providers search the same indexed corpus, and the evaluation page shows real Hit@1, Hit@3, MRR, and latency results for both. No benchmark number should be published before a successful live run.
@@ -40,9 +45,8 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 
 ## Later, if needed
 
-- [ ] Add incremental update and delete synchronization.
 - [ ] Replace synthetic connectors with real content sources and enforce document permissions.
-- [ ] Add production controls such as retries, monitoring, PII handling, and cost limits.
+- [ ] Add production controls such as retry queues, reconciliation, monitoring, PII handling, and cost limits.
 
 ## Current dependency
 
@@ -51,3 +55,7 @@ Live provider verification needs Azure and Coveo accounts and credentials in the
 ## Progress log
 
 - **2026-09-26:** Established this tracker and saved the full original brief locally. The brief is ignored by Git; the tracker and ignore rule were published in commit `89600d9`.
+- **2026-09-26:** Added upload failure reporting and a configurable Coveo source name (`cee97ed`); readiness checks and a live setup runbook (`3bebd65`); a usable category filter (`37d0a8c`).
+- **2026-09-26:** Added reproducible evaluation fingerprints and a CLI runner (`82e13bc`), plus a dry-run-first incremental update/delete workflow (`7bffa5c`). Live service behavior remains pending credentials.
+- **2026-09-26:** Saved a private Coveo FDE interview guide in `.local/coveo-fde-interview.md`. It tracks architecture explanations, demo steps, likely questions, and evidence still to gather. The guide is ignored by Git.
+- **2026-09-26:** Local verification passed: 14 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, production build, and all four Playwright flows using installed Chrome. The browser option is in commit `6e0f895`. Live provider and answer checks remain pending keys.

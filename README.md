@@ -10,7 +10,7 @@ AcmeCloud, a fictional developer platform, answers support questions using scatt
 
 ## Solution
 
-A reproducible connector and normalizer produce 250 synthetic records across five source types. The same canonical corpus is uploaded to Azure AI Search and a Coveo Push source. FastAPI presents a shared `SearchProvider` contract to a Next.js support workspace, evaluation runner, and optional grounded answer layer.
+A reproducible connector and normalizer produce 250 synthetic records across five source types. The same canonical corpus is prepared for Azure AI Search and a Coveo Push source. FastAPI presents a shared `SearchProvider` contract to a Next.js support workspace, evaluation runner, and optional grounded answer layer. Live indexing and comparison are the next verification milestone.
 
 ## Demo
 
