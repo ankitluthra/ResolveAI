@@ -44,11 +44,11 @@ See [architecture](docs/architecture.md) and [decisions](docs/decisions.md).
 - Isolated Azure AI Search and Coveo adapters, server-side credentials, and URL-backed provider switching.
 - Clickable source records and retrieval diagnostics.
 - Grounded OpenAI response with validated source IDs and insufficient-evidence fallback.
-- A fixed 20-question dataset and live evaluation runner.
+- A fixed 25-question dataset and live evaluation runner.
 
 ## Evaluation
 
-The dashboard intentionally shows **no benchmark numbers** until the live runner succeeds. The evaluation script records Hit@1, Hit@3, MRR, average latency, and every returned document ID. [Experiments](docs/experiments.md) defines two hypotheses without invented results.
+The dashboard intentionally shows **no benchmark numbers** until the live runner succeeds. The 25-question retrieval set includes core support questions and harder source-specific cases. The evaluation script records Hit@1, Hit@3, MRR, average latency, and every returned document ID. An eight-case answer set checks supported questions, abstention, and citations; factual accuracy still requires manual review. [Experiments](docs/experiments.md) defines two hypotheses without invented results.
 
 ## Engineering decisions
 

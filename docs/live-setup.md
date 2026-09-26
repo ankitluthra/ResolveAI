@@ -12,7 +12,7 @@ apps/api/.venv/bin/python -m scripts.seed_data
 apps/api/.venv/bin/python -m scripts.check_readiness
 ```
 
-The last command should report 250 documents and 20 questions. It checks local data only; it does not contact either search service.
+The last command should report 250 documents and 25 questions. It checks local data only; it does not contact either search service.
 
 ## 2. Azure AI Search
 
@@ -84,7 +84,14 @@ This writes `evals/results/coveo-pipeline.json`. Record the rule, modifier, pipe
 
 ## 6. Optional answer flow
 
-Set `OPENAI_API_KEY` locally, restart the API, and generate answers for a supported question and an unsupported question. Check that every cited document opens and that unsupported questions return the fallback. The key is sent only by the FastAPI server. Live answer behavior must be checked before claiming it in a demo or resume entry.
+Set `OPENAI_API_KEY` locally, restart the API, and generate answers for a supported question and an unsupported question. Check that every cited document opens and that unsupported questions return the fallback. Then run the eight-case check for both providers:
+
+```bash
+apps/api/.venv/bin/python -m scripts.run_answer_evaluation --provider azure
+apps/api/.venv/bin/python -m scripts.run_answer_evaluation --provider coveo
+```
+
+Review `evals/results/azure-answers.json` and `evals/results/coveo-answers.json`. The automatic checks cover abstention and whether at least one expected document was cited. Read every answer for factual accuracy, unsupported claims, and citation quality before publishing a conclusion. The OpenAI key is sent only by the FastAPI server. Live answer behavior must be checked before claiming it in a demo or resume entry.
 
 ## 7. Troubleshooting checklist
 

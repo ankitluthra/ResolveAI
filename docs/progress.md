@@ -9,7 +9,7 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [x] Set up the Next.js, TypeScript, FastAPI, lint, test, and CI foundations.
 - [x] Generate and normalize 250 synthetic AcmeCloud records across five source types.
 - [x] Define one canonical document schema and stable IDs for both search providers.
-- [x] Define 20 evaluation questions and expected relevant documents before provider tuning.
+- [x] Define 25 retrieval questions and expected relevant documents before provider tuning.
 - [x] Implement Azure AI Search index creation, upload, keyword search, and filters.
 - [x] Implement Coveo Push upload, search, and filters behind the shared provider interface.
 - [x] Build the search workspace, provider switch, document view, retrieval diagnostics, and evaluation UI.
@@ -21,15 +21,17 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [x] Add optional Azure semantic and Coveo named-pipeline evaluation paths that save separate variant results.
 - [x] Implement a dry-run-first incremental update/delete workflow with an ignored local manifest and mocked provider tests.
 - [x] Make the category filter apply on submit, avoiding a search on every keystroke.
+- [x] Revise repeated synthetic records into related scenarios, expand retrieval labels, and add five harder source-specific questions.
+- [x] Add eight supported/unsupported answer cases and a live runner for abstention and citation checks.
 
 ## Next: prove the MVP with live services
 
 - [ ] Configure an Azure AI Search service locally; create the index and upload all 250 records.
 - [ ] Verify the Azure document count, representative queries, every filter, and error handling; record the service tier and date.
-- [ ] Run the 20-question Azure baseline and save actual query-level results and metrics.
+- [ ] Run the 25-question Azure baseline and save actual query-level results and metrics.
 - [ ] Configure a Coveo organization and `ResolveAI Knowledge` Push source with the required custom fields.
 - [ ] Upload the identical 250 records to Coveo; verify searchable count, metadata mapping, representative queries, and filters.
-- [ ] Run the same 20-question Coveo baseline and save actual query-level results and metrics.
+- [ ] Run the same 25-question Coveo baseline and save actual query-level results and metrics.
 - [ ] Verify incremental updates and deletes against both live providers after the baseline.
 - [ ] Fix any issues found by the live runs, then update `docs/experiments.md` and the README with measured results and setup details.
 
@@ -39,8 +41,9 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 
 - [ ] Run and document the Azure keyword-versus-semantic experiment if the selected service supports it.
 - [ ] Run and document a Coveo query configuration experiment supported by the organization.
-- [ ] Review the synthetic corpus and relevance labels; add harder questions, distractors, and missing-answer cases without tuning the data to favor a provider.
+- [ ] Review query-level failures with support-style relevance judgments; document any label changes and rerun both providers on identical fingerprints.
 - [ ] Exercise live grounded answers, citations, conflicting evidence, and insufficient-evidence fallback; improve the guard where results do not support an answer.
+- [ ] Run the eight-case answer check on both providers and manually review factual support and citation quality.
 - [ ] Capture actual search and evaluation screenshots and a five-minute demo flow.
 - [ ] Check that each resume claim is supported by the running app, recorded results, and repository evidence.
 
@@ -61,3 +64,4 @@ Live provider verification needs Azure and Coveo accounts and credentials in the
 - **2026-09-26:** Saved a private Coveo FDE interview guide in `.local/coveo-fde-interview.md`. It tracks architecture explanations, demo steps, likely questions, and evidence still to gather. The guide is ignored by Git.
 - **2026-09-26:** Local verification passed: 16 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, production build, and all five Playwright flows using installed Chrome, including category filter submission. The browser option is in commit `6e0f895`. Live provider and answer checks remain pending keys.
 - **2026-09-26:** Added separate experiment paths for Azure semantic ranking and a Coveo named query pipeline (`4825c95`). The configuration is code-complete and mock-tested; provider account support, actual rules, and results remain to be verified live.
+- **2026-09-26:** Before live indexing, revised repeated synthetic records into distinct related scenarios, expanded the retrieval set from 20 to 25 questions, labeled all core records containing each answer, and added an eight-case answer check. No provider scores were generated from the revised data.

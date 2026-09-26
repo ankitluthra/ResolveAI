@@ -20,4 +20,4 @@ AcmeCloud is a fictional B2B developer platform. A support engineer currently se
 
 ## Resulting requirements
 
-The prototype normalizes five source types into one schema, indexes them in two retrieval platforms, exposes search and filters in one workspace, permits provider switching, logs diagnostics, and evaluates 20 fixed questions. The answer layer is grounded in returned documents and rejects unsupported citations. This demonstration uses synthetic records and descriptive visibility metadata; a production deployment needs identity and enforceable permissions.
+The prototype normalizes five source types into one schema, prepares them for indexing in two retrieval platforms, exposes search and filters in one workspace, permits provider switching, logs diagnostics, and evaluates 25 fixed questions. Live provider indexing and comparison remain pending credentials. The answer layer uses retrieved documents and rejects unsupported citation IDs. This demonstration uses synthetic records and descriptive visibility metadata; a production deployment needs identity and enforceable permissions.

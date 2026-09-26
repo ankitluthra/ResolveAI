@@ -22,7 +22,7 @@
 
 ## ADR-006 — Fixed relevance set
 
-**Decision:** Check in 20 questions and expected IDs before tuning. **Reason:** Relevance changes can be measured. **Tradeoff:** The set is small and contains narrow topics; customer review is required.
+**Decision:** Check in at least 20 questions and expected IDs before tuning; expand to 25 after reviewing repeated corpus content. **Reason:** Relevance changes can be measured against a fixed set. **Tradeoff:** The set remains synthetic and narrow; customer review is required.
 
 ## ADR-007 — Honest missing metrics
 
