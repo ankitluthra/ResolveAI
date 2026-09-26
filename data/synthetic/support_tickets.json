@@ -1,0 +1,1302 @@
+[
+  {
+    "id": "ticket-001",
+    "title": "Case AC-181: OAuth client secret rotation",
+    "content": "Case AC-181: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-001",
+    "created_at": "2026-01-08T00:00:00+00:00",
+    "updated_at": "2026-01-10T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-002",
+    "title": "Case AC-182: API access token lifetime",
+    "content": "Case AC-182: API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-002",
+    "created_at": "2026-01-18T00:00:00+00:00",
+    "updated_at": "2026-01-20T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-003",
+    "title": "Case AC-183: Okta SSO configuration",
+    "content": "Case AC-183: Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-003",
+    "created_at": "2026-01-28T00:00:00+00:00",
+    "updated_at": "2026-01-30T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-004",
+    "title": "Case AC-184: SSO role mapping",
+    "content": "Case AC-184: SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-004",
+    "created_at": "2026-02-07T00:00:00+00:00",
+    "updated_at": "2026-02-09T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-005",
+    "title": "Case AC-185: Webhook signature verification",
+    "content": "Case AC-185: Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-005",
+    "created_at": "2026-02-17T00:00:00+00:00",
+    "updated_at": "2026-02-19T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-006",
+    "title": "Case AC-186: Multiple webhook endpoints",
+    "content": "Case AC-186: Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-006",
+    "created_at": "2026-02-27T00:00:00+00:00",
+    "updated_at": "2026-03-01T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-007",
+    "title": "Case AC-187: API rate limits",
+    "content": "Case AC-187: API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-007",
+    "created_at": "2026-03-09T00:00:00+00:00",
+    "updated_at": "2026-03-11T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-008",
+    "title": "Case AC-188: API v2 to v3 migration",
+    "content": "Case AC-188: API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-008",
+    "created_at": "2026-03-19T00:00:00+00:00",
+    "updated_at": "2026-03-21T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-009",
+    "title": "Case AC-189: JavaScript SDK token refresh",
+    "content": "Case AC-189: JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-009",
+    "created_at": "2026-03-29T00:00:00+00:00",
+    "updated_at": "2026-03-31T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "ticket-010",
+    "title": "Case AC-190: Invoice reconciliation",
+    "content": "Case AC-190: Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-010",
+    "created_at": "2026-04-08T00:00:00+00:00",
+    "updated_at": "2026-04-10T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "ticket-011",
+    "title": "Case AC-191: Connector synchronization",
+    "content": "Case AC-191: Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-011",
+    "created_at": "2026-04-18T00:00:00+00:00",
+    "updated_at": "2026-04-20T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "ticket-012",
+    "title": "Case AC-192: Authentication flow version",
+    "content": "Case AC-192: Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-012",
+    "created_at": "2026-04-28T00:00:00+00:00",
+    "updated_at": "2026-04-30T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-013",
+    "title": "Case AC-193: OAuth client secret rotation",
+    "content": "Case AC-193: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-013",
+    "created_at": "2026-02-13T00:00:00+00:00",
+    "updated_at": "2026-02-15T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-014",
+    "title": "Case AC-194: API access token lifetime",
+    "content": "Case AC-194: API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-014",
+    "created_at": "2026-02-23T00:00:00+00:00",
+    "updated_at": "2026-02-25T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-015",
+    "title": "Case AC-195: Okta SSO configuration",
+    "content": "Case AC-195: Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-015",
+    "created_at": "2026-03-05T00:00:00+00:00",
+    "updated_at": "2026-03-07T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-016",
+    "title": "Case AC-196: SSO role mapping",
+    "content": "Case AC-196: SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-016",
+    "created_at": "2026-03-15T00:00:00+00:00",
+    "updated_at": "2026-03-17T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-017",
+    "title": "Case AC-197: Webhook signature verification",
+    "content": "Case AC-197: Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-017",
+    "created_at": "2026-03-25T00:00:00+00:00",
+    "updated_at": "2026-03-27T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-018",
+    "title": "Case AC-198: Multiple webhook endpoints",
+    "content": "Case AC-198: Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-018",
+    "created_at": "2026-04-04T00:00:00+00:00",
+    "updated_at": "2026-04-06T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-019",
+    "title": "Case AC-199: API rate limits",
+    "content": "Case AC-199: API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-019",
+    "created_at": "2026-04-14T00:00:00+00:00",
+    "updated_at": "2026-04-16T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-020",
+    "title": "Case AC-200: API v2 to v3 migration",
+    "content": "Case AC-200: API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-020",
+    "created_at": "2026-04-24T00:00:00+00:00",
+    "updated_at": "2026-04-26T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-021",
+    "title": "Case AC-201: JavaScript SDK token refresh",
+    "content": "Case AC-201: JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-021",
+    "created_at": "2026-05-04T00:00:00+00:00",
+    "updated_at": "2026-05-06T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "ticket-022",
+    "title": "Case AC-202: Invoice reconciliation",
+    "content": "Case AC-202: Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-022",
+    "created_at": "2026-05-14T00:00:00+00:00",
+    "updated_at": "2026-05-16T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "ticket-023",
+    "title": "Case AC-203: Connector synchronization",
+    "content": "Case AC-203: Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-023",
+    "created_at": "2026-05-24T00:00:00+00:00",
+    "updated_at": "2026-05-26T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "ticket-024",
+    "title": "Case AC-204: Authentication flow version",
+    "content": "Case AC-204: Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-024",
+    "created_at": "2026-06-03T00:00:00+00:00",
+    "updated_at": "2026-06-05T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-025",
+    "title": "Case AC-205: OAuth client secret rotation",
+    "content": "Case AC-205: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-025",
+    "created_at": "2026-03-21T00:00:00+00:00",
+    "updated_at": "2026-03-23T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-026",
+    "title": "Case AC-206: API access token lifetime",
+    "content": "Case AC-206: API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-026",
+    "created_at": "2026-03-31T00:00:00+00:00",
+    "updated_at": "2026-04-02T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-027",
+    "title": "Case AC-207: Okta SSO configuration",
+    "content": "Case AC-207: Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-027",
+    "created_at": "2026-04-10T00:00:00+00:00",
+    "updated_at": "2026-04-12T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-028",
+    "title": "Case AC-208: SSO role mapping",
+    "content": "Case AC-208: SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-028",
+    "created_at": "2026-04-20T00:00:00+00:00",
+    "updated_at": "2026-04-22T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-029",
+    "title": "Case AC-209: Webhook signature verification",
+    "content": "Case AC-209: Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-029",
+    "created_at": "2026-04-30T00:00:00+00:00",
+    "updated_at": "2026-05-02T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-030",
+    "title": "Case AC-210: Multiple webhook endpoints",
+    "content": "Case AC-210: Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-030",
+    "created_at": "2026-05-10T00:00:00+00:00",
+    "updated_at": "2026-05-12T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-031",
+    "title": "Case AC-211: API rate limits",
+    "content": "Case AC-211: API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-031",
+    "created_at": "2026-05-20T00:00:00+00:00",
+    "updated_at": "2026-05-22T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-032",
+    "title": "Case AC-212: API v2 to v3 migration",
+    "content": "Case AC-212: API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-032",
+    "created_at": "2026-05-30T00:00:00+00:00",
+    "updated_at": "2026-06-01T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-033",
+    "title": "Case AC-213: JavaScript SDK token refresh",
+    "content": "Case AC-213: JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-033",
+    "created_at": "2026-06-09T00:00:00+00:00",
+    "updated_at": "2026-06-11T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "ticket-034",
+    "title": "Case AC-214: Invoice reconciliation",
+    "content": "Case AC-214: Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-034",
+    "created_at": "2026-06-19T00:00:00+00:00",
+    "updated_at": "2026-06-21T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "ticket-035",
+    "title": "Case AC-215: Connector synchronization",
+    "content": "Case AC-215: Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-035",
+    "created_at": "2026-06-29T00:00:00+00:00",
+    "updated_at": "2026-07-01T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "ticket-036",
+    "title": "Case AC-216: Authentication flow version",
+    "content": "Case AC-216: Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-036",
+    "created_at": "2026-07-09T00:00:00+00:00",
+    "updated_at": "2026-07-11T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-037",
+    "title": "Case AC-217: OAuth client secret rotation",
+    "content": "Case AC-217: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-037",
+    "created_at": "2026-04-26T00:00:00+00:00",
+    "updated_at": "2026-04-28T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-038",
+    "title": "Case AC-218: API access token lifetime",
+    "content": "Case AC-218: API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-038",
+    "created_at": "2026-05-06T00:00:00+00:00",
+    "updated_at": "2026-05-08T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-039",
+    "title": "Case AC-219: Okta SSO configuration",
+    "content": "Case AC-219: Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-039",
+    "created_at": "2026-05-16T00:00:00+00:00",
+    "updated_at": "2026-05-18T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-040",
+    "title": "Case AC-220: SSO role mapping",
+    "content": "Case AC-220: SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-040",
+    "created_at": "2026-05-26T00:00:00+00:00",
+    "updated_at": "2026-05-28T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-041",
+    "title": "Case AC-221: Webhook signature verification",
+    "content": "Case AC-221: Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-041",
+    "created_at": "2026-06-05T00:00:00+00:00",
+    "updated_at": "2026-06-07T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-042",
+    "title": "Case AC-222: Multiple webhook endpoints",
+    "content": "Case AC-222: Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-042",
+    "created_at": "2026-06-15T00:00:00+00:00",
+    "updated_at": "2026-06-17T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-043",
+    "title": "Case AC-223: API rate limits",
+    "content": "Case AC-223: API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-043",
+    "created_at": "2026-06-25T00:00:00+00:00",
+    "updated_at": "2026-06-27T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-044",
+    "title": "Case AC-224: API v2 to v3 migration",
+    "content": "Case AC-224: API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-044",
+    "created_at": "2026-07-05T00:00:00+00:00",
+    "updated_at": "2026-07-07T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-045",
+    "title": "Case AC-225: JavaScript SDK token refresh",
+    "content": "Case AC-225: JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-045",
+    "created_at": "2026-07-15T00:00:00+00:00",
+    "updated_at": "2026-07-17T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "ticket-046",
+    "title": "Case AC-226: Invoice reconciliation",
+    "content": "Case AC-226: Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-046",
+    "created_at": "2026-07-25T00:00:00+00:00",
+    "updated_at": "2026-07-27T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "ticket-047",
+    "title": "Case AC-227: Connector synchronization",
+    "content": "Case AC-227: Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-047",
+    "created_at": "2026-08-04T00:00:00+00:00",
+    "updated_at": "2026-08-06T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "ticket-048",
+    "title": "Case AC-228: Authentication flow version",
+    "content": "Case AC-228: Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-048",
+    "created_at": "2026-08-14T00:00:00+00:00",
+    "updated_at": "2026-08-16T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-049",
+    "title": "Case AC-229: OAuth client secret rotation",
+    "content": "Case AC-229: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-049",
+    "created_at": "2026-06-01T00:00:00+00:00",
+    "updated_at": "2026-06-03T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-050",
+    "title": "Case AC-230: API access token lifetime",
+    "content": "Case AC-230: API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-050",
+    "created_at": "2026-06-11T00:00:00+00:00",
+    "updated_at": "2026-06-13T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-051",
+    "title": "Case AC-231: Okta SSO configuration",
+    "content": "Case AC-231: Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-051",
+    "created_at": "2026-06-21T00:00:00+00:00",
+    "updated_at": "2026-06-23T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-052",
+    "title": "Case AC-232: SSO role mapping",
+    "content": "Case AC-232: SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-052",
+    "created_at": "2026-07-01T00:00:00+00:00",
+    "updated_at": "2026-07-03T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-053",
+    "title": "Case AC-233: Webhook signature verification",
+    "content": "Case AC-233: Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-053",
+    "created_at": "2026-07-11T00:00:00+00:00",
+    "updated_at": "2026-07-13T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-054",
+    "title": "Case AC-234: Multiple webhook endpoints",
+    "content": "Case AC-234: Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-054",
+    "created_at": "2026-07-21T00:00:00+00:00",
+    "updated_at": "2026-07-23T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "ticket-055",
+    "title": "Case AC-235: API rate limits",
+    "content": "Case AC-235: API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-055",
+    "created_at": "2026-07-31T00:00:00+00:00",
+    "updated_at": "2026-08-02T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-056",
+    "title": "Case AC-236: API v2 to v3 migration",
+    "content": "Case AC-236: API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-056",
+    "created_at": "2026-08-10T00:00:00+00:00",
+    "updated_at": "2026-08-12T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "ticket-057",
+    "title": "Case AC-237: JavaScript SDK token refresh",
+    "content": "Case AC-237: JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-057",
+    "created_at": "2026-08-20T00:00:00+00:00",
+    "updated_at": "2026-08-22T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "ticket-058",
+    "title": "Case AC-238: Invoice reconciliation",
+    "content": "Case AC-238: Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-058",
+    "created_at": "2026-08-30T00:00:00+00:00",
+    "updated_at": "2026-09-01T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "ticket-059",
+    "title": "Case AC-239: Connector synchronization",
+    "content": "Case AC-239: Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-059",
+    "created_at": "2026-09-09T00:00:00+00:00",
+    "updated_at": "2026-09-11T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "ticket-060",
+    "title": "Case AC-240: Authentication flow version",
+    "content": "Case AC-240: Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-060",
+    "created_at": "2026-01-12T00:00:00+00:00",
+    "updated_at": "2026-01-14T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-061",
+    "title": "Case AC-241: OAuth client secret rotation",
+    "content": "Case AC-241: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-061",
+    "created_at": "2026-07-07T00:00:00+00:00",
+    "updated_at": "2026-07-09T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-062",
+    "title": "Case AC-242: API access token lifetime",
+    "content": "Case AC-242: API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-062",
+    "created_at": "2026-07-17T00:00:00+00:00",
+    "updated_at": "2026-07-19T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "ticket-063",
+    "title": "Case AC-243: Okta SSO configuration",
+    "content": "Case AC-243: Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-063",
+    "created_at": "2026-07-27T00:00:00+00:00",
+    "updated_at": "2026-07-29T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-064",
+    "title": "Case AC-244: SSO role mapping",
+    "content": "Case AC-244: SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-064",
+    "created_at": "2026-08-06T00:00:00+00:00",
+    "updated_at": "2026-08-08T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "ticket-065",
+    "title": "Case AC-245: Webhook signature verification",
+    "content": "Case AC-245: Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/ticket-065",
+    "created_at": "2026-08-16T00:00:00+00:00",
+    "updated_at": "2026-08-18T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "support",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  }
+]

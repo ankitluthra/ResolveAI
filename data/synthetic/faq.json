@@ -1,0 +1,602 @@
+[
+  {
+    "id": "faq-001",
+    "title": "How does oauth client secret rotation work?",
+    "content": "How does oauth client secret rotation work?. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/faq-001",
+    "created_at": "2026-01-08T00:00:00+00:00",
+    "updated_at": "2026-01-10T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-002",
+    "title": "How does api access token lifetime work?",
+    "content": "How does api access token lifetime work?. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/faq-002",
+    "created_at": "2026-01-18T00:00:00+00:00",
+    "updated_at": "2026-01-20T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-003",
+    "title": "How does okta sso configuration work?",
+    "content": "How does okta sso configuration work?. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/faq-003",
+    "created_at": "2026-01-28T00:00:00+00:00",
+    "updated_at": "2026-01-30T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "faq-004",
+    "title": "How does sso role mapping work?",
+    "content": "How does sso role mapping work?. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/faq-004",
+    "created_at": "2026-02-07T00:00:00+00:00",
+    "updated_at": "2026-02-09T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "faq-005",
+    "title": "How does webhook signature verification work?",
+    "content": "How does webhook signature verification work?. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/faq-005",
+    "created_at": "2026-02-17T00:00:00+00:00",
+    "updated_at": "2026-02-19T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "faq-006",
+    "title": "How does multiple webhook endpoints work?",
+    "content": "How does multiple webhook endpoints work?. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/faq-006",
+    "created_at": "2026-02-27T00:00:00+00:00",
+    "updated_at": "2026-03-01T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "faq-007",
+    "title": "How does api rate limits work?",
+    "content": "How does api rate limits work?. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/faq-007",
+    "created_at": "2026-03-09T00:00:00+00:00",
+    "updated_at": "2026-03-11T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "faq-008",
+    "title": "How does api v2 to v3 migration work?",
+    "content": "How does api v2 to v3 migration work?. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/faq-008",
+    "created_at": "2026-03-19T00:00:00+00:00",
+    "updated_at": "2026-03-21T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "faq-009",
+    "title": "How does javascript sdk token refresh work?",
+    "content": "How does javascript sdk token refresh work?. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/faq-009",
+    "created_at": "2026-03-29T00:00:00+00:00",
+    "updated_at": "2026-03-31T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "faq-010",
+    "title": "How does invoice reconciliation work?",
+    "content": "How does invoice reconciliation work?. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/faq-010",
+    "created_at": "2026-04-08T00:00:00+00:00",
+    "updated_at": "2026-04-10T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "faq-011",
+    "title": "How does connector synchronization work?",
+    "content": "How does connector synchronization work?. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/faq-011",
+    "created_at": "2026-04-18T00:00:00+00:00",
+    "updated_at": "2026-04-20T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "faq-012",
+    "title": "How does authentication flow version work?",
+    "content": "How does authentication flow version work?. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/faq-012",
+    "created_at": "2026-04-28T00:00:00+00:00",
+    "updated_at": "2026-04-30T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-013",
+    "title": "How does oauth client secret rotation work?",
+    "content": "How does oauth client secret rotation work?. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/faq-013",
+    "created_at": "2026-02-13T00:00:00+00:00",
+    "updated_at": "2026-02-15T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-014",
+    "title": "How does api access token lifetime work?",
+    "content": "How does api access token lifetime work?. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/faq-014",
+    "created_at": "2026-02-23T00:00:00+00:00",
+    "updated_at": "2026-02-25T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-015",
+    "title": "How does okta sso configuration work?",
+    "content": "How does okta sso configuration work?. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/faq-015",
+    "created_at": "2026-03-05T00:00:00+00:00",
+    "updated_at": "2026-03-07T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "faq-016",
+    "title": "How does sso role mapping work?",
+    "content": "How does sso role mapping work?. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/faq-016",
+    "created_at": "2026-03-15T00:00:00+00:00",
+    "updated_at": "2026-03-17T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "faq-017",
+    "title": "How does webhook signature verification work?",
+    "content": "How does webhook signature verification work?. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/faq-017",
+    "created_at": "2026-03-25T00:00:00+00:00",
+    "updated_at": "2026-03-27T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "faq-018",
+    "title": "How does multiple webhook endpoints work?",
+    "content": "How does multiple webhook endpoints work?. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/faq-018",
+    "created_at": "2026-04-04T00:00:00+00:00",
+    "updated_at": "2026-04-06T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "faq-019",
+    "title": "How does api rate limits work?",
+    "content": "How does api rate limits work?. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/faq-019",
+    "created_at": "2026-04-14T00:00:00+00:00",
+    "updated_at": "2026-04-16T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "faq-020",
+    "title": "How does api v2 to v3 migration work?",
+    "content": "How does api v2 to v3 migration work?. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/faq-020",
+    "created_at": "2026-04-24T00:00:00+00:00",
+    "updated_at": "2026-04-26T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "faq-021",
+    "title": "How does javascript sdk token refresh work?",
+    "content": "How does javascript sdk token refresh work?. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/faq-021",
+    "created_at": "2026-05-04T00:00:00+00:00",
+    "updated_at": "2026-05-06T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "faq-022",
+    "title": "How does invoice reconciliation work?",
+    "content": "How does invoice reconciliation work?. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/faq-022",
+    "created_at": "2026-05-14T00:00:00+00:00",
+    "updated_at": "2026-05-16T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "faq-023",
+    "title": "How does connector synchronization work?",
+    "content": "How does connector synchronization work?. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/faq-023",
+    "created_at": "2026-05-24T00:00:00+00:00",
+    "updated_at": "2026-05-26T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "faq-024",
+    "title": "How does authentication flow version work?",
+    "content": "How does authentication flow version work?. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/faq-024",
+    "created_at": "2026-06-03T00:00:00+00:00",
+    "updated_at": "2026-06-05T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-025",
+    "title": "How does oauth client secret rotation work?",
+    "content": "How does oauth client secret rotation work?. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/faq-025",
+    "created_at": "2026-03-21T00:00:00+00:00",
+    "updated_at": "2026-03-23T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-026",
+    "title": "How does api access token lifetime work?",
+    "content": "How does api access token lifetime work?. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/faq-026",
+    "created_at": "2026-03-31T00:00:00+00:00",
+    "updated_at": "2026-04-02T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "faq-027",
+    "title": "How does okta sso configuration work?",
+    "content": "How does okta sso configuration work?. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/faq-027",
+    "created_at": "2026-04-10T00:00:00+00:00",
+    "updated_at": "2026-04-12T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "faq-028",
+    "title": "How does sso role mapping work?",
+    "content": "How does sso role mapping work?. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/faq-028",
+    "created_at": "2026-04-20T00:00:00+00:00",
+    "updated_at": "2026-04-22T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "faq-029",
+    "title": "How does webhook signature verification work?",
+    "content": "How does webhook signature verification work?. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/faq-029",
+    "created_at": "2026-04-30T00:00:00+00:00",
+    "updated_at": "2026-05-02T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "faq-030",
+    "title": "How does multiple webhook endpoints work?",
+    "content": "How does multiple webhook endpoints work?. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/faq-030",
+    "created_at": "2026-05-10T00:00:00+00:00",
+    "updated_at": "2026-05-12T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  }
+]

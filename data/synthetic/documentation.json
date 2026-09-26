@@ -1,0 +1,1602 @@
+[
+  {
+    "id": "doc-001",
+    "title": "OAuth client secret rotation",
+    "content": "OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-001",
+    "created_at": "2026-01-08T00:00:00+00:00",
+    "updated_at": "2026-01-10T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-002",
+    "title": "API access token lifetime",
+    "content": "API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/doc-002",
+    "created_at": "2026-01-18T00:00:00+00:00",
+    "updated_at": "2026-01-20T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-003",
+    "title": "Okta SSO configuration",
+    "content": "Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-003",
+    "created_at": "2026-01-28T00:00:00+00:00",
+    "updated_at": "2026-01-30T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-004",
+    "title": "SSO role mapping",
+    "content": "SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/doc-004",
+    "created_at": "2026-02-07T00:00:00+00:00",
+    "updated_at": "2026-02-09T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-005",
+    "title": "Webhook signature verification",
+    "content": "Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/doc-005",
+    "created_at": "2026-02-17T00:00:00+00:00",
+    "updated_at": "2026-02-19T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-006",
+    "title": "Multiple webhook endpoints",
+    "content": "Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/doc-006",
+    "created_at": "2026-02-27T00:00:00+00:00",
+    "updated_at": "2026-03-01T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-007",
+    "title": "API rate limits",
+    "content": "API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/doc-007",
+    "created_at": "2026-03-09T00:00:00+00:00",
+    "updated_at": "2026-03-11T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-008",
+    "title": "API v2 to v3 migration",
+    "content": "API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-008",
+    "created_at": "2026-03-19T00:00:00+00:00",
+    "updated_at": "2026-03-21T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-009",
+    "title": "JavaScript SDK token refresh",
+    "content": "JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/doc-009",
+    "created_at": "2026-03-29T00:00:00+00:00",
+    "updated_at": "2026-03-31T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "doc-010",
+    "title": "Invoice reconciliation",
+    "content": "Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-010",
+    "created_at": "2026-04-08T00:00:00+00:00",
+    "updated_at": "2026-04-10T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "doc-011",
+    "title": "Connector synchronization",
+    "content": "Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/doc-011",
+    "created_at": "2026-04-18T00:00:00+00:00",
+    "updated_at": "2026-04-20T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "doc-012",
+    "title": "Authentication flow version",
+    "content": "Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/doc-012",
+    "created_at": "2026-04-28T00:00:00+00:00",
+    "updated_at": "2026-04-30T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-013",
+    "title": "OAuth client secret rotation",
+    "content": "OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-013",
+    "created_at": "2026-02-13T00:00:00+00:00",
+    "updated_at": "2026-02-15T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-014",
+    "title": "API access token lifetime",
+    "content": "API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/doc-014",
+    "created_at": "2026-02-23T00:00:00+00:00",
+    "updated_at": "2026-02-25T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-015",
+    "title": "Okta SSO configuration",
+    "content": "Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-015",
+    "created_at": "2026-03-05T00:00:00+00:00",
+    "updated_at": "2026-03-07T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-016",
+    "title": "SSO role mapping",
+    "content": "SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/doc-016",
+    "created_at": "2026-03-15T00:00:00+00:00",
+    "updated_at": "2026-03-17T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-017",
+    "title": "Webhook signature verification",
+    "content": "Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/doc-017",
+    "created_at": "2026-03-25T00:00:00+00:00",
+    "updated_at": "2026-03-27T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-018",
+    "title": "Multiple webhook endpoints",
+    "content": "Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/doc-018",
+    "created_at": "2026-04-04T00:00:00+00:00",
+    "updated_at": "2026-04-06T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-019",
+    "title": "API rate limits",
+    "content": "API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/doc-019",
+    "created_at": "2026-04-14T00:00:00+00:00",
+    "updated_at": "2026-04-16T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-020",
+    "title": "API v2 to v3 migration",
+    "content": "API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-020",
+    "created_at": "2026-04-24T00:00:00+00:00",
+    "updated_at": "2026-04-26T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-021",
+    "title": "JavaScript SDK token refresh",
+    "content": "JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/doc-021",
+    "created_at": "2026-05-04T00:00:00+00:00",
+    "updated_at": "2026-05-06T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "doc-022",
+    "title": "Invoice reconciliation",
+    "content": "Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-022",
+    "created_at": "2026-05-14T00:00:00+00:00",
+    "updated_at": "2026-05-16T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "doc-023",
+    "title": "Connector synchronization",
+    "content": "Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/doc-023",
+    "created_at": "2026-05-24T00:00:00+00:00",
+    "updated_at": "2026-05-26T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "doc-024",
+    "title": "Authentication flow version",
+    "content": "Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/doc-024",
+    "created_at": "2026-06-03T00:00:00+00:00",
+    "updated_at": "2026-06-05T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-025",
+    "title": "OAuth client secret rotation",
+    "content": "OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-025",
+    "created_at": "2026-03-21T00:00:00+00:00",
+    "updated_at": "2026-03-23T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-026",
+    "title": "API access token lifetime",
+    "content": "API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/doc-026",
+    "created_at": "2026-03-31T00:00:00+00:00",
+    "updated_at": "2026-04-02T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-027",
+    "title": "Okta SSO configuration",
+    "content": "Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-027",
+    "created_at": "2026-04-10T00:00:00+00:00",
+    "updated_at": "2026-04-12T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-028",
+    "title": "SSO role mapping",
+    "content": "SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/doc-028",
+    "created_at": "2026-04-20T00:00:00+00:00",
+    "updated_at": "2026-04-22T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-029",
+    "title": "Webhook signature verification",
+    "content": "Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/doc-029",
+    "created_at": "2026-04-30T00:00:00+00:00",
+    "updated_at": "2026-05-02T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-030",
+    "title": "Multiple webhook endpoints",
+    "content": "Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/doc-030",
+    "created_at": "2026-05-10T00:00:00+00:00",
+    "updated_at": "2026-05-12T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-031",
+    "title": "API rate limits",
+    "content": "API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/doc-031",
+    "created_at": "2026-05-20T00:00:00+00:00",
+    "updated_at": "2026-05-22T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-032",
+    "title": "API v2 to v3 migration",
+    "content": "API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-032",
+    "created_at": "2026-05-30T00:00:00+00:00",
+    "updated_at": "2026-06-01T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-033",
+    "title": "JavaScript SDK token refresh",
+    "content": "JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/doc-033",
+    "created_at": "2026-06-09T00:00:00+00:00",
+    "updated_at": "2026-06-11T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "doc-034",
+    "title": "Invoice reconciliation",
+    "content": "Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-034",
+    "created_at": "2026-06-19T00:00:00+00:00",
+    "updated_at": "2026-06-21T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "doc-035",
+    "title": "Connector synchronization",
+    "content": "Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/doc-035",
+    "created_at": "2026-06-29T00:00:00+00:00",
+    "updated_at": "2026-07-01T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "doc-036",
+    "title": "Authentication flow version",
+    "content": "Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/doc-036",
+    "created_at": "2026-07-09T00:00:00+00:00",
+    "updated_at": "2026-07-11T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-037",
+    "title": "OAuth client secret rotation",
+    "content": "OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-037",
+    "created_at": "2026-04-26T00:00:00+00:00",
+    "updated_at": "2026-04-28T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-038",
+    "title": "API access token lifetime",
+    "content": "API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/doc-038",
+    "created_at": "2026-05-06T00:00:00+00:00",
+    "updated_at": "2026-05-08T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-039",
+    "title": "Okta SSO configuration",
+    "content": "Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-039",
+    "created_at": "2026-05-16T00:00:00+00:00",
+    "updated_at": "2026-05-18T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-040",
+    "title": "SSO role mapping",
+    "content": "SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/doc-040",
+    "created_at": "2026-05-26T00:00:00+00:00",
+    "updated_at": "2026-05-28T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-041",
+    "title": "Webhook signature verification",
+    "content": "Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/doc-041",
+    "created_at": "2026-06-05T00:00:00+00:00",
+    "updated_at": "2026-06-07T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-042",
+    "title": "Multiple webhook endpoints",
+    "content": "Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/doc-042",
+    "created_at": "2026-06-15T00:00:00+00:00",
+    "updated_at": "2026-06-17T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-043",
+    "title": "API rate limits",
+    "content": "API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/doc-043",
+    "created_at": "2026-06-25T00:00:00+00:00",
+    "updated_at": "2026-06-27T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-044",
+    "title": "API v2 to v3 migration",
+    "content": "API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-044",
+    "created_at": "2026-07-05T00:00:00+00:00",
+    "updated_at": "2026-07-07T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-045",
+    "title": "JavaScript SDK token refresh",
+    "content": "JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/doc-045",
+    "created_at": "2026-07-15T00:00:00+00:00",
+    "updated_at": "2026-07-17T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "doc-046",
+    "title": "Invoice reconciliation",
+    "content": "Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-046",
+    "created_at": "2026-07-25T00:00:00+00:00",
+    "updated_at": "2026-07-27T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "doc-047",
+    "title": "Connector synchronization",
+    "content": "Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/doc-047",
+    "created_at": "2026-08-04T00:00:00+00:00",
+    "updated_at": "2026-08-06T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "doc-048",
+    "title": "Authentication flow version",
+    "content": "Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/doc-048",
+    "created_at": "2026-08-14T00:00:00+00:00",
+    "updated_at": "2026-08-16T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-049",
+    "title": "OAuth client secret rotation",
+    "content": "OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-049",
+    "created_at": "2026-06-01T00:00:00+00:00",
+    "updated_at": "2026-06-03T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-050",
+    "title": "API access token lifetime",
+    "content": "API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/doc-050",
+    "created_at": "2026-06-11T00:00:00+00:00",
+    "updated_at": "2026-06-13T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-051",
+    "title": "Okta SSO configuration",
+    "content": "Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-051",
+    "created_at": "2026-06-21T00:00:00+00:00",
+    "updated_at": "2026-06-23T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-052",
+    "title": "SSO role mapping",
+    "content": "SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/doc-052",
+    "created_at": "2026-07-01T00:00:00+00:00",
+    "updated_at": "2026-07-03T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-053",
+    "title": "Webhook signature verification",
+    "content": "Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/doc-053",
+    "created_at": "2026-07-11T00:00:00+00:00",
+    "updated_at": "2026-07-13T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-054",
+    "title": "Multiple webhook endpoints",
+    "content": "Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/doc-054",
+    "created_at": "2026-07-21T00:00:00+00:00",
+    "updated_at": "2026-07-23T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-055",
+    "title": "API rate limits",
+    "content": "API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/doc-055",
+    "created_at": "2026-07-31T00:00:00+00:00",
+    "updated_at": "2026-08-02T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-056",
+    "title": "API v2 to v3 migration",
+    "content": "API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-056",
+    "created_at": "2026-08-10T00:00:00+00:00",
+    "updated_at": "2026-08-12T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-057",
+    "title": "JavaScript SDK token refresh",
+    "content": "JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/doc-057",
+    "created_at": "2026-08-20T00:00:00+00:00",
+    "updated_at": "2026-08-22T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "doc-058",
+    "title": "Invoice reconciliation",
+    "content": "Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-058",
+    "created_at": "2026-08-30T00:00:00+00:00",
+    "updated_at": "2026-09-01T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "doc-059",
+    "title": "Connector synchronization",
+    "content": "Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/doc-059",
+    "created_at": "2026-09-09T00:00:00+00:00",
+    "updated_at": "2026-09-11T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "doc-060",
+    "title": "Authentication flow version",
+    "content": "Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/doc-060",
+    "created_at": "2026-01-12T00:00:00+00:00",
+    "updated_at": "2026-01-14T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-061",
+    "title": "OAuth client secret rotation",
+    "content": "OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-061",
+    "created_at": "2026-07-07T00:00:00+00:00",
+    "updated_at": "2026-07-09T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-062",
+    "title": "API access token lifetime",
+    "content": "API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/doc-062",
+    "created_at": "2026-07-17T00:00:00+00:00",
+    "updated_at": "2026-07-19T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-063",
+    "title": "Okta SSO configuration",
+    "content": "Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-063",
+    "created_at": "2026-07-27T00:00:00+00:00",
+    "updated_at": "2026-07-29T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-064",
+    "title": "SSO role mapping",
+    "content": "SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/doc-064",
+    "created_at": "2026-08-06T00:00:00+00:00",
+    "updated_at": "2026-08-08T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-065",
+    "title": "Webhook signature verification",
+    "content": "Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/doc-065",
+    "created_at": "2026-08-16T00:00:00+00:00",
+    "updated_at": "2026-08-18T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-066",
+    "title": "Multiple webhook endpoints",
+    "content": "Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/doc-066",
+    "created_at": "2026-08-26T00:00:00+00:00",
+    "updated_at": "2026-08-28T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-067",
+    "title": "API rate limits",
+    "content": "API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/doc-067",
+    "created_at": "2026-09-05T00:00:00+00:00",
+    "updated_at": "2026-09-07T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-068",
+    "title": "API v2 to v3 migration",
+    "content": "API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-068",
+    "created_at": "2026-01-08T00:00:00+00:00",
+    "updated_at": "2026-01-10T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-069",
+    "title": "JavaScript SDK token refresh",
+    "content": "JavaScript SDK token refresh. The JavaScript SDK refreshes access tokens automatically when a refresh token is configured. Version 4.2.0 may retain an old client secret after rotation; upgrade to 4.2.1 and restart long-lived workers. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: javascript sdk refresh token 4.2.",
+    "product": "Sdk",
+    "category": "JavaScript SDK token refresh",
+    "url": "https://docs.acmecloud.example/knowledge/doc-069",
+    "created_at": "2026-01-18T00:00:00+00:00",
+    "updated_at": "2026-01-20T00:00:00+00:00",
+    "tags": [
+      "sdk",
+      "javascript",
+      "sdk"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sdk"
+    }
+  },
+  {
+    "id": "doc-070",
+    "title": "Invoice reconciliation",
+    "content": "Invoice reconciliation. Invoices are generated on the first day of the month. Export the usage report and match organization ID and billing period against invoice line items. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: billing invoice usage.",
+    "product": "Billing",
+    "category": "Invoice reconciliation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-070",
+    "created_at": "2026-01-28T00:00:00+00:00",
+    "updated_at": "2026-01-30T00:00:00+00:00",
+    "tags": [
+      "billing",
+      "billing",
+      "invoice"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "billing"
+    }
+  },
+  {
+    "id": "doc-071",
+    "title": "Connector synchronization",
+    "content": "Connector synchronization. The AcmeCloud connector synchronizes changed records every 15 minutes. A failed sync can be retried from the integration status page after correcting credentials. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: integration connector sync.",
+    "product": "Integrations",
+    "category": "Connector synchronization",
+    "url": "https://docs.acmecloud.example/knowledge/doc-071",
+    "created_at": "2026-02-07T00:00:00+00:00",
+    "updated_at": "2026-02-09T00:00:00+00:00",
+    "tags": [
+      "integrations",
+      "integration",
+      "connector"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "integrations"
+    }
+  },
+  {
+    "id": "doc-072",
+    "title": "Authentication flow version",
+    "content": "Authentication flow version. The new OAuth authentication flow was introduced in API version 2026-04. Clients on earlier versions continue to use the legacy token endpoint until migrated. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: authentication flow api version.",
+    "product": "Authentication",
+    "category": "Authentication flow version",
+    "url": "https://docs.acmecloud.example/knowledge/doc-072",
+    "created_at": "2026-02-17T00:00:00+00:00",
+    "updated_at": "2026-02-19T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "authentication",
+      "flow"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-073",
+    "title": "OAuth client secret rotation",
+    "content": "OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: oauth rotation 401 secret credential cache.",
+    "product": "Authentication",
+    "category": "OAuth client secret rotation",
+    "url": "https://docs.acmecloud.example/knowledge/doc-073",
+    "created_at": "2026-08-12T00:00:00+00:00",
+    "updated_at": "2026-08-14T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "oauth",
+      "rotation"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-074",
+    "title": "API access token lifetime",
+    "content": "API access token lifetime. API access tokens expire after 60 minutes. Refresh tokens can obtain a new access token without asking the user to sign in again. Check the token expiry claim and clock skew before retrying a 401 response. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: token expiry refresh 401.",
+    "product": "Authentication",
+    "category": "API access token lifetime",
+    "url": "https://docs.acmecloud.example/knowledge/doc-074",
+    "created_at": "2026-08-22T00:00:00+00:00",
+    "updated_at": "2026-08-24T00:00:00+00:00",
+    "tags": [
+      "authentication",
+      "token",
+      "expiry"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "authentication"
+    }
+  },
+  {
+    "id": "doc-075",
+    "title": "Okta SSO configuration",
+    "content": "Okta SSO configuration. Create a SAML application in Okta, copy the entity ID and ACS URL from AcmeCloud, then upload the Okta signing certificate. Assign the Okta group to the application and map email to NameID. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: okta saml sso configuration.",
+    "product": "Sso",
+    "category": "Okta SSO configuration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-075",
+    "created_at": "2026-09-01T00:00:00+00:00",
+    "updated_at": "2026-09-03T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "okta",
+      "saml"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-076",
+    "title": "SSO role mapping",
+    "content": "SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: sso standard users role mapping.",
+    "product": "Sso",
+    "category": "SSO role mapping",
+    "url": "https://docs.acmecloud.example/knowledge/doc-076",
+    "created_at": "2026-09-11T00:00:00+00:00",
+    "updated_at": "2026-09-13T00:00:00+00:00",
+    "tags": [
+      "sso",
+      "sso",
+      "standard"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "sso"
+    }
+  },
+  {
+    "id": "doc-077",
+    "title": "Webhook signature verification",
+    "content": "Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: webhook signature hmac raw body.",
+    "product": "Webhooks",
+    "category": "Webhook signature verification",
+    "url": "https://docs.acmecloud.example/knowledge/doc-077",
+    "created_at": "2026-01-14T00:00:00+00:00",
+    "updated_at": "2026-01-16T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "webhook",
+      "signature"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-078",
+    "title": "Multiple webhook endpoints",
+    "content": "Multiple webhook endpoints. An organization can register up to ten webhook endpoints. Each endpoint has its own signing secret, event subscriptions, and retry policy. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: multiple webhook endpoints.",
+    "product": "Webhooks",
+    "category": "Multiple webhook endpoints",
+    "url": "https://docs.acmecloud.example/knowledge/doc-078",
+    "created_at": "2026-01-24T00:00:00+00:00",
+    "updated_at": "2026-01-26T00:00:00+00:00",
+    "tags": [
+      "webhooks",
+      "multiple",
+      "webhook"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "webhooks"
+    }
+  },
+  {
+    "id": "doc-079",
+    "title": "API rate limits",
+    "content": "API rate limits. The standard API limit is 600 requests per minute per organization. HTTP 429 responses include Retry-After; use exponential backoff with jitter and avoid immediate retries. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: rate limit 429 retry after.",
+    "product": "Api",
+    "category": "API rate limits",
+    "url": "https://docs.acmecloud.example/knowledge/doc-079",
+    "created_at": "2026-02-03T00:00:00+00:00",
+    "updated_at": "2026-02-05T00:00:00+00:00",
+    "tags": [
+      "api",
+      "rate",
+      "limit"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  },
+  {
+    "id": "doc-080",
+    "title": "API v2 to v3 migration",
+    "content": "API v2 to v3 migration. API v3 uses cursor pagination, renames the accounts endpoint to organizations, and requires the 2026-04 API version header. Migrate in a staging environment before changing production traffic. This is the maintained product procedure. Verify configuration in a staging environment before applying it to production. Context: api v2 v3 migration version.",
+    "product": "Api",
+    "category": "API v2 to v3 migration",
+    "url": "https://docs.acmecloud.example/knowledge/doc-080",
+    "created_at": "2026-02-13T00:00:00+00:00",
+    "updated_at": "2026-02-15T00:00:00+00:00",
+    "tags": [
+      "api",
+      "api",
+      "v2"
+    ],
+    "visibility": "public",
+    "metadata": {
+      "synthetic": true,
+      "topic_key": "api"
+    }
+  }
+]
