@@ -18,6 +18,7 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [x] Create the public GitHub repository with focused commits and passing CI.
 - [x] Add a repeatable local/live readiness command and detailed provider setup runbook.
 - [x] Add a command line evaluation runner that fingerprints the corpus and question set.
+- [x] Add optional Azure semantic and Coveo named-pipeline evaluation paths that save separate variant results.
 - [x] Implement a dry-run-first incremental update/delete workflow with an ignored local manifest and mocked provider tests.
 - [x] Make the category filter apply on submit, avoiding a search on every keystroke.
 
@@ -58,4 +59,5 @@ Live provider verification needs Azure and Coveo accounts and credentials in the
 - **2026-09-26:** Added upload failure reporting and a configurable Coveo source name (`cee97ed`); readiness checks and a live setup runbook (`3bebd65`); a usable category filter (`37d0a8c`).
 - **2026-09-26:** Added reproducible evaluation fingerprints and a CLI runner (`82e13bc`), plus a dry-run-first incremental update/delete workflow (`7bffa5c`). Live service behavior remains pending credentials.
 - **2026-09-26:** Saved a private Coveo FDE interview guide in `.local/coveo-fde-interview.md`. It tracks architecture explanations, demo steps, likely questions, and evidence still to gather. The guide is ignored by Git.
-- **2026-09-26:** Local verification passed: 14 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, production build, and all five Playwright flows using installed Chrome, including category filter submission. The browser option is in commit `6e0f895`. Live provider and answer checks remain pending keys.
+- **2026-09-26:** Local verification passed: 16 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, production build, and all five Playwright flows using installed Chrome, including category filter submission. The browser option is in commit `6e0f895`. Live provider and answer checks remain pending keys.
+- **2026-09-26:** Added separate experiment paths for Azure semantic ranking and a Coveo named query pipeline (`4825c95`). The configuration is code-complete and mock-tested; provider account support, actual rules, and results remain to be verified live.

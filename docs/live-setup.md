@@ -63,11 +63,30 @@ curl -X POST 'http://localhost:8000/api/evaluations/run?provider=coveo'
 
 Inspect `evals/results/azure.json`, `evals/results/coveo.json`, and the Evaluation page. Both result files record SHA-256 fingerprints of the corpus and question set; confirm they match before comparing scores. Record the date, region, service tier, source/index configuration, and any failed questions in `docs/experiments.md`. Commit measured results only after reviewing them. Do not compare runs made against different corpus versions or query sets.
 
-## 5. Optional answer flow
+## 5. Optional ranking experiments
+
+Run these only after saving both baselines. Check that the selected Azure tier supports semantic ranking and review its usage cost. To add a semantic configuration to the existing Azure index and save a separate result file:
+
+```bash
+apps/api/.venv/bin/python -m scripts.configure_azure_semantic
+apps/api/.venv/bin/python -m scripts.run_evaluation --provider azure --variant semantic
+```
+
+The variant uses `queryType=semantic` with the configured title/content fields. It writes `evals/results/azure-semantic.json`; the baseline remains in `azure.json`.
+
+For Coveo, create a separate query pipeline in the Administration Console if the organization permits it. Start with one documented ranking expression on `@ra_source_type=="documentation"`, then set its exact pipeline name in `COVEO_EXPERIMENT_PIPELINE`. Coveo [supports selecting a named pipeline](https://docs.coveo.com/en/1507/) and [ranking expression rules](https://docs.coveo.com/en/3375/). Save the variant with:
+
+```bash
+apps/api/.venv/bin/python -m scripts.run_evaluation --provider coveo --variant pipeline
+```
+
+This writes `evals/results/coveo-pipeline.json`. Record the rule, modifier, pipeline name, date, and query-level changes. If the trial lacks the required controls, note the limitation instead of asserting a result. Compare only files with matching corpus and dataset fingerprints.
+
+## 6. Optional answer flow
 
 Set `OPENAI_API_KEY` locally, restart the API, and generate answers for a supported question and an unsupported question. Check that every cited document opens and that unsupported questions return the fallback. The key is sent only by the FastAPI server. Live answer behavior must be checked before claiming it in a demo or resume entry.
 
-## 6. Troubleshooting checklist
+## 7. Troubleshooting checklist
 
 - **401/403:** Check key type, key privileges, organization/source IDs, and endpoint region.
 - **Accepted but count is short:** Wait for asynchronous indexing; inspect per-item errors in the provider console.
