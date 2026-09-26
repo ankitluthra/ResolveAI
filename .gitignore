@@ -12,3 +12,4 @@ test-results/
 *.pyc
 .DS_Store
 *.tsbuildinfo
+.local/
