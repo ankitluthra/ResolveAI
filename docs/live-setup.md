@@ -43,14 +43,21 @@ npm run dev --prefix apps/web
 
 Open `http://localhost:3000`. Search for an OAuth rotation question, inspect results and diagnostics, switch providers, and test source, product, category, date, and visibility filters. The root `.env` serves the API; add `NEXT_PUBLIC_API_URL=http://localhost:8000` to `apps/web/.env.local` if needed.
 
-After **both** readiness checks pass, run the fixed baseline set:
+After **both** readiness checks pass, run the fixed baseline set. The command line path works without starting the API:
+
+```bash
+apps/api/.venv/bin/python -m scripts.run_evaluation --provider azure
+apps/api/.venv/bin/python -m scripts.run_evaluation --provider coveo
+```
+
+The API provides the same operation if the server is already running:
 
 ```bash
 curl -X POST 'http://localhost:8000/api/evaluations/run?provider=azure'
 curl -X POST 'http://localhost:8000/api/evaluations/run?provider=coveo'
 ```
 
-Inspect `evals/results/azure.json`, `evals/results/coveo.json`, and the Evaluation page. Record the date, region, service tier, source/index configuration, and any failed questions in `docs/experiments.md`. Commit measured results only after reviewing them. Do not compare runs made against different corpus versions or query sets.
+Inspect `evals/results/azure.json`, `evals/results/coveo.json`, and the Evaluation page. Both result files record SHA-256 fingerprints of the corpus and question set; confirm they match before comparing scores. Record the date, region, service tier, source/index configuration, and any failed questions in `docs/experiments.md`. Commit measured results only after reviewing them. Do not compare runs made against different corpus versions or query sets.
 
 ## 5. Optional answer flow
 

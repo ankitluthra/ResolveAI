@@ -1,5 +1,6 @@
 import json
 from datetime import datetime, timezone
+from hashlib import sha256
 from pathlib import Path
 
 from apps.api.app.models.domain import ProviderName
@@ -7,6 +8,7 @@ from apps.api.app.providers.base import SearchProvider
 
 ROOT = Path(__file__).resolve().parents[1]
 DATASET = ROOT / "evals" / "dataset.json"
+CORPUS = ROOT / "data" / "normalized" / "documents.json"
 RESULTS = ROOT / "evals" / "results"
 
 
@@ -22,7 +24,8 @@ def metric_for_query(expected: list[str], returned: list[str]) -> dict[str, floa
 
 
 async def run_evaluation(provider_name: ProviderName, provider: SearchProvider) -> dict:
-    dataset = json.loads(DATASET.read_text())
+    dataset_bytes = DATASET.read_bytes()
+    dataset = json.loads(dataset_bytes)
     rows = []
     for case in dataset:
         response = await provider.search(case["query"], limit=10)
@@ -47,6 +50,8 @@ async def run_evaluation(provider_name: ProviderName, provider: SearchProvider) 
         "provider": provider_name,
         "timestamp": datetime.now(timezone.utc).isoformat(),
         "query_count": count,
+        "dataset_sha256": sha256(dataset_bytes).hexdigest(),
+        "corpus_sha256": sha256(CORPUS.read_bytes()).hexdigest(),
         "summary": summary,
         "queries": rows,
     }

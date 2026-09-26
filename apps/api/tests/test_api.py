@@ -1,12 +1,15 @@
 import json
+from datetime import UTC, datetime
+from hashlib import sha256
 from pathlib import Path
 
 import httpx
 import pytest
 from apps.api.app.main import app
-from apps.api.app.models.domain import SearchFilters
+from apps.api.app.models.domain import SearchFilters, SearchResponse
 from apps.api.app.providers.azure_search import AzureSearchProvider, azure_filter
 from apps.api.app.providers.coveo import CoveoSearchProvider, coveo_context
+from evals import evaluator
 from evals.evaluator import metric_for_query
 from fastapi.testclient import TestClient
 from ingestion.connectors.local import fetch_local
@@ -174,3 +177,25 @@ async def test_coveo_upload_reports_failed_document_and_configured_source():
         succeeded, failed = await provider.upload(documents)
     assert (succeeded, failed) == (0, 1)
     assert provider.failed_ids == [documents[0].id]
+
+
+@pytest.mark.asyncio
+async def test_evaluation_records_input_fingerprints(tmp_path, monkeypatch):
+    monkeypatch.setattr(evaluator, "RESULTS", tmp_path)
+
+    class EmptyProvider:
+        async def search(self, query, filters=None, limit=10):
+            return SearchResponse(
+                query=query,
+                provider="azure",
+                latency_ms=1,
+                total_results=0,
+                results=[],
+                timestamp=datetime.now(UTC),
+            )
+
+    result = await evaluator.run_evaluation("azure", EmptyProvider())
+    assert result["query_count"] == 20
+    assert result["dataset_sha256"] == sha256(evaluator.DATASET.read_bytes()).hexdigest()
+    assert result["corpus_sha256"] == sha256(evaluator.CORPUS.read_bytes()).hexdigest()
+    assert (tmp_path / "azure.json").exists()

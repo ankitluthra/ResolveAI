@@ -58,6 +58,8 @@ Canonical normalization preserves stable IDs across providers. Provider-specific
 
 Requires Python 3.11+, Node 20+, `uv`, and credentials for each live integration.
 
+For account setup, field mapping, verification, evaluation, and troubleshooting, follow the [live provider setup guide](docs/live-setup.md).
+
 ```bash
 cp .env.example .env
 uv sync --project apps/api --extra dev
