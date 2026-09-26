@@ -28,6 +28,10 @@ def coveo_context(filters: SearchFilters | None) -> str:
     return " AND ".join(clauses)
 
 
+def document_uri(document_id: str) -> str:
+    return f"https://docs.acmecloud.example/knowledge/{quote(document_id)}"
+
+
 class CoveoSearchProvider:
     def __init__(self, settings: Settings, client: httpx.AsyncClient | None = None):
         if not settings.coveo_org_id or not settings.coveo_api_key or not settings.coveo_source_id:
@@ -110,7 +114,7 @@ class CoveoSearchProvider:
         succeeded = failed = 0
         self.failed_ids = []
         for doc in documents:
-            uri = f"https://docs.acmecloud.example/knowledge/{quote(doc.id)}"
+            uri = document_uri(doc.id)
             body = {
                 "title": doc.title,
                 "data": doc.content,
@@ -134,4 +138,21 @@ class CoveoSearchProvider:
             except httpx.HTTPError:
                 failed += 1
                 self.failed_ids.append(doc.id)
+        return succeeded, failed
+
+    async def delete(self, document_ids: list[str]) -> tuple[int, int]:
+        succeeded = failed = 0
+        self.failed_ids = []
+        for document_id in document_ids:
+            try:
+                response = await self.client.delete(
+                    self.push_url,
+                    params={"documentId": document_uri(document_id)},
+                    headers=self.headers,
+                )
+                response.raise_for_status()
+                succeeded += 1
+            except httpx.HTTPError:
+                failed += 1
+                self.failed_ids.append(document_id)
         return succeeded, failed

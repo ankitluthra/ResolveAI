@@ -140,3 +140,24 @@ class AzureSearchProvider:
                     failed += 1
                     self.failed_ids.append(item["id"])
         return succeeded, failed
+
+    async def delete(self, document_ids: list[str]) -> tuple[int, int]:
+        succeeded = failed = 0
+        self.failed_ids = []
+        for start in range(0, len(document_ids), 100):
+            batch_ids = document_ids[start : start + 100]
+            response = await self.client.post(
+                f"{self.base}/docs/index",
+                params=self.params,
+                headers=self.headers,
+                json={"value": [{"@search.action": "delete", "id": item} for item in batch_ids]},
+            )
+            response.raise_for_status()
+            by_key = {item.get("key"): item for item in response.json().get("value", [])}
+            for document_id in batch_ids:
+                if by_key.get(document_id, {}).get("status") is True:
+                    succeeded += 1
+                else:
+                    failed += 1
+                    self.failed_ids.append(document_id)
+        return succeeded, failed

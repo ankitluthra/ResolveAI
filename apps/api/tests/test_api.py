@@ -15,6 +15,7 @@ from fastapi.testclient import TestClient
 from ingestion.connectors.local import fetch_local
 from ingestion.normalizer import normalize
 from pydantic import ValidationError
+from scripts.sync_incremental import fingerprint, plan_sync
 
 ROOT = Path(__file__).resolve().parents[3]
 
@@ -199,3 +200,47 @@ async def test_evaluation_records_input_fingerprints(tmp_path, monkeypatch):
     assert result["dataset_sha256"] == sha256(evaluator.DATASET.read_bytes()).hexdigest()
     assert result["corpus_sha256"] == sha256(evaluator.CORPUS.read_bytes()).hexdigest()
     assert (tmp_path / "azure.json").exists()
+
+
+def test_incremental_sync_identifies_update_and_delete():
+    documents = fetch_local(ROOT / "data/synthetic")[:2]
+    previous = {documents[0].id: fingerprint(documents[0]), "removed-001": "old"}
+    changed, removed, current = plan_sync(documents, previous)
+    assert [item.id for item in changed] == [documents[1].id]
+    assert removed == ["removed-001"]
+    assert set(current) == {item.id for item in documents}
+
+
+@pytest.mark.asyncio
+async def test_provider_delete_calls_use_stable_ids():
+    from apps.api.app.core.config import Settings
+
+    seen = []
+
+    def azure_handler(request: httpx.Request):
+        body = json.loads(request.read())
+        seen.append(body["value"][0])
+        return httpx.Response(200, json={"value": [{"key": "doc-001", "status": True}]})
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(azure_handler)) as client:
+        provider = AzureSearchProvider(
+            Settings(
+                azure_search_endpoint="https://test.search.windows.net",
+                azure_search_api_key="test-key",
+            ),
+            client,
+        )
+        assert await provider.delete(["doc-001"]) == (1, 0)
+    assert seen == [{"@search.action": "delete", "id": "doc-001"}]
+
+    def coveo_handler(request: httpx.Request):
+        assert request.method == "DELETE"
+        assert request.url.params["documentId"].endswith("/doc-001")
+        return httpx.Response(202)
+
+    async with httpx.AsyncClient(transport=httpx.MockTransport(coveo_handler)) as client:
+        provider = CoveoSearchProvider(
+            Settings(coveo_org_id="test", coveo_source_id="src", coveo_api_key="test-key"),
+            client,
+        )
+        assert await provider.delete(["doc-001"]) == (1, 0)

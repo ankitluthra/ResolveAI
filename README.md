@@ -111,7 +111,7 @@ Optional grounded answers require `OPENAI_API_KEY` in the root `.env`. Run `apps
 
 ## Limitations
 
-The records are fictional and templated. Their source URLs use a reserved example domain; the workspace opens a local source view instead. No live provider indexing, benchmark result, or OpenAI answer can be claimed until credentials and platform configuration are supplied. Visibility is demonstrative metadata, **not access control**. Coveo field mapping must be verified in the configured trial. There is no delete sync yet.
+The records are fictional and templated. Their source URLs use a reserved example domain; the workspace opens a local source view instead. No live provider indexing, benchmark result, or OpenAI answer can be claimed until credentials and platform configuration are supplied. Visibility is demonstrative metadata, **not access control**. Coveo field mapping and incremental delete behavior must be verified in the configured trial.
 
 ## Production evolution
 

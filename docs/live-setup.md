@@ -23,6 +23,8 @@ The last command should report 250 documents and 20 questions. It checks local d
 
 The adapter uses Azure AI Search REST API version `2024-07-01`. Its initial search mode is keyword search across title and content. Keep the baseline unchanged until its result has been recorded.
 
+For subsequent corpus changes, `apps/api/.venv/bin/python -m scripts.sync_incremental --provider azure` previews additions, updates, and deletes. Add `--apply` only after reviewing the plan. The command saves its manifest under the Git-ignored `.local/` directory.
+
 ## 3. Coveo
 
 1. Create a Coveo organization whose license permits a [Push source](https://docs.coveo.com/en/1546/). In the Coveo Administration Console, create a Push source named `ResolveAI Knowledge` with **Everyone** access. This visibility choice is only appropriate for the fictional synthetic corpus.
@@ -33,6 +35,8 @@ The adapter uses Azure AI Search REST API version `2024-07-01`. Its initial sear
 6. Once the source is indexed, run `apps/api/.venv/bin/python -m scripts.check_readiness --live --provider coveo`. It expects 250 searchable items, a working source-type filter, and results for the OAuth query.
 
 If the count or filters fail, inspect the source name, key privileges, field mappings, indexing logs, and endpoint region before changing relevance settings. The Push source must use the same 250 normalized IDs as Azure.
+
+For later changes, use `apps/api/.venv/bin/python -m scripts.sync_incremental --provider coveo` to preview and add `--apply` to send only changed and removed IDs. Coveo still processes accepted operations asynchronously, so recheck the searchable count afterward. The first incremental run re-uploads all documents if no local manifest exists; this is safe because document IDs are stable.
 
 ## 4. Application and baseline evaluation
 
