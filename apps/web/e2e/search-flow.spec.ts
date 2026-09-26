@@ -123,6 +123,31 @@ test("filters rerun search and show the empty state", async ({ page }) => {
   );
 });
 
+test("category filter waits for Apply before searching", async ({ page }) => {
+  const categories: string[] = [];
+  await page.route("http://localhost:8000/api/search**", async (route) => {
+    const url = new URL(route.request().url());
+    categories.push(url.searchParams.get("category") || "");
+    await route.fulfill({
+      json: {
+        query: url.searchParams.get("q"),
+        provider: "azure",
+        latency_ms: 20,
+        total_results: 1,
+        results: [result],
+        timestamp: "2026-09-26T00:00:00Z",
+      },
+      headers: { "access-control-allow-origin": "*" },
+    });
+  });
+  await page.goto("/?q=OAuth+rotation");
+  await expect(page.getByRole("heading", { name: result.title })).toBeVisible();
+  await page.getByRole("textbox", { name: "Category" }).fill("OAuth client");
+  expect(categories).toEqual([""]);
+  await page.getByRole("button", { name: "Apply" }).click();
+  await expect.poll(() => categories).toContain("OAuth client");
+});
+
 test("insufficient evidence shows a fallback", async ({ page }) => {
   await page.route("http://localhost:8000/api/search**", (route) =>
     route.fulfill({
