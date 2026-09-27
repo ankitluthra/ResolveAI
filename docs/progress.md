@@ -1,6 +1,6 @@
 # ResolveAI progress
 
-Last reviewed: 2026-09-26
+Last reviewed: 2026-09-27
 
 This is the living record for ResolveAI. Add newly discovered work to the relevant section, check off items only after verification, and update the review date. For completed milestones, add a dated note under **Progress log** with a commit or other evidence. Keep pending work visible rather than deleting it. The full original project brief is stored locally in `.local/project-idea.md` and is excluded from Git.
 
@@ -50,16 +50,19 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [ ] Capture actual search and evaluation screenshots and a five-minute demo flow.
 - [ ] Check that each resume claim is supported by the running app, recorded results, and repository evidence.
 
-## Planned: Case Evidence Trail
+## Case Evidence Trail
 
-Build a support investigation view that connects evidence across the five source types. This follows the live search baselines so the added value can be measured against ordinary search. The product goal is to help an engineer locate and verify a resolution to a customer case. The relationship model is part of ResolveAI; Coveo indexes and retrieves evidence, rather than automatically building the relationships.
+The product goal is to help an engineer locate and verify a resolution to a customer case. The relationship model is part of ResolveAI; Coveo and Azure index and retrieve evidence. The local experience is implemented; measured provider behavior follows live indexing.
 
-- [ ] Define a small set of typed relationships with stable IDs, such as `ticket reports issue`, `issue affects version`, `release fixes issue`, and `procedure resolves symptom`. Record the source and date supporting each link; distinguish explicit links from inferred ones.
-- [ ] Add several coherent synthetic customer cases with account, product version, ticket, issue, release, and procedure context. Keep both providers on the same corpus and fingerprints.
-- [ ] Index searchable relationship fields in Coveo and Azure. Use Coveo search to find the starting record and retrieve related evidence; keep relationship traversal and explanation logic in ResolveAI.
-- [ ] Build an interactive case view showing the evidence trail, a timeline, the reason for each connection, and missing or conflicting evidence. Every conclusion should open its supporting records.
+- [x] Define typed, explicit relationships between stable document IDs; validate that each edge's cited excerpt exists in its source record.
+- [x] Add three coherent synthetic customer cases spanning all five source types, including version context, a confirmed fix, a procedure-only resolution, and an unresolved investigation.
+- [x] Add a searchable `case_id` field to both provider adapters and a case API that separately runs an entry query and a case-filtered query. Live field mapping and query behavior remain unverified.
+- [x] Build an interactive case view with the ordered evidence path, dates, reasons for each connection, source links, evidence signals, and live-provider retrieval status.
+- [x] Add six fixed multi-document case questions and a runner for entry-search evidence recall, case-filtered evidence recall, and complete-path coverage. Results are written only after a live run.
+- [ ] Live index the revised 250-document corpus in both providers and verify every case ID filter and linked record count.
+- [ ] Run the case evaluation against both providers and review query-level failures, link support, and the wording of each finding and suggested next step.
 - [ ] Add a support-focused Coveo query pipeline experiment where available, and compare it with the untuned baseline. Do not assume machine-learning ranking gains from the small synthetic corpus.
-- [ ] Create multi-document case questions and assess evidence-set recall, link accuracy, supported conclusions, and time to locate a resolution. Compare ordinary results with the Case Evidence Trail without presenting unmeasured gains.
+- [ ] Run a small manual usability check with a support-style task to assess whether the connected view shortens the time to locate a defensible resolution. Do not claim a time saving before measuring it.
 
 **Completion check:** A user can start from a support query, inspect a ticket-to-fix evidence path, verify every link from source records, and see an evaluation showing whether the connected view improves the investigation. Synthetic visibility remains descriptive metadata; live confidential content requires enforceable document permissions before use.
 
@@ -86,3 +89,4 @@ Live provider verification needs Azure and Coveo accounts and credentials in the
 - **2026-09-26:** Rechecked the revised corpus and code: 17 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, and production build passed. Created ignored local `.env` and `apps/web/.env.local` templates; credentials are still absent.
 - **2026-09-26:** Added the planned Case Evidence Trail milestone: explicit, sourced relationships across support records, a case investigation view, and an evaluation against ordinary search. Implementation follows the live provider baselines.
 - **2026-09-26:** Refocused the public project story on the support investigation outcome and recorded the live-evidence rule for claims about Coveo usage. Azure remains a comparison implementation, not the product's purpose.
+- **2026-09-27:** Implemented the local Case Evidence Trail: three sourced investigations, searchable case IDs in both adapters, case API and UI, and six fixed case evaluation questions. Verification passed: 22 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, production build, five existing browser flows, and the new case browser flow. Inspected desktop and phone layouts and fixed phone navigation overflow. Live indexing and measured provider results are still pending credentials.

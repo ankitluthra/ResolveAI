@@ -12,7 +12,7 @@ AcmeCloud, a fictional developer platform, answers support questions using scatt
 
 A reproducible connector and normalizer produce 250 synthetic records across five source types. The same canonical corpus is prepared for Azure AI Search and a Coveo Push source. FastAPI presents a shared `SearchProvider` contract to a Next.js support workspace, evaluation runner, and optional grounded answer layer. Live indexing and comparison are the next verification milestone.
 
-The next product milestone is a **Case Evidence Trail**: start with a ticket or support question, follow sourced links to a known issue, affected version, release, and current procedure, and surface missing or conflicting evidence. Coveo will retrieve the starting and related records through indexed metadata and Search API queries; ResolveAI will explain the links. The plan and completion check are in [progress](docs/progress.md). This feature is planned, not implemented yet.
+The **Case Evidence Trail** connects three curated customer cases to engineering findings, releases, and maintained procedures. Each link cites an excerpt in a source record. The case view works locally without credentials and can query Coveo or Azure to check which linked records the provider actually returns. Provider verification still needs live indexing; the [progress tracker](docs/progress.md) distinguishes implemented code from observed results.
 
 ## Demo
 
@@ -21,6 +21,7 @@ The next product milestone is a **Case Evidence Trail**: start with a ticket or 
 3. Switch providers; the URL preserves the query.
 4. Generate an answer and open a cited local source record (requires OpenAI credentials).
 5. Review recorded Hit@1, Hit@3, MRR, latency, and query-level rankings on Evaluation.
+6. Open Cases to follow a ticket-to-resolution path and inspect the evidence behind each connection. Select Coveo or Azure on the case page after live indexing to check retrieved records.
 
 ![ResolveAI search workspace](docs/images/search-workspace.png)
 
@@ -47,10 +48,13 @@ See [architecture](docs/architecture.md) and [decisions](docs/decisions.md).
 - Clickable source records and retrieval diagnostics.
 - Grounded OpenAI response with validated source IDs and insufficient-evidence fallback.
 - A fixed 25-question dataset and live evaluation runner.
+- Three connected support cases with sourced links, case-ID retrieval, and six fixed multi-document evaluation questions.
 
 ## Evaluation
 
 The dashboard intentionally shows **no benchmark numbers** until the live runner succeeds. The 25-question retrieval set includes core support questions and harder source-specific cases. The evaluation script records Hit@1, Hit@3, MRR, average latency, and every returned document ID. An eight-case answer set checks supported questions, abstention, and citations; factual accuracy still requires manual review. [Experiments](docs/experiments.md) defines two hypotheses without invented results.
+
+The case evaluation measures how much of each expected evidence set appears in ordinary top-10 search results, then checks case-filtered retrieval and whether complete evidence paths are present. It records corpus, case-definition, and question-set fingerprints. The case filter assumes the user has opened the right case; it does not measure automatic case identification or human time to resolution.
 
 ## Engineering decisions
 
@@ -83,7 +87,7 @@ This creates the index and uploads the normalized corpus. The service uses the `
 
 ### Coveo
 
-Create a trial organization and a **public [Push source](https://docs.coveo.com/en/1546/) named `ResolveAI Knowledge`**. Create custom fields `ra_id`, `ra_source_type`, `ra_product`, `ra_category`, `ra_visibility`, `ra_tags`, and `ra_updated_at` with matching names so Push source automapping can populate them. Set `ra_updated_at` to Date and enable facets/search operators for fields used by filters. Create an API key with [Push API](https://docs.coveo.com/en/78) access to the source and [Search API](https://docs.coveo.com/en/1445/) access to the organization. Set `COVEO_ORG_ID`, `COVEO_API_KEY`, `COVEO_SOURCE_ID`; set the region-specific `COVEO_PUSH_BASE_URL` and, if necessary, `COVEO_SEARCH_ENDPOINT`. Then run:
+Create a trial organization and a **public [Push source](https://docs.coveo.com/en/1546/) named `ResolveAI Knowledge`**. Create custom fields `ra_id`, `ra_case_id`, `ra_source_type`, `ra_product`, `ra_category`, `ra_visibility`, `ra_tags`, and `ra_updated_at` with matching names so Push source automapping can populate them. Set `ra_updated_at` to Date and enable search operators for fields used by filters, including `ra_case_id`. Create an API key with [Push API](https://docs.coveo.com/en/78) access to the source and [Search API](https://docs.coveo.com/en/1445/) access to the organization. Set `COVEO_ORG_ID`, `COVEO_API_KEY`, `COVEO_SOURCE_ID`; set the region-specific `COVEO_PUSH_BASE_URL` and, if necessary, `COVEO_SEARCH_ENDPOINT`. Then run:
 
 ```bash
 apps/api/.venv/bin/python -m scripts.sync_coveo
@@ -103,6 +107,13 @@ Open `http://localhost:3000`. Run evaluation after each index is searchable:
 ```bash
 curl -X POST 'http://localhost:8000/api/evaluations/run?provider=azure'
 curl -X POST 'http://localhost:8000/api/evaluations/run?provider=coveo'
+```
+
+After the same corpus is searchable in both providers, run the case evidence check:
+
+```bash
+apps/api/.venv/bin/python -m scripts.run_case_evaluation --provider azure
+apps/api/.venv/bin/python -m scripts.run_case_evaluation --provider coveo
 ```
 
 Optional grounded answers require `OPENAI_API_KEY` in the root `.env`. Run `apps/api/.venv/bin/pytest -q apps/api/tests` and `npm run build --prefix apps/web` for local checks.
