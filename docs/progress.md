@@ -32,6 +32,7 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [ ] Configure a Coveo organization and `ResolveAI Knowledge` Push source with the required custom fields.
 - [ ] Upload the identical 250 records to Coveo; verify searchable count, metadata mapping, representative queries, and filters.
 - [ ] Run the same 25-question Coveo baseline and save actual query-level results and metrics.
+- [ ] Inspect pushed items and mapped field values in Coveo Content Browser; keep a reproducible record of the source configuration and observed search results.
 - [ ] Verify incremental updates and deletes against both live providers after the baseline.
 - [ ] Fix any issues found by the live runs, then update `docs/experiments.md` and the README with measured results and setup details.
 
@@ -41,6 +42,8 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 
 - [ ] Run and document the Azure keyword-versus-semantic experiment if the selected service supports it.
 - [ ] Run and document a Coveo query configuration experiment supported by the organization.
+- [ ] Use Coveo-native facets for support-relevant fields where the organization supports them, and verify the counts against the indexed corpus.
+- [ ] Record real search and result-selection interactions in Coveo Analytics where supported; inspect the events and use them to identify a content or relevance gap. Keep synthetic evaluation runs separate from user interaction analytics.
 - [ ] Review query-level failures with support-style relevance judgments; document any label changes and rerun both providers on identical fingerprints.
 - [ ] Exercise live grounded answers, citations, conflicting evidence, and insufficient-evidence fallback; improve the guard where results do not support an answer.
 - [ ] Run the eight-case answer check on both providers and manually review factual support and citation quality.
@@ -49,7 +52,7 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 
 ## Planned: Case Evidence Trail
 
-Build a support investigation view that connects evidence across the five source types. This follows the live search baselines so the added value can be measured against ordinary search. It is a focused demonstration of connected business context, not a claim that Coveo automatically builds a knowledge graph or that ResolveAI reproduces Microsoft Work IQ.
+Build a support investigation view that connects evidence across the five source types. This follows the live search baselines so the added value can be measured against ordinary search. The product goal is to help an engineer locate and verify a resolution to a customer case. The relationship model is part of ResolveAI; Coveo indexes and retrieves evidence, rather than automatically building the relationships.
 
 - [ ] Define a small set of typed relationships with stable IDs, such as `ticket reports issue`, `issue affects version`, `release fixes issue`, and `procedure resolves symptom`. Record the source and date supporting each link; distinguish explicit links from inferred ones.
 - [ ] Add several coherent synthetic customer cases with account, product version, ticket, issue, release, and procedure context. Keep both providers on the same corpus and fingerprints.
@@ -59,6 +62,8 @@ Build a support investigation view that connects evidence across the five source
 - [ ] Create multi-document case questions and assess evidence-set recall, link accuracy, supported conclusions, and time to locate a resolution. Compare ordinary results with the Case Evidence Trail without presenting unmeasured gains.
 
 **Completion check:** A user can start from a support query, inspect a ticket-to-fix evidence path, verify every link from source records, and see an evaluation showing whether the connected view improves the investigation. Synthetic visibility remains descriptive metadata; live confidential content requires enforceable document permissions before use.
+
+**Product evidence rule:** Describe Coveo Push indexing, Search API retrieval, mapped fields, and any query-pipeline tuning as working product capabilities only after they are configured and observed in a live organization. Keep the support workflow as the public narrative; use the Azure comparison to diagnose retrieval behavior and validate choices.
 
 ## Later, if needed
 
@@ -80,3 +85,4 @@ Live provider verification needs Azure and Coveo accounts and credentials in the
 - **2026-09-26:** Before live indexing, revised repeated synthetic records into distinct related scenarios and expanded the retrieval set from 20 to 25 questions (`6c0e548`). Labeled all core records containing each answer, and added an eight-case answer check (`ed2cf5e`). No provider scores were generated from the revised data.
 - **2026-09-26:** Rechecked the revised corpus and code: 17 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, and production build passed. Created ignored local `.env` and `apps/web/.env.local` templates; credentials are still absent.
 - **2026-09-26:** Added the planned Case Evidence Trail milestone: explicit, sourced relationships across support records, a case investigation view, and an evaluation against ordinary search. Implementation follows the live provider baselines.
+- **2026-09-26:** Refocused the public project story on the support investigation outcome and recorded the live-evidence rule for claims about Coveo usage. Azure remains a comparison implementation, not the product's purpose.

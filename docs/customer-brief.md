@@ -21,3 +21,5 @@ AcmeCloud is a fictional B2B developer platform. A support engineer currently se
 ## Resulting requirements
 
 The prototype normalizes five source types into one schema, prepares them for indexing in two retrieval platforms, exposes search and filters in one workspace, permits provider switching, logs diagnostics, and evaluates 25 fixed questions. Live provider indexing and comparison remain pending credentials. The answer layer uses retrieved documents and rejects unsupported citation IDs. This demonstration uses synthetic records and descriptive visibility metadata; a production deployment needs identity and enforceable permissions.
+
+The support outcome is a faster, traceable case investigation: find the relevant records, identify the current fix or procedure, and show the evidence behind that conclusion. The planned Case Evidence Trail will connect tickets, issues, affected versions, releases, and procedures with explicit, sourced links. A graph view is useful only if it helps the engineer verify a resolution or identify conflicting evidence.

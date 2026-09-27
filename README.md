@@ -2,7 +2,7 @@
 
 [![CI](https://github.com/ankitluthra/ResolveAI/actions/workflows/ci.yml/badge.svg)](https://github.com/ankitluthra/ResolveAI/actions/workflows/ci.yml)
 
-ResolveAI is an enterprise support intelligence prototype that unifies fragmented technical knowledge and evaluates Coveo and Azure AI Search as retrieval platforms for search and grounded AI experiences.
+ResolveAI is an enterprise support intelligence prototype for investigating technical cases across fragmented knowledge. It brings documentation, issues, tickets, FAQs, and release notes into one searchable workspace so a support engineer can find evidence and trace a resolution. Coveo and Azure AI Search are the retrieval implementations; the same corpus and questions make their behavior measurable.
 
 ## Customer problem
 
@@ -11,6 +11,8 @@ AcmeCloud, a fictional developer platform, answers support questions using scatt
 ## Solution
 
 A reproducible connector and normalizer produce 250 synthetic records across five source types. The same canonical corpus is prepared for Azure AI Search and a Coveo Push source. FastAPI presents a shared `SearchProvider` contract to a Next.js support workspace, evaluation runner, and optional grounded answer layer. Live indexing and comparison are the next verification milestone.
+
+The next product milestone is a **Case Evidence Trail**: start with a ticket or support question, follow sourced links to a known issue, affected version, release, and current procedure, and surface missing or conflicting evidence. Coveo will retrieve the starting and related records through indexed metadata and Search API queries; ResolveAI will explain the links. The plan and completion check are in [progress](docs/progress.md). This feature is planned, not implemented yet.
 
 ## Demo
 
