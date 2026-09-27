@@ -1,0 +1,38 @@
+[
+  {
+    "id": "case-q01",
+    "case_id": "case-oauth-rotation",
+    "query": "OAuth secret rotation 401 JavaScript SDK 4.2.0",
+    "expected_document_ids": ["ticket-001", "issue-001", "release-001", "doc-001", "faq-001"]
+  },
+  {
+    "id": "case-q02",
+    "case_id": "case-oauth-rotation",
+    "query": "Which version fixes cached OAuth client secrets after rotation?",
+    "expected_document_ids": ["ticket-001", "issue-001", "release-001", "doc-001", "faq-001"]
+  },
+  {
+    "id": "case-q03",
+    "case_id": "case-webhook-signature",
+    "query": "webhook signature mismatch JSON reserialization raw body",
+    "expected_document_ids": ["ticket-005", "issue-005", "doc-005", "faq-005"]
+  },
+  {
+    "id": "case-q04",
+    "case_id": "case-webhook-signature",
+    "query": "How should Bluebird Retail verify webhook signatures?",
+    "expected_document_ids": ["ticket-005", "issue-005", "doc-005", "faq-005"]
+  },
+  {
+    "id": "case-q05",
+    "case_id": "case-sso-roles",
+    "query": "Okta SSO admins sign in standard users role mapping",
+    "expected_document_ids": ["ticket-004", "issue-004", "doc-004", "faq-004"]
+  },
+  {
+    "id": "case-q06",
+    "case_id": "case-sso-roles",
+    "query": "What evidence is missing for Meridian Health SSO sign-in failure?",
+    "expected_document_ids": ["ticket-004", "issue-004", "doc-004", "faq-004"]
+  }
+]

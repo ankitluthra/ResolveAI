@@ -1,5 +1,6 @@
 import json
 import logging
+from asyncio import gather
 from datetime import datetime
 from pathlib import Path
 
@@ -18,6 +19,13 @@ from apps.api.app.models.domain import (
 from apps.api.app.providers.azure_search import AzureSearchProvider
 from apps.api.app.providers.coveo import CoveoSearchProvider
 from apps.api.app.services.answers import generate_answer
+from apps.api.app.services.cases import (
+    CaseDetail,
+    CaseRetrieval,
+    CaseSummary,
+    case_detail,
+    case_summaries,
+)
 from evals.evaluator import read_evaluations, run_evaluation
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
@@ -172,3 +180,34 @@ def get_document(document_id: str):
     if not record:
         raise HTTPException(status_code=404, detail="Document not found")
     return KnowledgeDocument.model_validate(record)
+
+
+@app.get("/api/cases", response_model=list[CaseSummary])
+def list_cases():
+    return case_summaries()
+
+
+@app.get("/api/cases/{case_id}", response_model=CaseDetail)
+async def get_case(case_id: str, provider: ProviderName | None = None):
+    case = case_detail(case_id)
+    if case is None:
+        raise HTTPException(status_code=404, detail="Case not found")
+    if provider is None:
+        return case
+    entry, related = await gather(
+        execute_search(case.search_query, provider, SearchFilters(), 10),
+        execute_search("", provider, SearchFilters(case_id=case_id), 50),
+    )
+    return case.model_copy(
+        update={
+            "retrieval": CaseRetrieval(
+                provider=provider,
+                search_query=case.search_query,
+                entry_result_ids=[item.id for item in entry.results],
+                indexed_document_ids=[item.id for item in related.results],
+                total_indexed_results=related.total_results,
+                entry_latency_ms=entry.latency_ms,
+                related_latency_ms=related.latency_ms,
+            )
+        }
+    )
