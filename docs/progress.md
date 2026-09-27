@@ -47,6 +47,19 @@ This is the living record for ResolveAI. Add newly discovered work to the releva
 - [ ] Capture actual search and evaluation screenshots and a five-minute demo flow.
 - [ ] Check that each resume claim is supported by the running app, recorded results, and repository evidence.
 
+## Planned: Case Evidence Trail
+
+Build a support investigation view that connects evidence across the five source types. This follows the live search baselines so the added value can be measured against ordinary search. It is a focused demonstration of connected business context, not a claim that Coveo automatically builds a knowledge graph or that ResolveAI reproduces Microsoft Work IQ.
+
+- [ ] Define a small set of typed relationships with stable IDs, such as `ticket reports issue`, `issue affects version`, `release fixes issue`, and `procedure resolves symptom`. Record the source and date supporting each link; distinguish explicit links from inferred ones.
+- [ ] Add several coherent synthetic customer cases with account, product version, ticket, issue, release, and procedure context. Keep both providers on the same corpus and fingerprints.
+- [ ] Index searchable relationship fields in Coveo and Azure. Use Coveo search to find the starting record and retrieve related evidence; keep relationship traversal and explanation logic in ResolveAI.
+- [ ] Build an interactive case view showing the evidence trail, a timeline, the reason for each connection, and missing or conflicting evidence. Every conclusion should open its supporting records.
+- [ ] Add a support-focused Coveo query pipeline experiment where available, and compare it with the untuned baseline. Do not assume machine-learning ranking gains from the small synthetic corpus.
+- [ ] Create multi-document case questions and assess evidence-set recall, link accuracy, supported conclusions, and time to locate a resolution. Compare ordinary results with the Case Evidence Trail without presenting unmeasured gains.
+
+**Completion check:** A user can start from a support query, inspect a ticket-to-fix evidence path, verify every link from source records, and see an evaluation showing whether the connected view improves the investigation. Synthetic visibility remains descriptive metadata; live confidential content requires enforceable document permissions before use.
+
 ## Later, if needed
 
 - [ ] Replace synthetic connectors with real content sources and enforce document permissions.
@@ -66,3 +79,4 @@ Live provider verification needs Azure and Coveo accounts and credentials in the
 - **2026-09-26:** Added separate experiment paths for Azure semantic ranking and a Coveo named query pipeline (`4825c95`). The configuration is code-complete and mock-tested; provider account support, actual rules, and results remain to be verified live.
 - **2026-09-26:** Before live indexing, revised repeated synthetic records into distinct related scenarios and expanded the retrieval set from 20 to 25 questions (`6c0e548`). Labeled all core records containing each answer, and added an eight-case answer check (`ed2cf5e`). No provider scores were generated from the revised data.
 - **2026-09-26:** Rechecked the revised corpus and code: 17 backend tests, Ruff, frontend formatting/lint/typecheck/unit tests, and production build passed. Created ignored local `.env` and `apps/web/.env.local` templates; credentials are still absent.
+- **2026-09-26:** Added the planned Case Evidence Trail milestone: explicit, sourced relationships across support records, a case investigation view, and an evaluation against ordinary search. Implementation follows the live provider baselines.
