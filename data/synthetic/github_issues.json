@@ -1,13 +1,13 @@
 [
   {
     "id": "issue-001",
-    "title": "OAuth client secret rotation: reported behavior #201",
-    "content": "OAuth client secret rotation: reported behavior #201. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: oauth rotation 401 secret credential cache.",
+    "title": "JavaScript SDK 4.2.0 retains old secret after rotation",
+    "content": "Engineering confirmed that JavaScript SDK 4.2.0 can retain a cached OAuth client secret after rotation. Restarting affected workers clears the cache. The defect is fixed in SDK 4.2.1.",
     "product": "Authentication",
     "category": "OAuth client secret rotation",
     "url": "https://docs.acmecloud.example/knowledge/issue-001",
-    "created_at": "2026-01-08T00:00:00+00:00",
-    "updated_at": "2026-01-10T00:00:00+00:00",
+    "created_at": "2026-07-16T09:00:00+00:00",
+    "updated_at": "2026-07-16T10:00:00+00:00",
     "tags": [
       "authentication",
       "oauth",
@@ -17,8 +17,10 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "authentication",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-oauth-rotation"
+    },
+    "case_id": "case-oauth-rotation"
   },
   {
     "id": "issue-002",
@@ -64,13 +66,13 @@
   },
   {
     "id": "issue-004",
-    "title": "SSO role mapping: reported behavior #204",
-    "content": "SSO role mapping: reported behavior #204. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: sso standard users role mapping.",
+    "title": "Okta SSO role mapping investigation for standard users",
+    "content": "Engineering identified two possible causes for standard-user sign-in failures: a missing Okta group claim or a missing AcmeCloud default role mapping. See doc-004 for the maintained troubleshooting procedure. The customer's claim sample is needed to distinguish the causes. No product defect has been confirmed.",
     "product": "Sso",
     "category": "SSO role mapping",
     "url": "https://docs.acmecloud.example/knowledge/issue-004",
-    "created_at": "2026-02-07T00:00:00+00:00",
-    "updated_at": "2026-02-09T00:00:00+00:00",
+    "created_at": "2026-05-15T09:00:00+00:00",
+    "updated_at": "2026-05-15T10:00:00+00:00",
     "tags": [
       "sso",
       "sso",
@@ -80,18 +82,20 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "sso",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-sso-roles"
+    },
+    "case_id": "case-sso-roles"
   },
   {
     "id": "issue-005",
-    "title": "Webhook signature verification: reported behavior #205",
-    "content": "Webhook signature verification: reported behavior #205. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. Engineering reproduced the reported behavior and linked the mitigation to the maintained documentation. Context: webhook signature hmac raw body.",
+    "title": "Webhook HMAC mismatch after JSON reserialization",
+    "content": "Engineering reproduced a signature mismatch when a receiver computes HMAC-SHA256 over reserialized JSON rather than the raw request body. This is an integration behavior, not a product defect. See doc-005 for the maintained raw-body verification procedure.",
     "product": "Webhooks",
     "category": "Webhook signature verification",
     "url": "https://docs.acmecloud.example/knowledge/issue-005",
-    "created_at": "2026-02-17T00:00:00+00:00",
-    "updated_at": "2026-02-19T00:00:00+00:00",
+    "created_at": "2026-06-11T09:00:00+00:00",
+    "updated_at": "2026-06-11T10:00:00+00:00",
     "tags": [
       "webhooks",
       "webhook",
@@ -101,8 +105,10 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "webhooks",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-webhook-signature"
+    },
+    "case_id": "case-webhook-signature"
   },
   {
     "id": "issue-006",

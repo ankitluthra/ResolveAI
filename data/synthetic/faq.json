@@ -1,13 +1,13 @@
 [
   {
     "id": "faq-001",
-    "title": "How does oauth client secret rotation work?",
-    "content": "How does oauth client secret rotation work?. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: oauth rotation 401 secret credential cache.",
+    "title": "FAQ: Why can OAuth return 401 after secret rotation?",
+    "content": "Long-lived workers on JavaScript SDK 4.2.0 may retain the previous client secret after rotation. SDK 4.2.1 fixes the cache defect. See doc-001 for the maintained rotation procedure.",
     "product": "Authentication",
     "category": "OAuth client secret rotation",
     "url": "https://docs.acmecloud.example/knowledge/faq-001",
-    "created_at": "2026-01-08T00:00:00+00:00",
-    "updated_at": "2026-01-10T00:00:00+00:00",
+    "created_at": "2026-08-04T09:00:00+00:00",
+    "updated_at": "2026-08-04T10:00:00+00:00",
     "tags": [
       "authentication",
       "oauth",
@@ -17,8 +17,10 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "authentication",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-oauth-rotation"
+    },
+    "case_id": "case-oauth-rotation"
   },
   {
     "id": "faq-002",
@@ -64,13 +66,13 @@
   },
   {
     "id": "faq-004",
-    "title": "How does sso role mapping work?",
-    "content": "How does sso role mapping work?. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: sso standard users role mapping.",
+    "title": "FAQ: Why can Okta admins sign in while standard users cannot?",
+    "content": "Check the Okta application assignment, group claim, and AcmeCloud default role mapping. A sanitized claim sample may be needed to identify the cause. See doc-004 for the maintained troubleshooting procedure.",
     "product": "Sso",
     "category": "SSO role mapping",
     "url": "https://docs.acmecloud.example/knowledge/faq-004",
-    "created_at": "2026-02-07T00:00:00+00:00",
-    "updated_at": "2026-02-09T00:00:00+00:00",
+    "created_at": "2026-05-16T09:00:00+00:00",
+    "updated_at": "2026-05-16T10:00:00+00:00",
     "tags": [
       "sso",
       "sso",
@@ -80,18 +82,20 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "sso",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-sso-roles"
+    },
+    "case_id": "case-sso-roles"
   },
   {
     "id": "faq-005",
-    "title": "How does webhook signature verification work?",
-    "content": "How does webhook signature verification work?. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. This short answer summarizes the documented behavior; consult the full product guide for operational details. Context: webhook signature hmac raw body.",
+    "title": "FAQ: Why does webhook signature verification fail?",
+    "content": "If a receiver parses and reserializes JSON before HMAC verification, its bytes differ from the signed payload. Verify the raw request body. See doc-005 for the maintained procedure.",
     "product": "Webhooks",
     "category": "Webhook signature verification",
     "url": "https://docs.acmecloud.example/knowledge/faq-005",
-    "created_at": "2026-02-17T00:00:00+00:00",
-    "updated_at": "2026-02-19T00:00:00+00:00",
+    "created_at": "2026-06-12T09:00:00+00:00",
+    "updated_at": "2026-06-12T10:00:00+00:00",
     "tags": [
       "webhooks",
       "webhook",
@@ -101,8 +105,10 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "webhooks",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-webhook-signature"
+    },
+    "case_id": "case-webhook-signature"
   },
   {
     "id": "faq-006",

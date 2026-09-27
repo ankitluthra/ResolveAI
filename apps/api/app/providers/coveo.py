@@ -16,7 +16,7 @@ from apps.api.app.models.domain import (
 def coveo_context(filters: SearchFilters | None) -> str:
     clauses = []
     if filters:
-        for field in ("source_type", "product", "category", "visibility"):
+        for field in ("case_id", "source_type", "product", "category", "visibility"):
             value = getattr(filters, field)
             if value:
                 safe = re.sub(r"[^\w .:/-]", "", value)
@@ -71,6 +71,7 @@ class CoveoSearchProvider:
                 "numberOfResults": limit,
                 "fieldsToInclude": [
                     "ra_id",
+                    "ra_case_id",
                     "ra_source_type",
                     "ra_product",
                     "ra_category",
@@ -94,6 +95,7 @@ class CoveoSearchProvider:
                     title=item.get("title") or raw.get("title") or document_id,
                     content_preview=item.get("excerpt") or item.get("firstSentences") or "",
                     source_type=raw.get("ra_source_type", "documentation"),
+                    case_id=raw.get("ra_case_id") or None,
                     product=raw.get("ra_product"),
                     category=raw.get("ra_category"),
                     url=item.get("clickUri"),
@@ -126,6 +128,7 @@ class CoveoSearchProvider:
                 "clickableuri": doc.url or uri,
                 "date": doc.updated_at.isoformat() if doc.updated_at else "",
                 "ra_id": doc.id,
+                "ra_case_id": doc.case_id or "",
                 "ra_source_type": doc.source_type,
                 "ra_product": doc.product or "",
                 "ra_category": doc.category or "",

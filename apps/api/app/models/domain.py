@@ -13,6 +13,7 @@ class KnowledgeDocument(BaseModel):
     title: str
     content: str
     source_type: SourceType
+    case_id: str | None = None
     product: str | None = None
     category: str | None = None
     url: str | None = None
@@ -24,6 +25,7 @@ class KnowledgeDocument(BaseModel):
 
 
 class SearchFilters(BaseModel):
+    case_id: str | None = None
     source_type: SourceType | None = None
     product: str | None = None
     category: str | None = None
@@ -37,6 +39,7 @@ class SearchResult(BaseModel):
     title: str
     content_preview: str
     source_type: SourceType
+    case_id: str | None = None
     product: str | None = None
     category: str | None = None
     url: str | None = None

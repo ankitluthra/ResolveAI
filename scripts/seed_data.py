@@ -121,6 +121,74 @@ RELATED_SCENARIOS = [
     ),
 ]
 
+CASE_RECORDS = {
+    "case-oauth-rotation": {
+        "ticket-001": (
+            "Case AC-181: Northstar Labs receives 401s after OAuth secret rotation",
+            "Northstar Labs rotated its OAuth client secret while long-lived workers were running JavaScript SDK 4.2.0. New requests returned HTTP 401 because workers retained the old secret. Support reproduced the failure and linked the investigation to issue-001.",
+            "2026-07-15",
+        ),
+        "issue-001": (
+            "JavaScript SDK 4.2.0 retains old secret after rotation",
+            "Engineering confirmed that JavaScript SDK 4.2.0 can retain a cached OAuth client secret after rotation. Restarting affected workers clears the cache. The defect is fixed in SDK 4.2.1.",
+            "2026-07-16",
+        ),
+        "release-001": (
+            "Release 4.2.1: OAuth credential cache fix",
+            "JavaScript SDK 4.2.1 fixes the credential cache invalidation defect tracked as issue-001 in 4.2.0. After upgrading, restart long-lived workers and verify OAuth requests with the replacement secret. See doc-001 for the maintained rotation procedure.",
+            "2026-08-02",
+        ),
+        "doc-001": (None, None, "2026-08-03"),
+        "faq-001": (
+            "FAQ: Why can OAuth return 401 after secret rotation?",
+            "Long-lived workers on JavaScript SDK 4.2.0 may retain the previous client secret after rotation. SDK 4.2.1 fixes the cache defect. See doc-001 for the maintained rotation procedure.",
+            "2026-08-04",
+        ),
+    },
+    "case-webhook-signature": {
+        "ticket-005": (
+            "Case AC-185: Bluebird Retail webhook signatures fail",
+            "Bluebird Retail receives webhook signature mismatch errors. Its receiver parses and reserializes the JSON body before HMAC verification. The payload bytes no longer match the bytes AcmeCloud signed. Support linked issue-005 and asked the customer to verify the raw request body.",
+            "2026-06-10",
+        ),
+        "issue-005": (
+            "Webhook HMAC mismatch after JSON reserialization",
+            "Engineering reproduced a signature mismatch when a receiver computes HMAC-SHA256 over reserialized JSON rather than the raw request body. This is an integration behavior, not a product defect. See doc-005 for the maintained raw-body verification procedure.",
+            "2026-06-11",
+        ),
+        "doc-005": (None, None, "2026-06-12"),
+        "faq-005": (
+            "FAQ: Why does webhook signature verification fail?",
+            "If a receiver parses and reserializes JSON before HMAC verification, its bytes differ from the signed payload. Verify the raw request body. See doc-005 for the maintained procedure.",
+            "2026-06-12",
+        ),
+    },
+    "case-sso-roles": {
+        "ticket-004": (
+            "Case AC-184: Meridian Health standard users cannot sign in with Okta",
+            "Meridian Health reports that administrators can sign in through Okta SSO but standard users cannot. The Okta application is assigned, but the group claim and AcmeCloud default role mapping have not been confirmed. Support linked issue-004 and is waiting for the customer's sanitized claim sample.",
+            "2026-05-14",
+        ),
+        "issue-004": (
+            "Okta SSO role mapping investigation for standard users",
+            "Engineering identified two possible causes for standard-user sign-in failures: a missing Okta group claim or a missing AcmeCloud default role mapping. See doc-004 for the maintained troubleshooting procedure. The customer's claim sample is needed to distinguish the causes. No product defect has been confirmed.",
+            "2026-05-15",
+        ),
+        "doc-004": (None, None, "2026-05-16"),
+        "faq-004": (
+            "FAQ: Why can Okta admins sign in while standard users cannot?",
+            "Check the Okta application assignment, group claim, and AcmeCloud default role mapping. A sanitized claim sample may be needed to identify the cause. See doc-004 for the maintained troubleshooting procedure.",
+            "2026-05-16",
+        ),
+    },
+}
+
+CASE_BY_DOCUMENT = {
+    document_id: (case_id, title, content, date)
+    for case_id, records in CASE_RECORDS.items()
+    for document_id, (title, content, date) in records.items()
+}
+
 
 def main() -> None:
     RAW.mkdir(parents=True, exist_ok=True)
@@ -163,21 +231,38 @@ def main() -> None:
                 "release_note": "This release note records a product change and points to the current guide for the supported procedure.",
             }[source]
             date = base + timedelta(days=(number * 3 + topic_index * 7) % 250)
-            records.append(
-                {
-                    "id": f"{id_prefix}-{suffix}",
-                    "title": title,
-                    "content": f"{title}. {body} {detail} Context: {keywords}.",
-                    "product": product.title(),
-                    "category": subject if scenario == "core" else f"{subject} — {scenario}",
-                    "url": f"https://docs.acmecloud.example/knowledge/{id_prefix}-{suffix}",
-                    "created_at": date.isoformat(),
-                    "updated_at": (date + timedelta(days=2)).isoformat(),
-                    "tags": [product, *keywords.split()[:2]],
-                    "visibility": "support" if source == "support_ticket" else "public",
-                    "metadata": {"synthetic": True, "topic_key": product, "scenario": scenario},
-                }
-            )
+            record = {
+                "id": f"{id_prefix}-{suffix}",
+                "title": title,
+                "content": f"{title}. {body} {detail} Context: {keywords}.",
+                "product": product.title(),
+                "category": subject
+                if scenario == "core"
+                else f"{subject} — {scenario}",
+                "url": f"https://docs.acmecloud.example/knowledge/{id_prefix}-{suffix}",
+                "created_at": date.isoformat(),
+                "updated_at": (date + timedelta(days=2)).isoformat(),
+                "tags": [product, *keywords.split()[:2]],
+                "visibility": "support" if source == "support_ticket" else "public",
+                "metadata": {
+                    "synthetic": True,
+                    "topic_key": product,
+                    "scenario": scenario,
+                },
+            }
+            if record["id"] in CASE_BY_DOCUMENT:
+                case_id, case_title, case_content, case_date = CASE_BY_DOCUMENT[
+                    record["id"]
+                ]
+                record["case_id"] = case_id
+                record["metadata"]["case_id"] = case_id
+                if case_title:
+                    record["title"] = case_title
+                if case_content:
+                    record["content"] = case_content
+                record["created_at"] = f"{case_date}T09:00:00+00:00"
+                record["updated_at"] = f"{case_date}T10:00:00+00:00"
+            records.append(record)
         (RAW / filename).write_text(json.dumps(records, indent=2) + "\n")
     docs = fetch_local(RAW)
     OUT.parent.mkdir(parents=True, exist_ok=True)

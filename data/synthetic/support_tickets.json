@@ -1,13 +1,13 @@
 [
   {
     "id": "ticket-001",
-    "title": "Case AC-181: OAuth client secret rotation",
-    "content": "Case AC-181: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: oauth rotation 401 secret credential cache.",
+    "title": "Case AC-181: Northstar Labs receives 401s after OAuth secret rotation",
+    "content": "Northstar Labs rotated its OAuth client secret while long-lived workers were running JavaScript SDK 4.2.0. New requests returned HTTP 401 because workers retained the old secret. Support reproduced the failure and linked the investigation to issue-001.",
     "product": "Authentication",
     "category": "OAuth client secret rotation",
     "url": "https://docs.acmecloud.example/knowledge/ticket-001",
-    "created_at": "2026-01-08T00:00:00+00:00",
-    "updated_at": "2026-01-10T00:00:00+00:00",
+    "created_at": "2026-07-15T09:00:00+00:00",
+    "updated_at": "2026-07-15T10:00:00+00:00",
     "tags": [
       "authentication",
       "oauth",
@@ -17,8 +17,10 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "authentication",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-oauth-rotation"
+    },
+    "case_id": "case-oauth-rotation"
   },
   {
     "id": "ticket-002",
@@ -64,13 +66,13 @@
   },
   {
     "id": "ticket-004",
-    "title": "Case AC-184: SSO role mapping",
-    "content": "Case AC-184: SSO role mapping. Standard users need both an Okta application assignment and an AcmeCloud role mapping. If admins can sign in but standard users cannot, inspect the group claim and default role policy. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: sso standard users role mapping.",
+    "title": "Case AC-184: Meridian Health standard users cannot sign in with Okta",
+    "content": "Meridian Health reports that administrators can sign in through Okta SSO but standard users cannot. The Okta application is assigned, but the group claim and AcmeCloud default role mapping have not been confirmed. Support linked issue-004 and is waiting for the customer's sanitized claim sample.",
     "product": "Sso",
     "category": "SSO role mapping",
     "url": "https://docs.acmecloud.example/knowledge/ticket-004",
-    "created_at": "2026-02-07T00:00:00+00:00",
-    "updated_at": "2026-02-09T00:00:00+00:00",
+    "created_at": "2026-05-14T09:00:00+00:00",
+    "updated_at": "2026-05-14T10:00:00+00:00",
     "tags": [
       "sso",
       "sso",
@@ -80,18 +82,20 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "sso",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-sso-roles"
+    },
+    "case_id": "case-sso-roles"
   },
   {
     "id": "ticket-005",
-    "title": "Case AC-185: Webhook signature verification",
-    "content": "Case AC-185: Webhook signature verification. Compute HMAC-SHA256 over the raw request body using the endpoint signing secret. Compare the result with the X-Acme-Signature header using a constant-time comparison. Do not parse and reserialize JSON before verification. A fictional customer reported this symptom. Support confirmed the resolution using the documented steps. Context: webhook signature hmac raw body.",
+    "title": "Case AC-185: Bluebird Retail webhook signatures fail",
+    "content": "Bluebird Retail receives webhook signature mismatch errors. Its receiver parses and reserializes the JSON body before HMAC verification. The payload bytes no longer match the bytes AcmeCloud signed. Support linked issue-005 and asked the customer to verify the raw request body.",
     "product": "Webhooks",
     "category": "Webhook signature verification",
     "url": "https://docs.acmecloud.example/knowledge/ticket-005",
-    "created_at": "2026-02-17T00:00:00+00:00",
-    "updated_at": "2026-02-19T00:00:00+00:00",
+    "created_at": "2026-06-10T09:00:00+00:00",
+    "updated_at": "2026-06-10T10:00:00+00:00",
     "tags": [
       "webhooks",
       "webhook",
@@ -101,8 +105,10 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "webhooks",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-webhook-signature"
+    },
+    "case_id": "case-webhook-signature"
   },
   {
     "id": "ticket-006",

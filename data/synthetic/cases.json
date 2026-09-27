@@ -1,0 +1,157 @@
+[
+  {
+    "id": "case-oauth-rotation",
+    "customer": "Northstar Labs",
+    "title": "401s after OAuth secret rotation",
+    "product": "Authentication",
+    "affected_version": "JavaScript SDK 4.2.0",
+    "status": "Fix available",
+    "summary": "Long-lived workers kept the old client secret after a rotation.",
+    "search_query": "OAuth secret rotation 401 JavaScript SDK 4.2.0",
+    "finding": "The reported SDK version has a confirmed cache defect fixed in 4.2.1.",
+    "finding_source_ids": ["ticket-001", "issue-001", "release-001"],
+    "next_step": "Upgrade to 4.2.1, restart affected workers, and verify requests with the replacement secret.",
+    "next_step_source_ids": ["release-001", "doc-001"],
+    "document_ids": ["ticket-001", "issue-001", "release-001", "doc-001", "faq-001"],
+    "edges": [
+      {
+        "from_id": "ticket-001",
+        "to_id": "issue-001",
+        "relation": "investigated_as",
+        "label": "Tracked by engineering",
+        "evidence_document_id": "ticket-001",
+        "evidence_excerpt": "Support reproduced the failure and linked the investigation to issue-001."
+      },
+      {
+        "from_id": "issue-001",
+        "to_id": "release-001",
+        "relation": "fixed_by",
+        "label": "Fixed in SDK 4.2.1",
+        "evidence_document_id": "release-001",
+        "evidence_excerpt": "JavaScript SDK 4.2.1 fixes the credential cache invalidation defect tracked as issue-001 in 4.2.0."
+      },
+      {
+        "from_id": "release-001",
+        "to_id": "doc-001",
+        "relation": "guided_by",
+        "label": "Current rotation procedure",
+        "evidence_document_id": "release-001",
+        "evidence_excerpt": "See doc-001 for the maintained rotation procedure."
+      },
+      {
+        "from_id": "doc-001",
+        "to_id": "faq-001",
+        "relation": "summarized_by",
+        "label": "Short support answer",
+        "evidence_document_id": "faq-001",
+        "evidence_excerpt": "See doc-001 for the maintained rotation procedure."
+      }
+    ],
+    "signals": [
+      {
+        "kind": "version_mismatch",
+        "label": "Customer version predates the fix",
+        "detail": "The ticket reports SDK 4.2.0; the release note identifies 4.2.1 as the fix.",
+        "source_ids": ["ticket-001", "release-001"]
+      }
+    ]
+  },
+  {
+    "id": "case-webhook-signature",
+    "customer": "Bluebird Retail",
+    "title": "Webhook signature mismatch",
+    "product": "Webhooks",
+    "affected_version": null,
+    "status": "Procedure available",
+    "summary": "The receiver reserializes JSON before checking the signature.",
+    "search_query": "webhook signature mismatch JSON reserialization raw body",
+    "finding": "The mismatch comes from verifying changed payload bytes rather than the raw request body.",
+    "finding_source_ids": ["ticket-005", "issue-005", "doc-005"],
+    "next_step": "Compute HMAC-SHA256 over the raw request body and compare it with the signature header.",
+    "next_step_source_ids": ["doc-005"],
+    "document_ids": ["ticket-005", "issue-005", "doc-005", "faq-005"],
+    "edges": [
+      {
+        "from_id": "ticket-005",
+        "to_id": "issue-005",
+        "relation": "investigated_as",
+        "label": "Reproduced by engineering",
+        "evidence_document_id": "ticket-005",
+        "evidence_excerpt": "Support linked issue-005 and asked the customer to verify the raw request body."
+      },
+      {
+        "from_id": "issue-005",
+        "to_id": "doc-005",
+        "relation": "guided_by",
+        "label": "Raw-body verification procedure",
+        "evidence_document_id": "issue-005",
+        "evidence_excerpt": "See doc-005 for the maintained raw-body verification procedure."
+      },
+      {
+        "from_id": "doc-005",
+        "to_id": "faq-005",
+        "relation": "summarized_by",
+        "label": "Short support answer",
+        "evidence_document_id": "faq-005",
+        "evidence_excerpt": "See doc-005 for the maintained procedure."
+      }
+    ],
+    "signals": [
+      {
+        "kind": "content_gap",
+        "label": "No release fix is linked",
+        "detail": "Engineering describes an integration behavior, so the relevant next step is the maintained procedure.",
+        "source_ids": ["issue-005", "doc-005"]
+      }
+    ]
+  },
+  {
+    "id": "case-sso-roles",
+    "customer": "Meridian Health",
+    "title": "Standard users blocked from Okta SSO",
+    "product": "SSO",
+    "affected_version": null,
+    "status": "Evidence needed",
+    "summary": "Admins can sign in, but standard users cannot.",
+    "search_query": "Okta SSO admins sign in standard users role mapping",
+    "finding": "A missing group claim or role mapping could explain the failure; the cause is not confirmed.",
+    "finding_source_ids": ["ticket-004", "issue-004", "doc-004"],
+    "next_step": "Request a sanitized group-claim sample and compare it with the AcmeCloud role mapping.",
+    "next_step_source_ids": ["ticket-004", "doc-004"],
+    "document_ids": ["ticket-004", "issue-004", "doc-004", "faq-004"],
+    "edges": [
+      {
+        "from_id": "ticket-004",
+        "to_id": "issue-004",
+        "relation": "investigated_as",
+        "label": "Engineering investigation",
+        "evidence_document_id": "ticket-004",
+        "evidence_excerpt": "Support linked issue-004 and is waiting for the customer's sanitized claim sample."
+      },
+      {
+        "from_id": "issue-004",
+        "to_id": "doc-004",
+        "relation": "guided_by",
+        "label": "Role-mapping troubleshooting",
+        "evidence_document_id": "issue-004",
+        "evidence_excerpt": "See doc-004 for the maintained troubleshooting procedure."
+      },
+      {
+        "from_id": "doc-004",
+        "to_id": "faq-004",
+        "relation": "summarized_by",
+        "label": "Short support answer",
+        "evidence_document_id": "faq-004",
+        "evidence_excerpt": "See doc-004 for the maintained troubleshooting procedure."
+      }
+    ],
+    "signals": [
+      {
+        "kind": "missing_evidence",
+        "label": "Root cause remains unconfirmed",
+        "detail": "The customer's group-claim sample is still needed to distinguish the two possible causes.",
+        "source_ids": ["ticket-004", "issue-004"]
+      }
+    ]
+  }
+]

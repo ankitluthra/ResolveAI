@@ -1,13 +1,13 @@
 [
   {
     "id": "release-001",
-    "title": "Release 4.0.1: OAuth client secret rotation",
-    "content": "Release 4.0.1: OAuth client secret rotation. Rotate the replacement secret in the AcmeCloud console, deploy it to every worker, then revoke the old secret. A worker using a cached old secret receives HTTP 401 until its credential cache is refreshed. The JavaScript SDK 4.2.1 fixes a cache invalidation defect present in 4.2.0. This release note records a product change and points to the current guide for the supported procedure. Context: oauth rotation 401 secret credential cache.",
+    "title": "Release 4.2.1: OAuth credential cache fix",
+    "content": "JavaScript SDK 4.2.1 fixes the credential cache invalidation defect tracked as issue-001 in 4.2.0. After upgrading, restart long-lived workers and verify OAuth requests with the replacement secret. See doc-001 for the maintained rotation procedure.",
     "product": "Authentication",
     "category": "OAuth client secret rotation",
     "url": "https://docs.acmecloud.example/knowledge/release-001",
-    "created_at": "2026-01-08T00:00:00+00:00",
-    "updated_at": "2026-01-10T00:00:00+00:00",
+    "created_at": "2026-08-02T09:00:00+00:00",
+    "updated_at": "2026-08-02T10:00:00+00:00",
     "tags": [
       "authentication",
       "oauth",
@@ -17,8 +17,10 @@
     "metadata": {
       "synthetic": true,
       "topic_key": "authentication",
-      "scenario": "core"
-    }
+      "scenario": "core",
+      "case_id": "case-oauth-rotation"
+    },
+    "case_id": "case-oauth-rotation"
   },
   {
     "id": "release-002",

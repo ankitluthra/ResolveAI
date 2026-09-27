@@ -19,7 +19,7 @@ def azure_filter(filters: SearchFilters | None) -> str | None:
     if not filters:
         return None
     clauses = []
-    for field in ("source_type", "product", "category", "visibility"):
+    for field in ("case_id", "source_type", "product", "category", "visibility"):
         value = getattr(filters, field)
         if value:
             clauses.append(f"{field} eq '{_escape(value)}'")
@@ -34,6 +34,7 @@ INDEX_FIELDS = [
     {"name": "id", "type": "Edm.String", "key": True, "filterable": True},
     {"name": "title", "type": "Edm.String", "searchable": True},
     {"name": "content", "type": "Edm.String", "searchable": True},
+    {"name": "case_id", "type": "Edm.String", "filterable": True, "facetable": True},
     *[
         {"name": field, "type": "Edm.String", "filterable": True, "facetable": True}
         for field in ("source_type", "product", "category", "visibility")
@@ -67,7 +68,7 @@ class AzureSearchProvider:
     ) -> SearchResponse:
         start = perf_counter()
         body = {
-            "search": query,
+            "search": query or "*",
             "filter": azure_filter(filters),
             "top": limit,
             "count": True,
@@ -91,6 +92,7 @@ class AzureSearchProvider:
                 title=item["title"],
                 content_preview=item.get("content", "")[:520],
                 source_type=item["source_type"],
+                case_id=item.get("case_id"),
                 product=item.get("product"),
                 category=item.get("category"),
                 url=item.get("url"),
