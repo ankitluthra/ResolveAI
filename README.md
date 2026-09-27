@@ -6,13 +6,13 @@ ResolveAI is an enterprise support intelligence prototype for investigating tech
 
 ## Customer problem
 
-AcmeCloud, a fictional developer platform, answers support questions using scattered docs, FAQs, GitHub issues, tickets, and release notes. A question about OAuth secret rotation may require all four. [Customer discovery](docs/customer-brief.md) turns the original request — “We want an AI assistant that can answer technical support questions using all of our company knowledge” — into measurable retrieval, access, grounding, and latency requirements.
+AcmeCloud, a fictional developer platform, answers support questions using scattered docs, FAQs, GitHub issues, tickets, and release notes. A question about OAuth secret rotation may require several of these sources. ResolveAI focuses on retrieval, access boundaries, grounded answers, and measurable latency.
 
 ## Solution
 
 A reproducible connector and normalizer produce 250 synthetic records across five source types. The same canonical corpus is prepared for Azure AI Search and a Coveo Push source. FastAPI presents a shared `SearchProvider` contract to a Next.js support workspace, evaluation runner, and optional grounded answer layer. Live indexing and comparison are the next verification milestone.
 
-The **Case Evidence Trail** connects three curated customer cases to engineering findings, releases, and maintained procedures. Each link cites an excerpt in a source record. The case view works locally without credentials and can query Coveo or Azure to check which linked records the provider actually returns. Provider verification still needs live indexing; the [progress tracker](docs/progress.md) distinguishes implemented code from observed results.
+The **Case Evidence Trail** connects three curated customer cases to engineering findings, releases, and maintained procedures. Each link cites an excerpt in a source record. The case view works locally without credentials and can query Coveo or Azure to check which linked records the provider actually returns. Provider verification still needs live indexing.
 
 ## Demo
 
@@ -39,7 +39,7 @@ Five source types → Normalize → KnowledgeDocument
                     Search UI   Evaluation   Grounded answer
 ```
 
-See [architecture](docs/architecture.md) and [decisions](docs/decisions.md).
+The provider adapters translate each platform's query and result shape behind one API contract.
 
 ## Features
 
@@ -52,19 +52,19 @@ See [architecture](docs/architecture.md) and [decisions](docs/decisions.md).
 
 ## Evaluation
 
-The dashboard intentionally shows **no benchmark numbers** until the live runner succeeds. The 25-question retrieval set includes core support questions and harder source-specific cases. The evaluation script records Hit@1, Hit@3, MRR, average latency, and every returned document ID. An eight-case answer set checks supported questions, abstention, and citations; factual accuracy still requires manual review. [Experiments](docs/experiments.md) defines two hypotheses without invented results.
+The dashboard intentionally shows **no benchmark numbers** until the live runner succeeds. The 25-question retrieval set includes core support questions and harder source-specific cases. The evaluation script records Hit@1, Hit@3, MRR, average latency, and every returned document ID. An eight-case answer set checks supported questions, abstention, and citations; factual accuracy still requires manual review.
 
 The case evaluation measures how much of each expected evidence set appears in ordinary top-10 search results, then checks case-filtered retrieval and whether complete evidence paths are present. It records corpus, case-definition, and question-set fingerprints. The case filter assumes the user has opened the right case; it does not measure automatic case identification or human time to resolution.
 
 ## Engineering decisions
 
-Canonical normalization preserves stable IDs across providers. Provider-specific HTTP calls remain at the boundary. The answer layer receives retrieved excerpts only. The fixed relevance set precedes tuning. [Seven ADRs](docs/decisions.md) explain these tradeoffs.
+Canonical normalization preserves stable IDs across providers. Provider-specific HTTP calls remain at the boundary. The answer layer receives retrieved excerpts only. The fixed relevance set precedes tuning.
 
 ## Running locally
 
 Requires Python 3.11+, Node 20+, `uv`, and credentials for each live integration.
 
-For account setup, field mapping, verification, evaluation, and troubleshooting, follow the [live provider setup guide](docs/live-setup.md).
+The commands below cover local setup and live indexing. Check field mappings and searchable counts in each provider's console before running evaluations.
 
 ```bash
 cp .env.example .env
@@ -128,4 +128,4 @@ The records are fictional and templated. Their source URLs use a reserved exampl
 
 ## Production evolution
 
-Add identity, enforceable provider permissions, real connectors, PII controls, incremental updates and deletes, retries, audit logs, observability, tenant isolation, and a larger customer-reviewed evaluation set. See [production considerations](docs/production-considerations.md).
+Add identity, enforceable provider permissions, real connectors, PII controls, retries, audit logs, observability, tenant isolation, and a larger customer-reviewed evaluation set.
