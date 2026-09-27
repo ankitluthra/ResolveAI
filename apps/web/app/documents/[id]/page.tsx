@@ -2,7 +2,7 @@
 import Link from "next/link";
 import { useParams } from "next/navigation";
 import { useQuery } from "@tanstack/react-query";
-import { ArrowLeft, FileText } from "lucide-react";
+import { ArrowLeft, ArrowRight, FileText } from "lucide-react";
 import { apiGet } from "@/lib/api";
 import type { SearchResult } from "@/types/api";
 type Document = SearchResult & {
@@ -45,6 +45,14 @@ export default function DocumentPage() {
             </span>
           </div>
           <p>{record.data.content}</p>
+          {record.data.case_id ? (
+            <Link
+              className="case-inline-link"
+              href={`/cases/${record.data.case_id}`}
+            >
+              Explore connected case <ArrowRight size={14} />
+            </Link>
+          ) : null}
           <div className="document-provenance">
             <strong>Provenance</strong>
             <p>

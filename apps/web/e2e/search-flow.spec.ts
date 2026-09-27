@@ -182,3 +182,106 @@ test("insufficient evidence shows a fallback", async ({ page }) => {
     page.getByText(/I couldn't find enough information/),
   ).toBeVisible();
 });
+
+test("a search result opens its evidence trail and checks Coveo indexing", async ({
+  page,
+}) => {
+  const caseId = "case-oauth-rotation";
+  const ticket = {
+    ...result,
+    id: "ticket-001",
+    title: "Case AC-181: OAuth rotation 401",
+    source_type: "support_ticket",
+    content: "The customer is running SDK 4.2.0 and linked issue-001.",
+    case_id: caseId,
+  };
+  const issue = {
+    ...result,
+    id: "issue-001",
+    title: "Credential cache defect",
+    source_type: "github_issue",
+    content: "Engineering reproduced the cached secret behavior.",
+    case_id: caseId,
+  };
+  const linkedCase = {
+    id: caseId,
+    customer: "Northstar Labs",
+    title: "401s after OAuth secret rotation",
+    product: "Authentication",
+    affected_version: "JavaScript SDK 4.2.0",
+    status: "Fix available",
+    summary: "Workers retained the old secret.",
+    search_query: "OAuth secret rotation SDK 4.2.0",
+    finding: "The SDK version has a confirmed cache defect.",
+    finding_source_ids: ["ticket-001", "issue-001"],
+    next_step: "Upgrade the SDK.",
+    next_step_source_ids: ["issue-001"],
+    document_ids: ["ticket-001", "issue-001"],
+    edges: [
+      {
+        from_id: "ticket-001",
+        to_id: "issue-001",
+        relation: "investigated_as",
+        label: "Tracked by engineering",
+        evidence_document_id: "ticket-001",
+        evidence_excerpt: "linked issue-001",
+      },
+    ],
+    signals: [
+      {
+        kind: "version_mismatch",
+        label: "Customer version predates the fix",
+        detail: "The ticket reports 4.2.0.",
+        source_ids: ["ticket-001"],
+      },
+    ],
+    documents: [ticket, issue],
+    retrieval: null,
+  };
+  await page.route("http://localhost:8000/api/search**", (route) =>
+    route.fulfill({
+      json: {
+        query: "OAuth rotation",
+        provider: "coveo",
+        latency_ms: 20,
+        total_results: 1,
+        results: [{ ...result, case_id: caseId }],
+        timestamp: "2026-09-26T00:00:00Z",
+      },
+      headers: { "access-control-allow-origin": "*" },
+    }),
+  );
+  await page.route(
+    "http://localhost:8000/api/cases/case-oauth-rotation**",
+    (route) => {
+      const live = new URL(route.request().url()).searchParams.has("provider");
+      return route.fulfill({
+        json: live
+          ? {
+              ...linkedCase,
+              retrieval: {
+                provider: "coveo",
+                search_query: linkedCase.search_query,
+                entry_result_ids: ["ticket-001"],
+                indexed_document_ids: ["ticket-001", "issue-001"],
+                total_indexed_results: 2,
+                entry_latency_ms: 15,
+                related_latency_ms: 11,
+              },
+            }
+          : linkedCase,
+        headers: { "access-control-allow-origin": "*" },
+      });
+    },
+  );
+  await page.goto("/?q=OAuth+rotation&provider=coveo");
+  await page.getByRole("link", { name: "Explore connected case" }).click();
+  await expect(page).toHaveURL(/\/cases\/case-oauth-rotation/);
+  await expect(page.getByText("Tracked by engineering")).toBeVisible();
+  await expect(
+    page.getByText("“linked issue-001”", { exact: true }),
+  ).toBeVisible();
+  await page.getByRole("button", { name: "Coveo" }).click();
+  await expect(page.getByText("2/2")).toBeVisible();
+  await expect(page.getByText(/entry rank 1/)).toBeVisible();
+});

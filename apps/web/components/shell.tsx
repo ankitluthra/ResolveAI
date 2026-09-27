@@ -1,9 +1,10 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Activity, Search, Workflow, Command } from "lucide-react";
+import { Activity, Search, Workflow, Command, Network } from "lucide-react";
 const links = [
   { href: "/", label: "Search", Icon: Search },
+  { href: "/cases", label: "Cases", Icon: Network },
   { href: "/evaluation", label: "Evaluation", Icon: Activity },
   { href: "/architecture", label: "Architecture", Icon: Workflow },
 ];
@@ -27,7 +28,7 @@ export function Shell({ children }: { children: React.ReactNode }) {
             <Link
               key={href}
               href={href}
-              className={`nav-link ${path === href ? "active" : ""}`}
+              className={`nav-link ${path === href || (href === "/cases" && path.startsWith("/cases/")) ? "active" : ""}`}
             >
               <Icon size={17} />
               {label}

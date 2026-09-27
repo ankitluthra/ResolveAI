@@ -7,6 +7,7 @@ export interface SearchResult {
   title: string;
   content_preview: string;
   source_type: SourceType;
+  case_id: string | null;
   product: string | null;
   category: string | null;
   url: string | null;
@@ -14,6 +15,61 @@ export interface SearchResult {
   tags: string[];
   visibility: Visibility;
   updated_at: string | null;
+}
+export interface CaseSummary {
+  id: string;
+  customer: string;
+  title: string;
+  product: string;
+  status: string;
+  summary: string;
+  document_count: number;
+}
+export interface CaseDocument {
+  id: string;
+  title: string;
+  content: string;
+  source_type: SourceType;
+  case_id: string | null;
+  product: string | null;
+  updated_at: string | null;
+  visibility: Visibility;
+}
+export interface EvidenceEdge {
+  from_id: string;
+  to_id: string;
+  relation: "investigated_as" | "fixed_by" | "guided_by" | "summarized_by";
+  label: string;
+  evidence_document_id: string;
+  evidence_excerpt: string;
+}
+export interface CaseSignal {
+  kind: "version_mismatch" | "content_gap" | "missing_evidence";
+  label: string;
+  detail: string;
+  source_ids: string[];
+}
+export interface CaseRetrieval {
+  provider: Provider;
+  search_query: string;
+  entry_result_ids: string[];
+  indexed_document_ids: string[];
+  total_indexed_results: number;
+  entry_latency_ms: number;
+  related_latency_ms: number;
+}
+export interface CaseDetail extends Omit<CaseSummary, "document_count"> {
+  affected_version: string | null;
+  search_query: string;
+  finding: string;
+  finding_source_ids: string[];
+  next_step: string;
+  next_step_source_ids: string[];
+  document_ids: string[];
+  edges: EvidenceEdge[];
+  signals: CaseSignal[];
+  documents: CaseDocument[];
+  retrieval: CaseRetrieval | null;
 }
 export interface SearchResponse {
   query: string;

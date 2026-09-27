@@ -1,5 +1,7 @@
 import type {
   AnswerResponse,
+  CaseDetail,
+  CaseSummary,
   Evaluations,
   Provider,
   SearchResponse,
@@ -18,6 +20,16 @@ export async function search(params: URLSearchParams): Promise<SearchResponse> {
 }
 export async function evaluations(): Promise<Evaluations> {
   return apiGet("/api/evaluations");
+}
+export async function cases(): Promise<CaseSummary[]> {
+  return apiGet("/api/cases");
+}
+export async function caseDetail(
+  id: string,
+  provider?: Provider,
+): Promise<CaseDetail> {
+  const query = provider ? `?provider=${provider}` : "";
+  return apiGet(`/api/cases/${encodeURIComponent(id)}${query}`);
 }
 export async function answer(
   query: string,

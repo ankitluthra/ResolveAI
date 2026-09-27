@@ -66,6 +66,11 @@ function ResultCard({ item, index }: { item: SearchResult; index: number }) {
             </a>
           }
         </h3>
+        {item.case_id ? (
+          <a className="case-inline-link" href={`/cases/${item.case_id}`}>
+            Explore connected case <ArrowRight size={14} />
+          </a>
+        ) : null}
         <p>{item.content_preview || "No preview available for this result."}</p>
         <div className="result-bottom">
           <div className="tags">
