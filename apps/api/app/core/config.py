@@ -18,6 +18,10 @@ class Settings(BaseSettings):
     coveo_experiment_pipeline: str = ""
     coveo_push_base_url: str = "https://api.cloud.coveo.com"
     coveo_search_endpoint: str = ""
+    coveo_max_attempts: int = 10
+    coveo_retry_start_delay_ms: int = 5000
+    coveo_retry_multiplier: float = 2.0
+    coveo_retry_max_delay_ms: int = 60000
     openai_api_key: str = ""
     openai_model: str = "gpt-4.1-mini"
     cors_origin: str = "http://localhost:3000"
