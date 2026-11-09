@@ -1,6 +1,7 @@
 import re
 from datetime import UTC, datetime
 from time import perf_counter
+from typing import Any
 from urllib.parse import quote
 
 import httpx
@@ -30,6 +31,15 @@ def coveo_context(filters: SearchFilters | None) -> str:
 
 def document_uri(document_id: str) -> str:
     return f"https://docs.acmecloud.example/knowledge/{quote(document_id)}"
+
+
+def parse_tags(value: Any) -> list[str]:
+    """Read ra_tags from a result, whether Coveo returns a list or a delimited string."""
+    if not value:
+        return []
+    if isinstance(value, str):
+        value = re.split(r"[;,]", value)
+    return [str(tag).strip() for tag in value if str(tag).strip()]
 
 
 class CoveoSearchProvider:
@@ -100,9 +110,7 @@ class CoveoSearchProvider:
                     category=raw.get("ra_category"),
                     url=item.get("clickUri"),
                     score=item.get("score"),
-                    tags=(raw.get("ra_tags") or "").split(",")
-                    if isinstance(raw.get("ra_tags"), str)
-                    else raw.get("ra_tags", []),
+                    tags=parse_tags(raw.get("ra_tags")),
                     visibility=raw.get("ra_visibility", "public"),
                     updated_at=raw.get("ra_updated_at"),
                 )
@@ -133,7 +141,7 @@ class CoveoSearchProvider:
                 "ra_product": doc.product or "",
                 "ra_category": doc.category or "",
                 "ra_visibility": doc.visibility,
-                "ra_tags": ",".join(doc.tags),
+                "ra_tags": doc.tags,
                 "ra_updated_at": doc.updated_at.isoformat() if doc.updated_at else "",
             }
             try:
