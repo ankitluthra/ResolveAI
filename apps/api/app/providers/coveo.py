@@ -42,6 +42,32 @@ def parse_tags(value: Any) -> list[str]:
     return [str(tag).strip() for tag in value if str(tag).strip()]
 
 
+def document_body(doc: KnowledgeDocument) -> dict[str, Any]:
+    """Build a Push API document body. Empty optional values are left out, not sent as ""."""
+    body: dict[str, Any] = {
+        "title": doc.title,
+        "data": doc.content,
+        "fileExtension": ".txt",
+        "clickableUri": doc.url or document_uri(doc.id),
+        "ra_id": doc.id,
+        "ra_source_type": doc.source_type,
+        "ra_visibility": doc.visibility,
+    }
+    if doc.updated_at:
+        body["date"] = doc.updated_at.isoformat()
+        body["ra_updated_at"] = doc.updated_at.isoformat()
+    optional = {
+        "ra_case_id": doc.case_id,
+        "ra_product": doc.product,
+        "ra_category": doc.category,
+    }
+    body.update({key: value for key, value in optional.items() if value})
+    tags = [tag for tag in doc.tags if tag]
+    if tags:
+        body["ra_tags"] = tags
+    return body
+
+
 class CoveoSearchProvider:
     def __init__(
         self, settings: Settings, client: httpx.AsyncClient | None = None, *, pipeline: str = ""
@@ -128,25 +154,12 @@ class CoveoSearchProvider:
         succeeded = failed = 0
         self.failed_ids = []
         for doc in documents:
-            uri = document_uri(doc.id)
-            body = {
-                "title": doc.title,
-                "data": doc.content,
-                "fileExtension": ".txt",
-                "clickableuri": doc.url or uri,
-                "date": doc.updated_at.isoformat() if doc.updated_at else "",
-                "ra_id": doc.id,
-                "ra_case_id": doc.case_id or "",
-                "ra_source_type": doc.source_type,
-                "ra_product": doc.product or "",
-                "ra_category": doc.category or "",
-                "ra_visibility": doc.visibility,
-                "ra_tags": doc.tags,
-                "ra_updated_at": doc.updated_at.isoformat() if doc.updated_at else "",
-            }
             try:
                 response = await self.client.put(
-                    self.push_url, params={"documentId": uri}, headers=self.headers, json=body
+                    self.push_url,
+                    params={"documentId": document_uri(doc.id)},
+                    headers=self.headers,
+                    json=document_body(doc),
                 )
                 response.raise_for_status()
                 succeeded += 1
