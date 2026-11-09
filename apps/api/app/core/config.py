@@ -19,6 +19,7 @@ class Settings(BaseSettings):
     coveo_experiment_pipeline: str = ""
     coveo_push_base_url: str = "https://api.cloud.coveo.com"
     coveo_search_endpoint: str = ""
+    coveo_platform_base_url: str = "https://platform.cloud.coveo.com"
     coveo_max_attempts: int = 10
     coveo_retry_start_delay_ms: int = 5000
     coveo_retry_multiplier: float = 2.0

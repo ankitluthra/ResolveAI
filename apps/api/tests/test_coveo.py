@@ -12,6 +12,7 @@ from apps.api.app.providers.coveo import (
     parse_retry_after,
     parse_tags,
 )
+from apps.api.app.providers.coveo_fields import REQUIRED_FIELDS, CoveoFieldManager
 
 SETTINGS = Settings(
     _env_file=None, coveo_org_id="org", coveo_source_id="src", coveo_api_key="push-key"
@@ -170,3 +171,76 @@ async def test_push_requires_push_key_when_only_search_key_is_set():
     provider = provider_for(lambda request: httpx.Response(202), FakeSleep(), settings=settings)
     with pytest.raises(ValueError, match="COVEO_API_KEY"):
         await provider.upload([make_doc()])
+
+
+def field_manager(handler, sleep=None) -> CoveoFieldManager:
+    client = httpx.AsyncClient(transport=httpx.MockTransport(handler))
+    return CoveoFieldManager(SETTINGS, client, retry=NO_JITTER, sleep=sleep or FakeSleep())
+
+
+@pytest.mark.asyncio
+async def test_field_setup_creates_only_missing_fields():
+    created = []
+    existing = [
+        {"name": "ra_id", "type": "STRING", "includeInQuery": True, "includeInResults": True},
+        {
+            "name": "ra_updated_at",
+            "type": "STRING",
+            "facet": True,
+            "sort": True,
+            "includeInQuery": True,
+            "includeInResults": True,
+        },
+    ]
+
+    def handler(request: httpx.Request):
+        assert request.url.host == "platform.cloud.coveo.com"
+        assert request.headers["Authorization"] == "Bearer push-key"
+        if request.method == "GET":
+            assert request.url.path == "/rest/organizations/org/indexes/page/fields"
+            page = int(request.url.params["page"])
+            assert request.url.params["perPage"] == "1000"
+            return httpx.Response(
+                200, json={"items": [existing[page]], "totalPages": 2, "totalEntries": 2}
+            )
+        assert request.method == "POST"
+        assert request.url.path == "/rest/organizations/org/indexes/fields/batch/create"
+        created.extend(json.loads(request.read()))
+        return httpx.Response(204)
+
+    report = await field_manager(handler).ensure_fields()
+    names = [item["name"] for item in created]
+    assert "ra_id" not in names and "ra_updated_at" not in names
+    assert set(names) == {spec["name"] for spec in REQUIRED_FIELDS} - {"ra_id", "ra_updated_at"}
+    assert report.existing == ["ra_id", "ra_updated_at"]
+    assert list(report.mismatched) == ["ra_updated_at"]
+    by_name = {item["name"]: item for item in created}
+    assert by_name["ra_tags"]["multiValueFacet"] is True and "facet" not in by_name["ra_tags"]
+    assert by_name["ra_case_id"]["facet"] and by_name["ra_case_id"]["includeInQuery"]
+
+
+@pytest.mark.asyncio
+async def test_field_setup_skips_create_when_all_fields_exist():
+    methods = []
+
+    def handler(request: httpx.Request):
+        methods.append(request.method)
+        return httpx.Response(200, json={"items": REQUIRED_FIELDS, "totalPages": 1})
+
+    report = await field_manager(handler).ensure_fields()
+    assert methods == ["GET"]
+    assert report.created == [] and report.mismatched == {}
+    assert next(s for s in REQUIRED_FIELDS if s["name"] == "ra_updated_at")["type"] == "DATE"
+
+
+@pytest.mark.asyncio
+async def test_field_setup_dry_run_does_not_create():
+    methods = []
+
+    def handler(request: httpx.Request):
+        methods.append(request.method)
+        return httpx.Response(200, json={"items": [], "totalPages": 1})
+
+    report = await field_manager(handler).ensure_fields(dry_run=True)
+    assert methods == ["GET"]
+    assert len(report.created) == len(REQUIRED_FIELDS)
