@@ -87,11 +87,36 @@ This creates the index and uploads the normalized corpus. The service uses the `
 
 ### Coveo
 
-Create a trial organization and a **public [Push source](https://docs.coveo.com/en/1546/) named `ResolveAI Knowledge`**. Create custom fields `ra_id`, `ra_case_id`, `ra_source_type`, `ra_product`, `ra_category`, `ra_visibility`, `ra_tags`, and `ra_updated_at` with matching names so Push source automapping can populate them. Set `ra_updated_at` to Date and enable search operators for fields used by filters, including `ra_case_id`. Create an API key with [Push API](https://docs.coveo.com/en/78) access to the source and [Search API](https://docs.coveo.com/en/1445/) access to the organization. Set `COVEO_ORG_ID`, `COVEO_API_KEY`, `COVEO_SOURCE_ID`; set the region-specific `COVEO_PUSH_BASE_URL` and, if necessary, `COVEO_SEARCH_ENDPOINT`. Then run:
+Create a trial organization and a **public [Push source](https://docs.coveo.com/en/1546/) named `ResolveAI Knowledge`**.
+
+Use two [API keys](https://docs.coveo.com/en/1718/), so the key the web API uses for queries can't change the index:
+
+- `COVEO_API_KEY`: [Push API](https://docs.coveo.com/en/78) access to the source, plus the [Fields privilege](https://docs.coveo.com/en/1707) (view, create, edit) for field setup. Used only by the scripts.
+- `COVEO_SEARCH_API_KEY`: [Search API](https://docs.coveo.com/en/1445/) access only. Used by the API server. If it's empty, `COVEO_API_KEY` is used for search too.
+
+Set `COVEO_ORG_ID`, `COVEO_SOURCE_ID` and both keys. Outside the US region, also set the region-specific `COVEO_PUSH_BASE_URL` (for example `https://api-eu.cloud.coveo.com`), `COVEO_PLATFORM_BASE_URL` (for example `https://platform-eu.cloud.coveo.com`) and, if necessary, `COVEO_SEARCH_ENDPOINT`.
+
+Create the `ra_*` custom fields through the Field API. The script lists the organization's fields, creates only the missing ones, and warns (without changing anything) when an existing field has a different type or options:
+
+```bash
+apps/api/.venv/bin/python -m scripts.setup_coveo_fields --dry-run
+apps/api/.venv/bin/python -m scripts.setup_coveo_fields
+```
+
+| Field | Type | Options |
+| --- | --- | --- |
+| `ra_case_id`, `ra_source_type`, `ra_product`, `ra_category`, `ra_visibility` | String | Facet, Search operator, Displayable in results |
+| `ra_tags` | String | Multi-value facet (sent as a list), Search operator, Displayable in results |
+| `ra_updated_at` | Date | Facet, Sortable, Search operator, Displayable in results |
+| `ra_id` | String | Search operator, Displayable in results |
+
+Search operator is what lets the `@ra_case_id=="..."` style filters work. Push source automapping fills fields whose names match the document metadata. Then push the corpus:
 
 ```bash
 apps/api/.venv/bin/python -m scripts.sync_coveo
 ```
+
+The sync sends one Push API request per document. Throttled (HTTP 429) and transient 5xx responses are retried with exponential backoff and full jitter, using the same defaults as Coveo's official [push-api-client.js](https://github.com/coveo/push-api-client.js): up to 10 attempts, starting at 5 seconds and doubling. A `Retry-After` header, when present, sets the wait instead. One wait is capped at 60 seconds; change it with `COVEO_RETRY_MAX_DELAY_MS` (and the other `COVEO_RETRY_*` / `COVEO_MAX_ATTEMPTS` settings). Search requests are not retried.
 
 Use public source settings only for this synthetic corpus. Indexing is asynchronous, so wait until the source shows 250 searchable items before evaluating.
 

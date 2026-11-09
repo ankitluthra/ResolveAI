@@ -13,11 +13,17 @@ class Settings(BaseSettings):
     azure_semantic_config: str = "resolveai-semantic"
     coveo_org_id: str = ""
     coveo_api_key: str = ""
+    coveo_search_api_key: str = ""
     coveo_source_id: str = ""
     coveo_source_name: str = "ResolveAI Knowledge"
     coveo_experiment_pipeline: str = ""
     coveo_push_base_url: str = "https://api.cloud.coveo.com"
     coveo_search_endpoint: str = ""
+    coveo_platform_base_url: str = "https://platform.cloud.coveo.com"
+    coveo_max_attempts: int = 10
+    coveo_retry_start_delay_ms: int = 5000
+    coveo_retry_multiplier: float = 2.0
+    coveo_retry_max_delay_ms: int = 60000
     openai_api_key: str = ""
     openai_model: str = "gpt-4.1-mini"
     cors_origin: str = "http://localhost:3000"

@@ -162,6 +162,9 @@ async def test_coveo_upload_reports_failed_document_and_configured_source():
 
     documents = fetch_local(ROOT / "data/synthetic")[:1]
 
+    async def no_sleep(_seconds: float) -> None:
+        return None
+
     def handler(request: httpx.Request):
         if request.method == "POST":
             assert json.loads(request.read())["cq"] == '@source=="My Source"'
@@ -177,6 +180,7 @@ async def test_coveo_upload_reports_failed_document_and_configured_source():
                 coveo_api_key="test-key",
             ),
             client,
+            sleep=no_sleep,
         )
         await provider.search("oauth")
         succeeded, failed = await provider.upload(documents)
