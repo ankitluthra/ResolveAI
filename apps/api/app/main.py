@@ -88,7 +88,9 @@ def health():
         "providers": {
             "azure": bool(settings.azure_search_endpoint and settings.azure_search_api_key),
             "coveo": bool(
-                settings.coveo_org_id and settings.coveo_api_key and settings.coveo_source_id
+                settings.coveo_org_id
+                and (settings.coveo_search_api_key or settings.coveo_api_key)
+                and settings.coveo_source_id
             ),
         },
         "answer_enabled": bool(settings.openai_api_key),

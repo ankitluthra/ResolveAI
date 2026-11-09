@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     azure_semantic_config: str = "resolveai-semantic"
     coveo_org_id: str = ""
     coveo_api_key: str = ""
+    coveo_search_api_key: str = ""
     coveo_source_id: str = ""
     coveo_source_name: str = "ResolveAI Knowledge"
     coveo_experiment_pipeline: str = ""

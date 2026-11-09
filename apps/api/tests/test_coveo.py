@@ -141,8 +141,9 @@ def test_document_body_omits_empty_values():
 
 
 @pytest.mark.asyncio
-async def test_search_reads_tags_from_list_or_string():
+async def test_search_reads_tags_from_list_or_string_and_uses_search_key():
     def handler(request: httpx.Request):
+        assert request.headers["Authorization"] == "Bearer search-key"
         return httpx.Response(
             200,
             json={
@@ -154,7 +155,18 @@ async def test_search_reads_tags_from_list_or_string():
             },
         )
 
-    provider = provider_for(handler, FakeSleep())
+    settings = SETTINGS.model_copy(update={"coveo_search_api_key": "search-key"})
+    provider = provider_for(handler, FakeSleep(), settings=settings)
     response = await provider.search("oauth")
     assert [result.tags for result in response.results] == [["oauth", "sso"]] * 3
     assert parse_tags(None) == []
+
+
+@pytest.mark.asyncio
+async def test_push_requires_push_key_when_only_search_key_is_set():
+    settings = Settings(
+        _env_file=None, coveo_org_id="org", coveo_source_id="src", coveo_search_api_key="s"
+    )
+    provider = provider_for(lambda request: httpx.Response(202), FakeSleep(), settings=settings)
+    with pytest.raises(ValueError, match="COVEO_API_KEY"):
+        await provider.upload([make_doc()])

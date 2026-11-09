@@ -170,11 +170,13 @@ class CoveoSearchProvider:
         retry: RetryPolicy | None = None,
         sleep: Sleep = asyncio.sleep,
     ):
-        if not settings.coveo_org_id or not settings.coveo_api_key or not settings.coveo_source_id:
+        search_key = settings.coveo_search_api_key or settings.coveo_api_key
+        if not settings.coveo_org_id or not search_key or not settings.coveo_source_id:
             raise ValueError("Coveo is not configured")
         self.settings = settings
         self.client = client or httpx.AsyncClient(timeout=20)
-        self.headers = {"Authorization": f"Bearer {settings.coveo_api_key}"}
+        self.headers = {"Authorization": f"Bearer {search_key}"}
+        self.push_headers = {"Authorization": f"Bearer {settings.coveo_api_key}"}
         self.retry = retry or RetryPolicy.from_settings(settings)
         self.sleep = sleep
         self.failed_ids: list[str] = []
@@ -188,6 +190,10 @@ class CoveoSearchProvider:
             f"{settings.coveo_org_id}/sources/{settings.coveo_source_id}/documents"
         )
 
+    def _require_push_key(self) -> None:
+        if not self.settings.coveo_api_key:
+            raise ValueError("COVEO_API_KEY (Push API key) is required to change the index")
+
     async def _push(self, method: str, **kwargs: Any) -> httpx.Response:
         response = await send_with_retry(
             self.client,
@@ -195,7 +201,7 @@ class CoveoSearchProvider:
             self.push_url,
             policy=self.retry,
             sleep=self.sleep,
-            headers=self.headers,
+            headers=self.push_headers,
             **kwargs,
         )
         response.raise_for_status()
@@ -264,6 +270,7 @@ class CoveoSearchProvider:
         )
 
     async def upload(self, documents: list[KnowledgeDocument]) -> tuple[int, int]:
+        self._require_push_key()
         succeeded = failed = 0
         self.failed_ids = []
         for doc in documents:
@@ -278,6 +285,7 @@ class CoveoSearchProvider:
         return succeeded, failed
 
     async def delete(self, document_ids: list[str]) -> tuple[int, int]:
+        self._require_push_key()
         succeeded = failed = 0
         self.failed_ids = []
         for document_id in document_ids:
